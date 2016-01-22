@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Completed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Session["ApplicantID"] = null;
+}
+<section id="" class="CWSF_joint02 t-banner-1">
+        <div class="graymatter_02">
+            <div class="container">
+                <div class="row">
+                    <h2>Thank you! your account complete successfully.</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#progAT").addClass("visited first");
+        $("#progIV").addClass("previous visited");
+        $("#progIP").addClass("previous visited");
+        $("#progAF").addClass("previous visited");
+        $("#progRC").addClass("previous visited");
+        $("#progC").addClass("active");
+    });
+</script>

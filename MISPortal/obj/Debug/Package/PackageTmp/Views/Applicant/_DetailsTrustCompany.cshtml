@@ -1,0 +1,288 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>      
+
+<table class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col">
+<tr>
+<td>Account Type</td>
+<td>@Html.DisplayFor(m=>m[0]._AccountType)</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Company</b></td>
+</tr>
+<tr>
+<td style="width:50%;">Full Name</td>
+<td style="width:50%;">@Html.DisplayFor(m=>m[0].cmp._FullNameCompany)</td>
+</tr>
+<tr>
+<td>ACN ABN</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._ACN_ABN_Company)</td>
+</tr>
+<tr>
+<td>Australian Tax file number</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._AusTFN_Company)</td>
+</tr>
+<tr>
+<td>Registered office address</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._AddressCompany)</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._SuburbCompany)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._StateCompany)</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._PostcodeCompany)</td>
+</tr>
+<tr>
+<td>Country</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._CountryCompany)</td>
+</tr>
+<tr>
+<td>Is same as registered?</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._IsSameCompany)</td>
+</tr>
+@if (Model[0].cmp._IsSameCompany == false)
+{
+<tr>
+<td>Postal address</td>
+<td>@Html.DisplayFor(m => m[0].cmp._PAddressCompany)</td>
+</tr>
+<tr>
+<td>PO Box</td>
+<td>@Html.DisplayFor(m => m[0].cmp._PPOBoxCompany)</td>
+</tr>
+<tr>
+<td>Postal Suburb</td>
+<td>@Html.DisplayFor(m => m[0].cmp._PSuburbCompany)</td>
+</tr>
+<tr>
+<td>Postal State</td>
+<td>@Html.DisplayFor(m => m[0].cmp._PStateCompany)</td>
+</tr>
+<tr>
+<td>Postal Postcode</td>
+<td>@Html.DisplayFor(m => m[0].cmp._PPostcodeCompany)</td>
+</tr>
+<tr>
+<td>Postal Country</td>
+<td>@Html.DisplayFor(m => m[0].cmp._PCountryCompany)</td>
+</tr>
+}
+<tr>
+    <td colspan="2" align="center"><b>Contact Person at Company</b></td>
+</tr>
+<tr>
+<td>Title</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._TitleCP)</td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._FullNameCP)</td>
+</tr>
+<tr>
+<td>Surname</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._SurnameCP)</td>
+</tr>
+<tr>
+<td>Business Number</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._BusinessNoCP)</td>
+</tr>
+<tr>
+<td>Mobile Number</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._MobileNoCP)</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._EmailAddrCP)</td>
+</tr>
+<tr>
+<td>Occupation</td>
+<td>@Html.DisplayFor(m => m[0].cmp._OccupationCP)</td>
+</tr>
+@*<tr>
+    <td colspan="2" align="center"><b>Foreign company registered by ASIC</b></td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._FullNameFC)</td>
+</tr>
+<tr>
+<td>ARBN</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._ARBN_FC)</td>
+</tr>
+<tr>
+<td>Is registered by foreign registration body?</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._IsRegByForeignRegBodyFC)</td>
+</tr>
+@if (Model[0].cmp._IsRegByForeignRegBodyFC == true)
+{
+<tr>
+<td>Foreign registration body name</td>
+<td>@Html.DisplayFor(m => m[0].cmp._ForeignRegBodyNameFC)</td>
+</tr>
+}
+<tr>
+<td>Registered office address in Australia</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._AddressAus)</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._SuburbAus)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._StateAus)</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._PostcodeAus)</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Australian principal place of business or local agent address</b></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._StatusFC)</td>
+</tr>
+<tr>
+<td>Local Agent Name </td>
+<td>@Html.DisplayFor(m=>m[0].cmp._NameLA)</td>
+</tr>
+<tr>
+<td>Address</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._AddressLA)</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._SuburbLA)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._StateLA)</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._PostcodeLA)</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Foreign company not registered by ASIC</b></td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._FullNameFCNR)</td>
+</tr>
+<tr>
+<td>Is your company registered by foregin registration body?</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._IsRegByForeignRegBodyFCNR)</td>
+</tr>
+@if (Model[0].cmp._IsRegByForeignRegBodyFCNR == true)
+{
+<tr>
+<td>Foreign registration body name</td>
+<td>@Html.DisplayFor(m => m[0].cmp._ForeignRegBodyNameFCNR)</td>
+</tr>
+<tr>
+<td>Identification number issued by foreign registration body</td>
+<td>@Html.DisplayFor(m => m[0].cmp._ForeignRegBodyIdenNoFCNR)</td>
+</tr>
+}
+<tr>
+<td>Is your entity registered in US?</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._IsRegInUs)</td>
+</tr>
+<tr>
+<td>Registered address as registered by foregin registration body</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._AddressFCNR)</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._SuburbFCNR)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._StateFCNR)</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._PostcodeFCNR)</td>
+</tr>
+<tr>
+<td>Country</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._CountryFCNR)</td>
+</tr>*@
+<tr>
+    <td colspan="2" align="center"><b>Principal place of business address if NOT registered by a foreign registered body</b></td>
+</tr>
+<tr>
+<td>Registered address as registered by foregin registration body</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._AddressPPFCNR)</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._SuburbPPFCNR)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._StatePPFCNR)</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._PostcodePPFCNR)</td>
+</tr>
+<tr>
+<td>Country</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._CountryPPFCNR)</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Trust</b></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>@Html.DisplayFor(m => m[0].cmp._NameTrust)</td>
+</tr>
+<tr>
+<td>ABN</td>
+<td>@Html.DisplayFor(m => m[0].cmp._ABN_Trust)</td>
+</tr>
+<tr>
+<td>Australian Tax file number</td>
+<td>@Html.DisplayFor(m=>m[0].cmp._AusTFN_Trust)</td>
+</tr>
+</table>
+
+<table class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col">
+<thead>
+<tr>
+    <td colspan="8" align="center"><b>Share holders</b></td>
+</tr>
+<tr>
+    <th>Title</th>
+    <th>Full given names</th>
+    <th>Surname</th>
+    <th>Address</th>
+    <th>Suburb</th>
+    <th>State</th>
+    <th>Postcode</th>
+    <th>Country</th>
+</tr>
+</thead>
+<tbody>
+    @foreach (var sh in Model[0].cmp.Shareholders)
+    {
+        <tr>
+        <td>@sh._Title</td>
+        <td>@sh._FullName</td>
+        <td>@sh._Surname</td>
+        <td>@sh._Address</td>
+        <td>@sh._Suburb</td>
+        <td>@sh._State</td>
+        <td>@sh._Postcode</td>
+        <td>@sh._Country</td>   
+        </tr> 
+    }
+</tbody>
+</table>
+

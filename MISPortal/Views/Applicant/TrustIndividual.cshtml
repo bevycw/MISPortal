@@ -1,0 +1,694 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>
+
+@{
+    List<SelectListItem> stateList = new List<SelectListItem>();
+    stateList.Add(new SelectListItem { Text = "ACT", Value = "ACT" });
+    stateList.Add(new SelectListItem { Text = "NSW", Value = "NSW" });
+    stateList.Add(new SelectListItem { Text = "NT", Value = "NT" });
+    stateList.Add(new SelectListItem { Text = "QLD", Value = "QLD" });
+    stateList.Add(new SelectListItem { Text = "SA", Value = "SA" });
+    stateList.Add(new SelectListItem { Text = "TAS", Value = "TAS" });
+    stateList.Add(new SelectListItem { Text = "VIC", Value = "VIC" });
+    stateList.Add(new SelectListItem { Text = "WA", Value = "WA" });  
+ }
+
+
+           
+@using (Html.BeginForm("AddEditTrustIndividualApplicant", "Applicant", FormMethod.Post, new { role = "form", onsubmit = "ShowLoading()" }))
+{
+    @Html.HiddenFor(m => m[0]._ApplicantID); 
+    
+    @Html.HiddenFor(m => m[0]._NameTrust, new { id = "NameTrustTI" })
+    @Html.HiddenFor(m => m[0]._ABN, new { id = "ABNTI" })
+    @Html.HiddenFor(m => m[0]._AusTFN, new { id = "AusTFNTI" })
+    
+    @Html.HiddenFor(m => m[0]._LeadEmail, new { id = "TIleadEmail" }); 
+    
+    
+    
+    <div id="div_TIApp1">
+        <section id="TIApp1Sec1" class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                            <h5>Applicant # 1</h5>
+                            <h5>Individual</h5>
+
+                            <div id="TIApp1Sec1V">
+                                    <h5>Personal Details</h5>
+                                @Html.DropDownListFor(m => m[0]._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { @class = "fnl_txtbx_sml", required = "required" })
+                                @Html.TextBoxFor(m => m[0]._FullName, new { @class = "fnl_txtbx_lrg", placeholder = "Full given names", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m[0]._MiddleName, new { @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                                @Html.TextBoxFor(m => m[0]._Surname, new { @class = "fnl_txtbx_fl", placeholder = "Surname", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m[0]._BirthDate, new { id = "dobtiapp1", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @required = "required", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                                @Html.TextBoxFor(m => m[0]._CountryOfBirth, new { @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                                @Html.TextBoxFor(m => m[0]._Occupation, new { @class = "fnl_txtbx_fl", placeholder = "Occupation", @required = "required" })
+                                
+                                <div class="pad-radio">
+                                <p>Are you a beneficiary? </p>               
+                                @Html.RadioButtonFor(m => m[0]._IsBeneficiary, true, new { })
+                                Yes
+                                @Html.RadioButtonFor(m => m[0]._IsBeneficiary, false, new { @checked = "checked" })
+                                No
+                                </div>
+                                <div>
+                                    <input type="button" value=" Next " id="btnTIApp1Sec1" class="btn-nav-orange"/>
+                                </div>                     
+                            </div>
+                        </div>                          
+                     </div>
+                </div>
+        </section>
+    
+    <section id="TIApp1Sec2" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span-8 offset2">  
+                    <div id="TIApp1Sec2V">
+                        <h5>Residential Address</h5>
+                        @*@Html.TextBoxFor(m => m[0]._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />*@
+                        @Html.TextBoxFor(m => m[0]._RUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[0]._RStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[0]._RStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name", @required = "required" })
+                        @Html.TextBoxFor(m => m[0]._RStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                        @Html.TextBoxFor(m => m[0]._RSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                        @Html.DropDownListFor(m => m[0]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State", @required = "required" })
+                        @Html.TextBoxFor(m => m[0]._RPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br /> 
+                        @Html.TextBoxFor(m => m[0]._RCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                        
+                        
+                        <div class="pad-radio">
+                            <p> Is your residential address same as your postal address? </p>                 
+                                @Html.RadioButtonFor(m => m[0]._IsSame, false, new { onclick = "ShowHideElement('TIApp1Postal',true)" })
+                                No
+                                @Html.RadioButtonFor(m => m[0]._IsSame, true, new { onclick = "ShowHideElement('TIApp1Postal',false)", @checked = "checked" })
+                                Yes
+                        </div>
+                        <div id="TIApp1Postal" class="mar-bot-20" style="display:none;">
+                                <h5>Postal Address</h5>
+                            @*@Html.TextBoxFor(m => m[0]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                            @Html.TextBoxFor(m => m[0]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[0]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[0]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                            @Html.TextBoxFor(m => m[0]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[0]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.DropDownListFor(m => m[0]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                            @Html.TextBoxFor(m => m[0]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[0]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        </div>
+                         <h5>Contact Details</h5>
+                            @Html.TextBoxFor(m => m[0]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                            @Html.TextBoxFor(m => m[0]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                            @Html.TextBoxFor(m => m[0]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                            @Html.TextBoxFor(m => m[0]._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                            @Html.TextBoxFor(m => m[0]._MobileNo, new { @class = "trust-cd-email1", placeholder = "Mobile number", @required = "required" })<br />
+                            @Html.TextBoxFor(m => m[0]._EmailAddress, new { id = "TIemail", @class = "trust-cd-email1", placeholder = "Email address", @required = "required", @type = "email", onblur = "validate(this.value,this.id);" })
+                                              
+                        </div>
+                       
+                        <div>
+                            <input type="button" value=" Add " id="btnTIApp1Sec2" class="btn-nav-orange" /><i class="fa fa-user-plus fa-2"></i>
+                        </div>
+                </div>                         
+            </div>
+        </div>
+    </section>
+    </div>
+
+    
+    
+    
+    <div id="div_TIApp2" style="display:none;">
+        <section id="TIApp2Sec1" class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                        <h5>
+                            Applicant # 2
+                        </h5>
+                        <h5 class="no-lt-pad">Individual</h5>
+                            <div id="TIApp2Sec1V">
+                                <h5>Personal Details</h5>
+                                <input type="button" value="X" id="btnTIApp2Remove" class="btn-nav-red-sm" style="float:right;"/>
+                                @Html.DropDownListFor(m => m[1]._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { id = "TIApp2Title", @class = "fnl_txtbx_sml" })
+                                @Html.TextBoxFor(m => m[1]._FullName, new { id = "TIApp2FN", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })<br />
+                                @Html.TextBoxFor(m => m[1]._MiddleName, new { id = "TIApp2MN", @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                                @Html.TextBoxFor(m => m[1]._Surname, new { id = "TIApp2SN", @class = "fnl_txtbx_fl", placeholder = "Surname" })<br />
+                                @Html.TextBoxFor(m => m[1]._BirthDate, new { id = "TIApp2BD", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                                @Html.TextBoxFor(m => m[1]._CountryOfBirth, new { id = "TIApp2BC", @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                @Html.TextBoxFor(m => m[1]._Occupation, new { id = "TIApp2O", @class = "fnl_txtbx_fl", placeholder = "Occupation" })
+                                <div>
+                                    <input type="button" value=" Next " id="btnTIApp2Sec1" class="btn-nav-orange"/>
+                                </div>                     
+                            </div>
+                        </div>                          
+                     </div>
+                </div>
+     </section>
+    
+    <section id="TIApp2Sec2" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">  
+                    <div id="TIApp2Sec2V">
+                        <h5>Residential Address</h5>
+                        @*@Html.TextBoxFor(m => m[0]._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />*@
+                        @Html.TextBoxFor(m => m[1]._RUnit, new { id = "TIApp2Unit", @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[1]._RStreetNo, new { id = "TIApp2StNo", @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[1]._RStreetName, new { id = "TIApp2StN", @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                        @Html.TextBoxFor(m => m[1]._RStreetType, new { id = "TIApp2StT", @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                        @Html.TextBoxFor(m => m[1]._RSuburb, new { id = "TIApp2Suburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                        @Html.DropDownListFor(m => m[1]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { id = "TIApp2State", @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                        @Html.TextBoxFor(m => m[1]._RPostcode, new { id = "TIApp2PC", @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br /> 
+                        @Html.TextBoxFor(m => m[1]._RCountry, new { id = "TIApp2C", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        
+                        
+                        
+                         <div class="pad-radio">
+                            <p> Is your residential address same as your postal address? </p>
+                                @Html.RadioButtonFor(m => m[1]._IsSame, false, new { onclick = "ShowHideElement('TIApp2Postal',true)" })
+                                No
+                                @Html.RadioButtonFor(m => m[1]._IsSame, true, new { onclick = "ShowHideElement('TIApp2Postal',false)", @checked = "checked" })
+                                Yes
+                        </div>
+
+                        <div id="TIApp2Postal" class="mar-bot-20" style="display:none;">
+                                <h5>Postal Address</h5>
+                            @*@Html.TextBoxFor(m => m[0]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                            @Html.TextBoxFor(m => m[1]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[1]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[1]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                            @Html.TextBoxFor(m => m[1]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[1]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.DropDownListFor(m => m[1]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                            @Html.TextBoxFor(m => m[1]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[1]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        </div>
+
+                         <h5>Contact Details</h5>
+                        @Html.TextBoxFor(m => m[1]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[1]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                        @Html.TextBoxFor(m => m[1]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[1]._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                        @Html.TextBoxFor(m => m[1]._MobileNo, new { id = "TIApp2MbNo", @class = "trust-cd-email", placeholder = "Mobile number" })<br />
+                        @Html.TextBoxFor(m => m[1]._EmailAddress, new { id = "TIApp2Email", @class = "trust-cd-email", placeholder = "Email address", @type = "email", onblur = "validate(this.value,this.id);" })
+                                              
+                        </div>
+                       
+                        <div>
+                            <input type="button" value=" Add " id="btnTIApp2Sec2" class="btn-nav-orange" />
+                        </div>
+                </div>                         
+            </div>
+        </div>
+    </section>
+
+
+    </div>
+    
+    
+    
+    
+    <div id="div_TIApp3" style="display:none;">
+        <section id="TIApp3Sec1" class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                        <h5>
+                            Applicant # 3
+                        </h5>
+                        <h5>Individual</h5>
+                            <div id="TIApp3Sec1V">
+                                <h5>Personal Details</h5>
+                                <input type="button" value="X" id="btnTIApp3Remove" class="btn-nav-red-sm" style="float:right;"/>
+                                @Html.DropDownListFor(m => m[2]._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { id = "TIApp3Title", @class = "fnl_txtbx_sml" })
+                                @Html.TextBoxFor(m => m[2]._FullName, new { id = "TIApp3FN", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })<br />
+                                @Html.TextBoxFor(m => m[2]._MiddleName, new { id = "TIApp3MN", @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                                @Html.TextBoxFor(m => m[2]._Surname, new { id = "TIApp3SN", @class = "fnl_txtbx_fl", placeholder = "Surname" })<br />
+                                @Html.TextBoxFor(m => m[2]._BirthDate, new { id = "TIApp3BD", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                                @Html.TextBoxFor(m => m[2]._CountryOfBirth, new { id = "TIApp3BC", @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                @Html.TextBoxFor(m => m[2]._Occupation, new { id = "TIApp3O", @class = "fnl_txtbx_fl", placeholder = "Occupation" })
+                                <div>
+                                    <input type="button" value=" Next " id="btnTIApp3Sec1" class="btn-nav-orange"/>
+                                </div>                     
+                        </div>
+                     </div>
+                </div>
+            </div>
+     </section>
+    
+    <section id="TIApp3Sec2" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">  
+                    <div id="TIApp3Sec2V">
+                        <h5>Residential Address</h5>
+                        @*@Html.TextBoxFor(m => m[0]._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />*@
+                        @Html.TextBoxFor(m => m[2]._RUnit, new { id = "TIApp3Unit", @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[2]._RStreetNo, new { id = "TIApp3StNo", @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[2]._RStreetName, new { id = "TIApp3StN", @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                        @Html.TextBoxFor(m => m[2]._RStreetType, new { id = "TIApp3StT", @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                        @Html.TextBoxFor(m => m[2]._RSuburb, new { id = "TIApp3Suburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                        @Html.DropDownListFor(m => m[2]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { id = "TIApp3State", @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                        @Html.TextBoxFor(m => m[2]._RPostcode, new { id = "TIApp3PC", @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br /> 
+                        @Html.TextBoxFor(m => m[2]._RCountry, new { id = "TIApp3C", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        
+                        
+                        
+                         <div class="pad-radio">
+                            <p> Is your residential address same as your postal address? </p>
+                                @Html.RadioButtonFor(m => m[2]._IsSame, false, new { onclick = "ShowHideElement('TIApp3Postal',true)" })
+                                No
+                                @Html.RadioButtonFor(m => m[2]._IsSame, true, new { onclick = "ShowHideElement('TIApp3Postal',false)", @checked = "checked" })
+                                Yes
+                        </div>
+                        <div id="TIApp3Postal" class="mar-bot-20" style="display:none;">
+                                <h5>Postal Address</h5>
+                            @*@Html.TextBoxFor(m => m[0]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                            @Html.TextBoxFor(m => m[2]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[2]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[2]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                            @Html.TextBoxFor(m => m[2]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[2]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.DropDownListFor(m => m[2]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                            @Html.TextBoxFor(m => m[2]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[2]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        </div>
+                         <h5>Contact Details</h5>
+                        @Html.TextBoxFor(m => m[2]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[2]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                        @Html.TextBoxFor(m => m[2]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[2]._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                        @Html.TextBoxFor(m => m[2]._MobileNo, new { id = "TIApp3MbNo", @class = "trust-cd-email", placeholder = "Mobile number" })<br />
+                        @Html.TextBoxFor(m => m[2]._EmailAddress, new { id = "TIApp3Email", @class = "trust-cd-email", placeholder = "Email address", @type = "email", onblur = "validate(this.value,this.id);" })
+                                              
+                        </div>
+                       
+                        <div>
+                            <input type="button" value=" Add " id="btnTIApp3Sec2" class="btn-nav-orange" />
+                        </div>
+                </div>                         
+            </div>
+        </div>
+    </section>
+
+    </div>
+    
+    
+    
+    
+    <div id="div_TIApp4" style="display:none;">
+        <section id="TIApp4Sec1" class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                        <h5>
+                            Applicant # 4
+                        </h5>
+                        <h5>Individual</h5>
+                            <div id="TIApp4Sec1V">
+                                <h5>Personal Details</h5>
+                                <input type="button" value="X" id="btnTIApp4Remove" class="btn-nav-red-sm" style="float:right;"/>
+                                @Html.DropDownListFor(m => m[3]._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { id = "TIApp4Title", @class = "fnl_txtbx_sml" })
+                                @Html.TextBoxFor(m => m[3]._FullName, new { id = "TIApp4FN", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })<br />
+                                @Html.TextBoxFor(m => m[3]._MiddleName, new { id = "TIApp4MN", @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                                @Html.TextBoxFor(m => m[3]._Surname, new { id = "TIApp4SN", @class = "fnl_txtbx_fl", placeholder = "Surname" })<br />
+                                @Html.TextBoxFor(m => m[3]._BirthDate, new { id = "TIApp4BD", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                                @Html.TextBoxFor(m => m[3]._CountryOfBirth, new { id = "TIApp4BC", @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                @Html.TextBoxFor(m => m[3]._Occupation, new { id = "TIApp4O", @class = "fnl_txtbx_fl", placeholder = "Occupation" })
+                                <div>
+                                    <input type="button" value=" Next " id="btnTIApp4Sec1" class="btn-nav-orange"/>
+                                </div>                     
+                            </div>
+                     </div>
+                </div>
+            </div>
+     </section>
+    
+    <section id="TIApp4Sec2" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">  
+                    <div id="TIApp4Sec2V">
+                        <h5>Residential Address</h5>
+                        @*@Html.TextBoxFor(m => m[0]._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />*@
+                        @Html.TextBoxFor(m => m[3]._RUnit, new { id = "TIApp4Unit", @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[3]._RStreetNo, new { id = "TIApp4StNo", @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m[3]._RStreetName, new { id = "TIApp4StN", @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                        @Html.TextBoxFor(m => m[3]._RStreetType, new { id = "TIApp4StT", @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                        @Html.TextBoxFor(m => m[3]._RSuburb, new { id = "TIApp4Suburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                        @Html.DropDownListFor(m => m[3]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { id = "TIApp4State", @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                        @Html.TextBoxFor(m => m[3]._RPostcode, new { id = "TIApp4PC", @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br /> 
+                        @Html.TextBoxFor(m => m[3]._RCountry, new { id = "TIApp4C", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        
+                        
+                        
+                         <div class="pad-radio">
+                            <p> Is your residential address same as your postal address? </p>
+                                @Html.RadioButtonFor(m => m[3]._IsSame, false, new { onclick = "ShowHideElement('TIApp4Postal',true)" })
+                                No
+                                @Html.RadioButtonFor(m => m[3]._IsSame, true, new { onclick = "ShowHideElement('TIApp4Postal',false)", @checked = "checked" })
+                                Yes
+                        </div>
+                        <div id="TIApp4Postal" class="mar-bot-20" style="display:none;">
+                                <h5>Postal Address</h5>
+                            @*@Html.TextBoxFor(m => m[0]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                            @Html.TextBoxFor(m => m[3]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[3]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[3]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                            @Html.TextBoxFor(m => m[3]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[3]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.DropDownListFor(m => m[3]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                            @Html.TextBoxFor(m => m[3]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[3]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        </div>
+                         <h5>Contact Details</h5>
+                        @Html.TextBoxFor(m => m[3]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[3]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                        @Html.TextBoxFor(m => m[3]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[3]._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                        @Html.TextBoxFor(m => m[3]._MobileNo, new { id = "TIApp4MbNo", @class = "trust-cd-email", placeholder = "Mobile number" })<br />
+                        @Html.TextBoxFor(m => m[3]._EmailAddress, new { id = "TIApp4Email", @class = "trust-cd-email", placeholder = "Email address", @type = "email", onblur = "validate(this.value,this.id);" })
+                                              
+                        </div>
+                       
+                        @*<div class="fnl_btn_spcng mar-lt-300">
+                            <input type="button" value=" Add " id="btnTIApp4Sec2" class="btn-nav-orange" />
+                        </div>*@
+                </div>                         
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    
+    
+   @* <section id="TrustIndiSection4" class="light-blue-grad width-display">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_ar mar-lt-300">   
+                        <div class="fnl_hp_spcng">
+                                <h5 class="no-lt-pad">Tax details - Australian residents</h5>
+                        </div>
+                            <div class="CWSF_memapp_text no-lt-pad">
+                        
+                            <p>  
+                            Collection of Tax File Number (TFN) information is authorised. The use of your TFN and disclosure of it is strictly regulated by tax laws and
+                            the Privacy Act. You are not obliged to provide your TFN, however if you do not provide your TFN, or provide exemption details, we are
+                            required to withhold tax from your distributions at the highest marginal tax rate plus Medicare levy.
+                            <br />
+                            The TFN provided below will automatically be applied to any future investments you make in the Fund(s) unless you indicate, at any time,
+                            that you do not wish to use that TFN for a particular investment. 
+                            </p>
+                            </div> 
+                            
+                            <div>
+                            @Html.TextBoxFor(m => m[0]._TaxFileNoExemptionCode, new { id = "TrustTFNEC", @class = "span3", placeholder = "Tax File Number or Exemption Code" })
+                            OR
+                            @Html.TextBoxFor(m => m[0]._ExemptionReason, new { id = "TrustER", placeholder = "Reason for Exemption" })<br />
+                            </div> 
+
+                            <div class="fnl_hp_spcng">
+                                <h5 class="no-lt-pad">Tax details - Non-Australian residents  </h5>
+                            </div>
+                            <div class="rndm_mte_spcng mar-top-0">
+                            <div class="CWSF_memapp_text no-lt-pad mar-bot-0">
+                            <p> If you are not an Australian resident for tax purposes, please indicate your country of residence. </p><br /> 
+                            @Html.TextBoxFor(m => m[0]._CountryTax, new { id = "apCT", @class = "span3 country", placeholder = "Please indicate your country of residence.", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                            </div>    
+                            </div>     
+                            <div class="rndm_mte_spcng">
+                            <div class="CWSF_memapp_text no-lt-pad">
+                            <p> Are you a US citizen, resident, trust, or entity registered in the USA? </p><br />                 
+                            @Html.RadioButtonFor(m => m[0]._IsUSCitizen, true, new { onclick = "ShowHideElement('div_TrstIndFATCA',true)" })Yes
+                            @Html.RadioButtonFor(m => m[0]._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_TrstIndFATCA',false)" })No <br /> 
+                            </div>  
+                            <div id="div_TrstIndFATCA" style="display:none;">
+                                <h3>FATCA</h3>
+                                <p>This section only applies to United States Citizens/entities.<br />
+                                    You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked to a US financial institution or if you are an entity where a US person has a controlling interest (greater than 25%).<br />
+                                    <b>Are you FATCA exempt?</b><br />
+                                    @Html.CheckBoxFor(m => m[0]._IsFATCA, new { @class = "chkTrstIndFATCA",value=true })
+                                    Yes
+                                    @Html.CheckBoxFor(m => m[0]._IsFATCA,  new { @class="chkTrstIndFATCA",value=false })
+                                    No - if you tick this box, you need to complete the FATCA form in addition to this form[0]. Please contact Investor Services.
+                                </p><br />
+                            </div>  
+                            </div>   
+                            
+                            <div class="fnl_btn_spcng">
+                                  
+                            </div>                      
+                            <div class="fnl_btn_spcng">
+                                <a href="#TrustIndiSection5" rel="" id="Trustanchor4" class="btn-nav-orange"> Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>*@
+    <div class="btn-next-step">
+    <input type="submit" value="  Next Step  " class="btn-nav-green" id="Trst_Ind_Submit"/> 
+    </div>
+}
+
+<script type="text/javascript">
+    //Start App1
+    $("#btnTIApp1Sec1").click(function () {
+        if (ScrollValidate('TIApp1Sec1V', 'Trst_Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TIApp1Sec2").offset().top
+            }, 1500);
+        }
+    });
+    $("#btnTIApp1Sec2").click(function () {
+        if (ScrollValidate('TIApp1Sec2V', 'Trst_Ind_Submit')) {
+            $('#div_TIApp2').show();
+            $('#btnTIApp1Sec2').hide();
+            $('html, body').animate({
+                scrollTop: $("#div_TIApp2").offset().top
+            }, 1500);
+            enableValidationApp2();
+        }
+    });
+
+    //End App1
+
+
+
+
+
+
+    //Start App2
+    $("#btnTIApp2Sec1").click(function () {
+        if (ScrollValidate('TIApp2Sec1V', 'Trst_Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TIApp2Sec2").offset().top
+            }, 1500);
+        }
+    });
+    $("#btnTIApp2Sec2").click(function () {
+        if (ScrollValidate('TIApp2Sec2V', 'Trst_Ind_Submit')) {
+            $('#div_TIApp3').show();
+            $('#btnTIApp2Sec2').hide();
+            $('html, body').animate({
+                scrollTop: $("#div_TIApp3").offset().top
+            }, 1500);
+            $('#btnTIApp2Remove').hide();
+            enableValidationApp3();
+        }
+    });
+    $("#btnTIApp2Remove").click(function () {
+        $('#btnTIApp1Sec2').show();
+        $('#div_TIApp2').hide();
+        disableValidationApp2();
+    });
+    function disableValidationApp2() {
+        $("#TIApp2Title").removeAttr("required");
+        $("#TIApp2FN").removeAttr("required");
+        $("#TIApp2SN").removeAttr("required");
+        $("#TIApp2BD").removeAttr("required");
+        $("#TIApp2BC").removeAttr("required");
+        $("#TIApp2O").removeAttr("required");
+        $("#TIApp2StNo").removeAttr("required");
+        $("#TIApp2StN").removeAttr("required");
+        //$("#TIApp2StT").removeAttr("required");
+        $("#TIApp2Suburb").removeAttr("required");
+        $("#TIApp2State").removeAttr("required");
+        $("#TIApp2PC").removeAttr("required");
+        $("#TIApp2C").removeAttr("required");
+        $("#TIApp2MbNo").removeAttr("required");
+        $("#TIApp2Email").removeAttr("required");
+    }
+    function enableValidationApp2() {
+        $("#TIApp2Title").attr("required", true);
+        $("#TIApp2FN").attr("required", true);
+        $("#TIApp2SN").attr("required", true);
+        $("#TIApp2BD").attr("required", true);
+        $("#TIApp2BC").attr("required", true);
+        $("#TIApp2O").attr("required", true);
+        $("#TIApp2StNo").attr("required", true);
+        $("#TIApp2StN").attr("required", true);
+        //$("#TIApp2StT").attr("required", true);
+        $("#TIApp2Suburb").attr("required", true);
+        $("#TIApp2State").attr("required", true);
+        $("#TIApp2PC").attr("required", true);
+        $("#TIApp2C").attr("required", true);
+        $("#TIApp2MbNo").attr("required", true);
+        $("#TIApp2Email").attr("required", true);
+    }
+    //End App2
+
+
+
+
+
+    //Start App3
+    $("#btnTIApp3Sec1").click(function () {
+        if (ScrollValidate('TIApp3Sec1V', 'Trst_Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TIApp3Sec2").offset().top
+            }, 1500);
+        }
+    });
+    $("#btnTIApp3Sec2").click(function () {
+        if (ScrollValidate('TIApp3Sec2V', 'Trst_Ind_Submit')) {
+            $('#div_TIApp4').show();
+            $('#btnTIApp3Sec2').hide();
+            $('html, body').animate({
+                scrollTop: $("#div_TIApp4").offset().top
+            }, 1500);
+            $('#btnTIApp3Remove').hide();
+            enableValidationApp4();
+        }
+    });
+    $("#btnTIApp3Remove").click(function () {
+        $('#div_TIApp3').hide();
+        $('#btnTIApp2Sec2').show();
+        $('#btnTIApp2Remove').show();
+        disableValidationApp3();
+    });
+    function disableValidationApp3() {
+        $("#TIApp3Title").removeAttr("required");
+        $("#TIApp3FN").removeAttr("required");
+        $("#TIApp3SN").removeAttr("required");
+        $("#TIApp3BD").removeAttr("required");
+        $("#TIApp3BC").removeAttr("required");
+        $("#TIApp3O").removeAttr("required");
+        $("#TIApp3StNo").removeAttr("required");
+        $("#TIApp3StN").removeAttr("required");
+        //$("#TIApp3StT").removeAttr("required");
+        $("#TIApp3Suburb").removeAttr("required");
+        $("#TIApp3State").removeAttr("required");
+        $("#TIApp3PC").removeAttr("required");
+        $("#TIApp3C").removeAttr("required");
+        $("#TIApp3MbNo").removeAttr("required");
+        $("#TIApp3Email").removeAttr("required");
+    }
+    function enableValidationApp3() {
+        $("#TIApp3Title").attr("required", true);
+        $("#TIApp3FN").attr("required", true);
+        $("#TIApp3SN").attr("required", true);
+        $("#TIApp3BD").attr("required", true);
+        $("#TIApp3BC").attr("required", true);
+        $("#TIApp3O").attr("required", true);
+        $("#TIApp3StNo").attr("required", true);
+        $("#TIApp3StN").attr("required", true);
+        //$("#TIApp3StT").attr("required", true);
+        $("#TIApp3Suburb").attr("required", true);
+        $("#TIApp3State").attr("required", true);
+        $("#TIApp3PC").attr("required", true);
+        $("#TIApp3C").attr("required", true);
+        $("#TIApp3MbNo").attr("required", true);
+        $("#TIApp3Email").attr("required", true);
+    }
+    //End App3
+
+
+
+
+
+
+    //Start App4
+    $("#btnTIApp4Sec1").click(function () {
+        if (ScrollValidate('TIApp4Sec1V', 'Trst_Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TIApp4Sec2").offset().top
+            }, 1500);
+        }
+    });
+    $("#btnTIApp4Remove").click(function () {
+        $('#div_TIApp4').hide();
+        $('#btnTIApp3Sec2').show();
+        $('#btnTIApp3Remove').show();
+        disableValidationApp4();
+    });
+    function disableValidationApp4() {
+        $("#TIApp4Title").removeAttr("required");
+        $("#TIApp4FN").removeAttr("required");
+        $("#TIApp4SN").removeAttr("required");
+        $("#TIApp4BD").removeAttr("required");
+        $("#TIApp4BC").removeAttr("required");
+        $("#TIApp4O").removeAttr("required");
+        $("#TIApp4StNo").removeAttr("required");
+        $("#TIApp4StN").removeAttr("required");
+        //$("#TIApp4StT").removeAttr("required");
+        $("#TIApp4Suburb").removeAttr("required");
+        $("#TIApp4State").removeAttr("required");
+        $("#TIApp4PC").removeAttr("required");
+        $("#TIApp4C").removeAttr("required");
+        $("#TIApp4MbNo").removeAttr("required");
+        $("#TIApp4Email").removeAttr("required");
+    }
+    function enableValidationApp4() {
+        $("#TIApp4Title").attr("required", true);
+        $("#TIApp4FN").attr("required", true);
+        $("#TIApp4SN").attr("required", true);
+        $("#TIApp4BD").attr("required", true);
+        $("#TIApp4BC").attr("required", true);
+        $("#TIApp4O").attr("required", true);
+        $("#TIApp4StNo").attr("required", true);
+        $("#TIApp4StN").attr("required", true);
+        //$("#TIApp4StT").attr("required", true);
+        $("#TIApp4Suburb").attr("required", true);
+        $("#TIApp4State").attr("required", true);
+        $("#TIApp4PC").attr("required", true);
+        $("#TIApp4C").attr("required", true);
+        $("#TIApp4MbNo").attr("required", true);
+        $("#TIApp4Email").attr("required", true);
+    }
+    //End App4
+</script>

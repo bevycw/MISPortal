@@ -1,0 +1,103 @@
+/*
+===============================================================
+ afterlife classes/ids
+===============================================================
+*/
+
+.fnl_txtbx_sml{
+	width: 100px ;
+	margin-right: 5px;
+  	margin-left: 5px;
+  	margin-top: 5px;
+  	/*margin-bottom: 5px;*/
+}
+
+.fnl_txtbx_med{
+	width: 300px ;
+	margin-right: 5px;
+  	margin-left: 5px;	
+  	margin-top: 5px;
+  	margin-bottom: 5px;
+}
+
+.fnl_txtbx_lrg{
+	width: 562px ;
+	margin-right: 5px;
+  	margin-left: 5px;
+  	margin-top: 5px;
+  	margin-bottom: 5px;
+}
+.fnl_txtbx_fl{
+	width: 675px ;
+	margin-right: 5px;
+  	margin-left: 5px;
+  	margin-top: 5px;
+  	margin-bottom: 5px;
+}
+.fnl_txtbx_lsfl{
+	width: 550px ;
+	margin-right: 5px;
+  	margin-left: 5px;
+  	margin-top: 5px;
+  	margin-bottom: 5px;
+}
+.fnl_txtbx_smee{
+	width: 200px ;
+	margin-right: 5px;
+  	margin-left: 5px;
+  	margin-top: 5px;
+  	margin-bottom: 5px;
+}
+.fnl_txtbx_suburb{
+	width: 225px ;
+	margin-right: 5px;
+  	margin-left: 5px;
+  	margin-top: 5px;
+  	margin-bottom: 5px;
+}
+
+.fnl_btn_spcng{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.fnl_btn_spcng_hrzntl{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.fnl_hp_spcng{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	/*color: #000000;*/
+}
+.fnl_h_spcng{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #000000;
+}
+.fnl_hpg_spcng{
+	color: #000000;
+}
+.fnl_dwn_txt{
+  
+  margin-bottom: 30px;
+
+  text-align: left;
+}
+.rndm_mte_spcng{
+	margin-top: 20px;
+}
+.ind_td_ar{
+	margin-bottom: 40px;
+}
+.mjr_shrhldr_01{
+	margin-bottom: 100px;
+}
+.mjr_shrhldr_01_pd{
+	margin-bottom: 25px;
+}
+.mjr_shrhldr_01_ra{
+	margin-bottom: 25px;
+}
+h {
+	font-size: 30px;
+}

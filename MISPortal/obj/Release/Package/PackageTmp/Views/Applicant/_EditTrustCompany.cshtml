@@ -1,0 +1,354 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>
+
+@Html.HiddenFor(m => m[0].cmp._TrustCompanyID)
+@Html.HiddenFor(m => m[0].cmp._RAddressCompanyID)
+@Html.HiddenFor(m => m[0].cmp._PAddressCompanyID)
+@Html.HiddenFor(m => m[0].cmp._AddressAusID)
+@Html.HiddenFor(m => m[0].cmp._AddressLAID)
+@Html.HiddenFor(m => m[0].cmp._AddressFCNRID)
+@Html.HiddenFor(m => m[0].cmp._AddressPPFCNRID)
+
+
+@{
+    List<SelectListItem> titleList = new List<SelectListItem>();
+    titleList.Add(new SelectListItem { Text = "Miss", Value = "Miss" });
+    titleList.Add(new SelectListItem {Text="Mr",Value="Mr"});
+    titleList.Add(new SelectListItem {Text="Mrs",Value="Mrs"});
+    titleList.Add(new SelectListItem {Text="Ms",Value="Ms"});
+    titleList.Add(new SelectListItem {Text="Mx",Value="Mx"});
+    titleList.Add(new SelectListItem {Text="Dr",Value="Dr"});
+    titleList.Add(new SelectListItem { Text = "Prof", Value = "Prof" });  
+    
+ }
+
+<table class="table table-responsive table-condensed table-hover no-margin tab-col">
+<tr>
+    <td colspan="2" align="center"><b>Company</b></td>
+</tr>
+<tr>
+<td style="width:50%;">Full Name</td>
+<td style="width:50%;">@Html.TextBoxFor(m => m[0].cmp._FullNameCompany, new { })</td>
+</tr>
+<tr>
+<td>ACN ABN</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._ACN_ABN_Company, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Australian Tax file number</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AusTFN_Company, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Registered office address</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AddressCompany, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._SuburbCompany, new { })</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._StateCompany, new { })</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PostcodeCompany, new { })</td>
+</tr>
+<tr>
+<td>Country</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._CountryCompany, new { @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })</td>
+</tr>
+<tr>
+<td>Is same as registered?</td>
+<td>
+    @Html.HiddenFor(m => m[0].cmp._IsSameCompany, new { })
+    @Html.DisplayFor(m => m[0].cmp._IsSameCompany, new { })</td>
+</tr>
+@if (Model[0].cmp._IsSameCompany == false)
+{
+<tr>
+<td>Postal address</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PAddressCompany, new { })</td>
+</tr>
+<tr>
+<td>PO Box</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PPOBoxCompany, new { })</td>
+</tr>
+<tr>
+<td>Postal Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PSuburbCompany, new { })</td>
+</tr>
+<tr>
+<td>Postal State</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PStateCompany, new { })</td>
+</tr>
+<tr>
+<td>Postal Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PPostcodeCompany, new { })</td>
+</tr>
+<tr>
+<td>Postal Country</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PCountryCompany, new { @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+}
+<tr>
+    <td colspan="2" align="center"><b>Contact Person at Company</b></td>
+</tr>
+<tr>
+<td>Title</td>
+<td>@Html.DropDownListFor(m => m[0].cmp._TitleCP, new SelectList(titleList, "Value", "Text", Model[0].cmp._TitleCP), "Title", new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._FullNameCP, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Surname</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._SurnameCP, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Area Code (Business)</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AreaCodeB_CP, new { })</td>
+</tr>
+<tr>
+<td>Business Number</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._BusinessNoCP, new { })</td>
+</tr>
+<tr>
+<td>Mobile Number</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._MobileNoCP, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._EmailAddrCP, new { type = "email", @required = "required" })</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Foreign company registered by ASIC</b></td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._FullNameFC, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>ARBN</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._ARBN_FC, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Is registered by foreign registration body?</td>
+<td>
+    @Html.HiddenFor(m => m[0].cmp._IsRegByForeignRegBodyFC)
+    @Html.DisplayFor(m => m[0].cmp._IsRegByForeignRegBodyFC)</td>
+</tr>
+@if (Model[0].cmp._IsRegByForeignRegBodyFC == true)
+{
+<tr>
+<td>Foreign registration body name</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._ForeignRegBodyNameFC, new { })</td>
+</tr>
+}
+<tr>
+<td>Registered office address in Australia</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AddressAus, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._SuburbAus, new { })</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._StateAus, new { })</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PostcodeAus, new { })</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Australian principal place of business or local agent address</b></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>
+    @Html.HiddenFor(m => m[0].cmp._StatusFC, new { })
+    @Html.DisplayFor(m => m[0].cmp._StatusFC, new { })</td>
+</tr>
+<tr>
+<td>Local Agent Name </td>
+<td>@Html.TextBoxFor(m => m[0].cmp._NameLA, new { })</td>
+</tr>
+<tr>
+<td>Address</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AddressLA, new { })</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._SuburbLA, new { })</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._StateLA, new { })</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PostcodeLA, new { })</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Foreign company not registered by ASIC</b></td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._FullNameFCNR, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Is your company registered by foregin registration body?</td>
+<td>
+    @Html.HiddenFor(m => m[0].cmp._IsRegByForeignRegBodyFCNR)
+    @Html.DisplayFor(m => m[0].cmp._IsRegByForeignRegBodyFCNR)</td>
+</tr>
+@if (Model[0].cmp._IsRegByForeignRegBodyFCNR == true)
+{
+<tr>
+<td>Foreign registration body name</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._ForeignRegBodyNameFCNR, new { })</td>
+</tr>
+<tr>
+<td>Identification number issued by foreign registration body</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._ForeignRegBodyIdenNoFCNR, new { })</td>
+</tr>
+}
+<tr>
+<td>Is your entity registered in US?</td>
+<td>
+    @Html.HiddenFor(m => m[0].cmp._IsRegInUs)
+    @Html.DisplayFor(m => m[0].cmp._IsRegInUs)</td>
+</tr>
+<tr>
+<td>Registered address as registered by foregin registration body</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AddressFCNR, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._SuburbFCNR, new { })</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._StateFCNR, new { })</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PostcodeFCNR, new { })</td>
+</tr>
+<tr>
+<td>Country</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._CountryFCNR, new { @required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Principal place of business address if NOT registered by a foreign registered body</b></td>
+</tr>
+<tr>
+<td>Address</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AddressPPFCNR, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._SuburbPPFCNR)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._StatePPFCNR)</td>
+</tr>
+<tr>
+<td>Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._PostcodePPFCNR)</td>
+</tr>
+<tr>
+<td>Country</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._CountryPPFCNR, new { @required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><b>Trust</b></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._NameTrust, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>ABN</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._ABN_Trust, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Australian Tax file number</td>
+<td>@Html.TextBoxFor(m => m[0].cmp._AusTFN_Trust, new { @required = "required" })</td>
+</tr>
+</table>
+
+<table class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col">
+<thead>
+<tr>
+    <td colspan="8" align="center"><b>Share holders</b></td>
+</tr>
+<tr>
+    <th>Title</th>
+    <th>Full given names</th>
+    <th>Surname</th>
+    <th>Address</th>
+    <th>Suburb</th>
+    <th>State</th>
+    <th>Postcode</th>
+    <th>Country</th>
+</tr>
+</thead>
+<tbody>
+
+@Html.HiddenFor(m=>m[0].cmp._IsPublicCompany)
+
+@if (Model[0].cmp._IsPublicCompany == false)
+{
+    var shcount = Model[0].cmp.Shareholders.Count();
+    @*@foreach (var sh in Model[0].cmp.Shareholders)
+    {*@
+    if (shcount > 0)
+    {
+        @Html.HiddenFor(m => m[0].cmp.Shareholders[0]._ShareholderID)
+        <tr>
+        <td>@Html.DropDownListFor(m => m[0].cmp.Shareholders[0]._Title, new SelectList(titleList, "Value", "Text", Model[0].cmp.Shareholders[0]._Title), "Title", new { @required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[0]._FullName, new { required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[0]._Surname)</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[0]._Address, new { required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[0]._Suburb)</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[0]._State)</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[0]._Postcode)</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[0]._Country, new { required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>   
+        </tr> 
+    }
+    if (shcount > 1)
+    {    
+        @Html.HiddenFor(m => m[0].cmp.Shareholders[1]._ShareholderID)
+        <tr>
+        <td>@Html.DropDownListFor(m => m[0].cmp.Shareholders[1]._Title, new SelectList(titleList, "Value", "Text", Model[0].cmp.Shareholders[1]._Title), "Title", new { @required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[1]._FullName, new { required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[1]._Surname, new { })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[1]._Address, new { required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[1]._Suburb)</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[1]._State)</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[1]._Postcode)</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[1]._Country, new { required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>   
+        </tr> 
+    }
+    if (shcount > 2)
+    {    
+        @Html.HiddenFor(m => m[0].cmp.Shareholders[2]._ShareholderID)
+        <tr>
+        <td>@Html.DropDownListFor(m => m[0].cmp.Shareholders[2]._Title, new SelectList(titleList, "Value", "Text", Model[0].cmp.Shareholders[2]._Title), "Title", new { @required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[2]._FullName, new { required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[2]._Surname, new { })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[2]._Address, new { required = "required" })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[2]._Suburb, new { })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[2]._State, new { })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[2]._Postcode, new { })</td>
+        <td>@Html.TextBoxFor(m => m[0].cmp.Shareholders[2]._Country, new { required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>   
+        </tr>
+    } 
+   @* }*@
+}
+</tbody>
+</table>
+

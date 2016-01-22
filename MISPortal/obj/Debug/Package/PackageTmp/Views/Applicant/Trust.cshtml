@@ -1,0 +1,117 @@
+﻿<form action="">
+<section id="TrustIndiSection5" class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">                
+                <h5 class="no-lt-pad">Trusts or Superannuation Funds </h5>
+                <p5>Please complete if you are investing as a trust or superannuation fund.</p5><br /><br />
+                    <div class="ind_tsfd">
+                    
+                        <h5>Trusts or Superannuation Funds Details </h5>
+                    
+                        <div id="divTorSAFD">
+                        @Html.TextBox("NameTrust", null, new { id="NameTrust", @class = "fnl_txtbx_lrg", placeholder = "Name of trust or superannuation fund", @required = "required" })<br />
+                        @Html.TextBox("ABN", null, new { id="ABN", @class = "fnl_txtbx_lrg", placeholder = "ABN (if applicable)", @required = "required" })<br />
+                        @Html.TextBox("AusTFN", null, new { id="AusTFN", @class = "fnl_txtbx_lrg", placeholder = "Australian Tax File Number (TFN)", @required = "required" })
+                        </div>
+                        <input type="submit" id="btnTorSAFD" style="display:none;"/>                  
+                    </div>
+                </div>                          
+            </div>
+        </div>
+    </section>
+</form>
+
+
+
+<section id="slctd_trstee" class="light-blue-grad mar-top-bot mt-height">
+    <div class="container">
+        <div class="row">
+            <div class="span8 offset2">
+                <div class="CWSF_trsteentyp01" >
+                    <h1>Trust</h1>
+                </div>
+                <div class="CWSF_trsteentyp02" >
+                    <h1>Select Trustee Type </h1>
+                </div>
+                <div class="text-center mar-top-50">
+                    <button id="indvdul_trst" type="button" class="btn-nav-orange">Individual</button>
+                    <button id="cmpny_trst" type="button" class="btn-nav-orange">Corporate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="div_TrustIndividual" style="display:none;">
+@{
+    List<MISPortal.Models.ApplicantPersonalDetails> apdlist = new List<MISPortal.Models.ApplicantPersonalDetails>();
+    MISPortal.Models.ApplicantPersonalDetails a1 = new MISPortal.Models.ApplicantPersonalDetails();
+    MISPortal.Models.ApplicantPersonalDetails a2 = new MISPortal.Models.ApplicantPersonalDetails();
+    MISPortal.Models.ApplicantPersonalDetails a3 = new MISPortal.Models.ApplicantPersonalDetails();
+    MISPortal.Models.ApplicantPersonalDetails a4 = new MISPortal.Models.ApplicantPersonalDetails();
+    apdlist.Add(a1);
+    apdlist.Add(a2);
+    apdlist.Add(a3); 
+    apdlist.Add(a4);
+    @Html.Partial("TrustIndividual",apdlist)
+ }
+
+</div>
+
+<div id="div_TrustCompany" style="display:none;">
+@Html.Partial("TrustCompany")
+</div>
+
+
+<script type="text/javascript">
+    $("#indvdul_trst").click(function () {
+        if (ScrollValidate('divTorSAFD', 'btnTorSAFD')) {
+            $('#div_TrustIndividual').show();
+            $('#div_TrustCompany').hide();
+            $('#hiddenAT').val('TrustIndividual');
+            TI();
+            $('html, body').animate({
+                scrollTop: $("#div_TrustIndividual").offset().top
+            }, 1500);
+        } else {
+            $('html, body').animate({
+                scrollTop: $("#divTorSAFD").offset().top
+            }, 1500);
+        }
+    });
+    $("#cmpny_trst").click(function () {
+        if (ScrollValidate('divTorSAFD', 'btnTorSAFD')) {
+            $('#div_TrustCompany').show();
+            $('#div_TrustIndividual').hide();
+            $('#hiddenAT').val('TrustCompany');
+            TC();
+            $('html, body').animate({
+                scrollTop: $("#div_TrustCompany").offset().top
+            }, 1500);
+        } else {
+            $('html, body').animate({
+                scrollTop: $("#divTorSAFD").offset().top
+            }, 1500);
+        }
+    });
+
+    function TC() {
+        var NT = $('#NameTrust').val();
+        var ABN = $('#ABN').val();
+        var AusTFN = $('#AusTFN').val();
+        $('#NameTrustTC').val(NT);
+        $('#ABNTC').val(ABN);
+        $('#AusTFNTC').val(AusTFN);
+
+    }
+
+    function TI() {
+        var NT = $('#NameTrust').val();
+        var ABN = $('#ABN').val();
+        var AusTFN = $('#AusTFN').val();
+        $('#NameTrustTI').val(NT);
+        $('#ABNTI').val(ABN);
+        $('#AusTFNTI').val(AusTFN); 
+    }
+</script>

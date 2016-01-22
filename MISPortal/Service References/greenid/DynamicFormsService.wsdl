@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dynamicform.services.registrations.edentiti.com/" name="DynamicFormsService" targetNamespace="http://dynamicform.services.registrations.edentiti.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema targetNamespace="http://dynamicform.services.registrations.edentiti.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="expireToken" type="tns:expireToken" />
+      <xs:element name="expireTokenResponse" type="tns:expireTokenResponse" />
+      <xs:element name="faultDetails" type="tns:Fault" />
+      <xs:element name="getFields" type="tns:getFields" />
+      <xs:element name="getFieldsResponse" type="tns:getFieldsResponse" />
+      <xs:element name="getSources" type="tns:getSources" />
+      <xs:element name="getSourcesResponse" type="tns:getSourcesResponse" />
+      <xs:element name="getUserToken" type="tns:getUserToken" />
+      <xs:element name="getUserTokenResponse" type="tns:getUserTokenResponse" />
+      <xs:element name="registerVerification" type="tns:registerVerification" />
+      <xs:element name="registerVerificationResponse" type="tns:registerVerificationResponse" />
+      <xs:element name="setFields" type="tns:setFields" />
+      <xs:element name="setFieldsResponse" type="tns:setFieldsResponse" />
+      <xs:complexType name="getFields">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountId" type="xs:string" />
+          <xs:element minOccurs="0" name="password" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationId" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationToken" type="xs:string" />
+          <xs:element minOccurs="0" name="sourceId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="optionalData" type="tns:nameValuePair" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="nameValuePair">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" name="value" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getFieldsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:currentStatus" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="currentStatus">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="checkResult" type="tns:checkResult" />
+          <xs:element minOccurs="0" name="progress" type="xs:string" />
+          <xs:element minOccurs="0" name="sourceFields" type="tns:sourceFields" />
+          <xs:element minOccurs="0" name="sourceList" type="tns:sourceList" />
+          <xs:element minOccurs="0" name="userToken" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationResult" type="tns:richVerificationResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="state" type="xs:string" />
+          <xs:element name="stillWorking" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sourceFields">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fieldList" type="tns:fieldList" />
+          <xs:element minOccurs="0" name="rawData" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="fieldList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="sourceField" nillable="true" type="tns:field" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="field">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="attribute" nillable="true" type="tns:nameValuePair" />
+          <xs:element minOccurs="0" name="label" type="xs:string" />
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="selectItem" nillable="true" type="tns:nameValuePair" />
+          <xs:element minOccurs="0" name="type" type="xs:string" />
+          <xs:element minOccurs="0" name="value" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sourceList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="sources" nillable="true" type="tns:source" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="source">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="attributes" nillable="true" type="tns:nameValuePair" />
+          <xs:element name="available" type="xs:boolean" />
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element name="notRequired" type="xs:boolean" />
+          <xs:element name="oneSourceLeft" type="xs:boolean" />
+          <xs:element name="order" type="xs:int" />
+          <xs:element name="passed" type="xs:boolean" />
+          <xs:element minOccurs="0" name="state" type="xs:string" />
+          <xs:element name="version" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="richVerificationResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dateVerified" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="individualResults" nillable="true" type="tns:richCheckResult" />
+          <xs:element minOccurs="0" name="mode" type="xs:string" />
+          <xs:element minOccurs="0" name="outcome" type="xs:string" />
+          <xs:element minOccurs="0" name="ruleId" type="xs:string" />
+          <xs:element minOccurs="0" name="transactionId" type="xs:string" />
+          <xs:element minOccurs="0" name="userId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="richCheckResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dateVerified" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="fieldsResults" nillable="true" type="tns:richFieldResult" />
+          <xs:element minOccurs="0" name="method" type="xs:string" />
+          <xs:element minOccurs="0" name="mode" type="xs:string" />
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" name="postOfficeData" type="tns:postOfficeData" />
+          <xs:element minOccurs="0" name="resultData" type="xs:string" />
+          <xs:element minOccurs="0" name="state" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="richFieldResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="data" type="xs:string" />
+          <xs:element minOccurs="0" name="dataDifference" type="xs:string" />
+          <xs:element minOccurs="0" name="dataInfo" type="xs:string" />
+          <xs:element minOccurs="0" name="format" type="xs:string" />
+          <xs:element minOccurs="0" name="label" type="xs:string" />
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" name="status" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="postOfficeData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="customerId" type="xs:string" />
+          <xs:element minOccurs="0" name="documents" type="xs:string" />
+          <xs:element minOccurs="0" name="header" type="tns:detailRecordHeader" />
+          <xs:element minOccurs="0" name="poFileName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="records" nillable="true" type="tns:documentRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="detailRecordHeader">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="amount" type="xs:string" />
+          <xs:element minOccurs="0" name="channelId" type="xs:string" />
+          <xs:element minOccurs="0" name="date" type="xs:string" />
+          <xs:element minOccurs="0" name="dateOfBirth" type="xs:string" />
+          <xs:element minOccurs="0" name="filler" type="xs:string" />
+          <xs:element minOccurs="0" name="formVersion" type="xs:string" />
+          <xs:element minOccurs="0" name="givenName" type="xs:string" />
+          <xs:element name="id" type="xs:long" />
+          <xs:element minOccurs="0" name="idWizardRefNo" type="xs:string" />
+          <xs:element minOccurs="0" name="paymentMethod" type="xs:string" />
+          <xs:element minOccurs="0" name="phoneNo" type="xs:string" />
+          <xs:element minOccurs="0" name="postOfficeName" type="xs:string" />
+          <xs:element minOccurs="0" name="recordNo" type="xs:string" />
+          <xs:element minOccurs="0" name="recordType" type="xs:string" />
+          <xs:element minOccurs="0" name="referenceNo" type="xs:string" />
+          <xs:element minOccurs="0" name="surname" type="xs:string" />
+          <xs:element minOccurs="0" name="totalNumberOfIdDocuments" type="xs:string" />
+          <xs:element minOccurs="0" name="typeCode" type="xs:string" />
+          <xs:element minOccurs="0" name="uniqueReferenceNo" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="documentRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="amount" type="xs:string" />
+          <xs:element minOccurs="0" name="comments" type="xs:string" />
+          <xs:element minOccurs="0" name="countryOfIssue" type="xs:string" />
+          <xs:element minOccurs="0" name="dateOfBirthMatchesForm" type="xs:string" />
+          <xs:element minOccurs="0" name="documentExpiryDate" type="xs:string" />
+          <xs:element minOccurs="0" name="documentName" type="xs:string" />
+          <xs:element minOccurs="0" name="documentNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="filler" type="xs:string" />
+          <xs:element name="id" type="xs:long" />
+          <xs:element minOccurs="0" name="idDocumentType" type="xs:string" />
+          <xs:element minOccurs="0" name="idWizardRefNo" type="xs:string" />
+          <xs:element minOccurs="0" name="issuedBy" type="xs:string" />
+          <xs:element minOccurs="0" name="issuedate" type="xs:string" />
+          <xs:element minOccurs="0" name="nameMatchesform" type="xs:string" />
+          <xs:element minOccurs="0" name="photoMatch" type="xs:string" />
+          <xs:element minOccurs="0" name="recordNo" type="xs:string" />
+          <xs:element minOccurs="0" name="recordType" type="xs:string" />
+          <xs:element minOccurs="0" name="referenceNo" type="xs:string" />
+          <xs:element minOccurs="0" name="residentialAddressMatchesForm" type="xs:string" />
+          <xs:element minOccurs="0" name="stateOrTerritoryOfIssue" type="xs:string" />
+          <xs:element minOccurs="0" name="utilityAccountIssuer" type="xs:string" />
+          <xs:element minOccurs="0" name="utilityAccountType" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Fault">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="details" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setFields">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountId" type="xs:string" />
+          <xs:element minOccurs="0" name="password" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationId" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationToken" type="xs:string" />
+          <xs:element minOccurs="0" name="sourceId" type="xs:string" />
+          <xs:element minOccurs="0" name="inputFields" type="tns:inputFields" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="optionalData" type="tns:nameValuePair" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="inputFields">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="input" nillable="true" type="tns:nameValuePair" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setFieldsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:currentStatus" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="registerVerification">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountId" type="xs:string" />
+          <xs:element minOccurs="0" name="password" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationId" type="xs:string" />
+          <xs:element minOccurs="0" name="ruleId" type="xs:string" />
+          <xs:element minOccurs="0" name="name" type="tns:name" />
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="currentResidentialAddress" type="tns:ausAddress" />
+          <xs:element minOccurs="0" name="previousResidentialAddress" type="tns:ausAddress" />
+          <xs:element minOccurs="0" name="dob" type="tns:dateOfBirth" />
+          <xs:element minOccurs="0" name="homePhone" type="xs:string" />
+          <xs:element minOccurs="0" name="workPhone" type="xs:string" />
+          <xs:element minOccurs="0" name="mobilePhone" type="xs:string" />
+          <xs:element minOccurs="0" name="deviceIDData" type="xs:string" />
+          <xs:element name="generateVerificationToken" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="extraData" type="tns:nameValuePair" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="name">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="givenName" type="xs:string" />
+          <xs:element minOccurs="0" name="honorific" type="xs:string" />
+          <xs:element minOccurs="0" name="middleNames" type="xs:string" />
+          <xs:element minOccurs="0" name="surname" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ausAddress">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="country" type="xs:string" />
+          <xs:element minOccurs="0" name="flatNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="postcode" type="xs:string" />
+          <xs:element minOccurs="0" name="propertyName" type="xs:string" />
+          <xs:element minOccurs="0" name="state" type="xs:string" />
+          <xs:element minOccurs="0" name="streetName" type="xs:string" />
+          <xs:element minOccurs="0" name="streetNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="streetType" type="xs:string" />
+          <xs:element minOccurs="0" name="suburb" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="dateOfBirth">
+        <xs:sequence>
+          <xs:element name="day" type="xs:int" />
+          <xs:element name="month" type="xs:int" />
+          <xs:element name="year" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="registerVerificationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:currentStatus" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getUserToken">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="account" type="xs:string" />
+          <xs:element minOccurs="0" name="password" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="optionalData" type="tns:nameValuePair" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getUserTokenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="expireToken">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountId" type="xs:string" />
+          <xs:element minOccurs="0" name="password" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationToken" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="optionalData" type="tns:nameValuePair" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="expireTokenResponse">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="getSources">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountId" type="xs:string" />
+          <xs:element minOccurs="0" name="password" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationId" type="xs:string" />
+          <xs:element minOccurs="0" name="verificationToken" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="optionalData" type="tns:nameValuePair" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSourcesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:currentStatus" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </types>
+  <message name="DynamicFormsService_registerVerification">
+    <part name="registerVerification" element="tns:registerVerification" />
+  </message>
+  <message name="faultDetails">
+    <part name="faultDetails" element="tns:faultDetails" />
+  </message>
+  <message name="DynamicFormsService_getSources">
+    <part name="getSources" element="tns:getSources" />
+  </message>
+  <message name="DynamicFormsService_expireToken">
+    <part name="expireToken" element="tns:expireToken" />
+  </message>
+  <message name="DynamicFormsService_getUserToken">
+    <part name="getUserToken" element="tns:getUserToken" />
+  </message>
+  <message name="DynamicFormsService_expireTokenResponse">
+    <part name="expireTokenResponse" element="tns:expireTokenResponse" />
+  </message>
+  <message name="DynamicFormsService_getFieldsResponse">
+    <part name="getFieldsResponse" element="tns:getFieldsResponse" />
+  </message>
+  <message name="DynamicFormsService_setFieldsResponse">
+    <part name="setFieldsResponse" element="tns:setFieldsResponse" />
+  </message>
+  <message name="DynamicFormsService_getUserTokenResponse">
+    <part name="getUserTokenResponse" element="tns:getUserTokenResponse" />
+  </message>
+  <message name="DynamicFormsService_setFields">
+    <part name="setFields" element="tns:setFields" />
+  </message>
+  <message name="DynamicFormsService_registerVerificationResponse">
+    <part name="registerVerificationResponse" element="tns:registerVerificationResponse" />
+  </message>
+  <message name="DynamicFormsService_getFields">
+    <part name="getFields" element="tns:getFields" />
+  </message>
+  <message name="DynamicFormsService_getSourcesResponse">
+    <part name="getSourcesResponse" element="tns:getSourcesResponse" />
+  </message>
+  <portType name="DynamicFormsService">
+    <operation name="expireToken" parameterOrder="expireToken">
+      <input message="tns:DynamicFormsService_expireToken" />
+      <output message="tns:DynamicFormsService_expireTokenResponse" />
+      <fault name="faultDetails" message="tns:faultDetails" />
+    </operation>
+    <operation name="getFields" parameterOrder="getFields">
+      <input message="tns:DynamicFormsService_getFields" />
+      <output message="tns:DynamicFormsService_getFieldsResponse" />
+      <fault name="faultDetails" message="tns:faultDetails" />
+    </operation>
+    <operation name="getSources" parameterOrder="getSources">
+      <input message="tns:DynamicFormsService_getSources" />
+      <output message="tns:DynamicFormsService_getSourcesResponse" />
+      <fault name="faultDetails" message="tns:faultDetails" />
+    </operation>
+    <operation name="getUserToken" parameterOrder="getUserToken">
+      <input message="tns:DynamicFormsService_getUserToken" />
+      <output message="tns:DynamicFormsService_getUserTokenResponse" />
+      <fault name="faultDetails" message="tns:faultDetails" />
+    </operation>
+    <operation name="registerVerification" parameterOrder="registerVerification">
+      <input message="tns:DynamicFormsService_registerVerification" />
+      <output message="tns:DynamicFormsService_registerVerificationResponse" />
+      <fault name="faultDetails" message="tns:faultDetails" />
+    </operation>
+    <operation name="setFields" parameterOrder="setFields">
+      <input message="tns:DynamicFormsService_setFields" />
+      <output message="tns:DynamicFormsService_setFieldsResponse" />
+      <fault name="faultDetails" message="tns:faultDetails" />
+    </operation>
+  </portType>
+  <binding name="DynamicFormsServiceBinding" type="tns:DynamicFormsService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="expireToken">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="faultDetails">
+        <soap:fault use="literal" name="faultDetails" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getFields">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="faultDetails">
+        <soap:fault use="literal" name="faultDetails" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getSources">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="faultDetails">
+        <soap:fault use="literal" name="faultDetails" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getUserToken">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="faultDetails">
+        <soap:fault use="literal" name="faultDetails" namespace="" />
+      </fault>
+    </operation>
+    <operation name="registerVerification">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="faultDetails">
+        <soap:fault use="literal" name="faultDetails" namespace="" />
+      </fault>
+    </operation>
+    <operation name="setFields">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="faultDetails">
+        <soap:fault use="literal" name="faultDetails" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="DynamicFormsService">
+    <port name="DynamicFormsServicePort" binding="tns:DynamicFormsServiceBinding">
+      <soap:address location="https://test.edentiti.com/Registrations-Registrations/DynamicFormsService" />
+    </port>
+  </service>
+</definitions>

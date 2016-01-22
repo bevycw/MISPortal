@@ -1,0 +1,84 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>
+
+@{
+    ViewBag.Title = "Step5";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    
+<section id="Step5" class="CWSF_joint02 t-banner-1">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_nar mar-lt-300">
+                    <h1>Managed Funds Online Application</h1>
+
+                    <h2>Review and Submit</h2>
+
+                    <p>You are about to open a Crescent Wealth Managed Funds Account.</p>
+
+                    <div style="width: 80%; overflow: auto;"> 
+                    
+                    <div id="div_DetailsApplicant">
+                        <input type="button" value="Edit" id="btnEdit" class="btn btn-info" style="float:right;"/>
+                        @Html.Partial("_DetailsApplicant")
+                    </div>
+
+
+@{  
+
+    var Action = "";
+    if (Model[0]._AccountType == "TrustCompany")
+    { Action = "EditTrustCompany"; }
+    else
+    { Action = "EditIndividualJointTrustIndividual"; }       
+}
+@using (Html.BeginForm(Action, "Applicant", FormMethod.Post, new { role = "form" }))
+{
+                    <div id="div_EditApplicant" style="display:none;">
+                        <input type="submit" style="display:none" id="btnSubmit"/>
+                        <input type="button" value="Update" id="btnUpdate" class="btn btn-success" style="float:right;" />
+                        <input type="button" value="Cancel" id="btnCancel" class="btn btn-danger" style="float:right;" />
+                        @Html.Partial("_EditApplicant")
+                    </div>
+
+
+}
+                    
+                    
+                    
+                    </div>
+
+
+
+
+
+@using (Html.BeginForm("ConfirmAndSubmitApplicant", "Applicant", FormMethod.Post, new { role = "form" }))
+{
+
+    <input type="submit" value=" Confirm and Submit " class="btn btn-primary btn-oval btn-large"/>
+    
+}
+
+
+</div></div></div></div></section>
+
+
+
+<script type="text/javascript">
+    $('#btnEdit').click(function () {
+        $('#div_DetailsApplicant').hide();
+        $('#div_EditApplicant').show();
+    })
+    $('#btnUpdate').click(function () {
+        $('#btnSubmit').click();
+    })
+    $('#btnCancel').click(function () {
+        $('#div_EditApplicant').hide();
+        $('#div_DetailsApplicant').show();
+    })
+</script>
+
+
+

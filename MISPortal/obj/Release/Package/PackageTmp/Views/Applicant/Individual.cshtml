@@ -1,0 +1,204 @@
+﻿@model MISPortal.Models.ApplicantPersonalDetails
+
+@using (Html.BeginForm("AddEditIndividualApplicant", "Applicant", FormMethod.Post, new { role = "form" }))
+{
+    
+@Html.HiddenFor(m => m._ApplicantID);
+@Html.HiddenFor(m => m._PersonalDetailID);
+@Html.HiddenFor(m => m._RAddressID);
+@Html.HiddenFor(m => m._PAddressID);    
+
+<div id="lst_bb_lst" class="CWSF_memapp_shadedradio_copy individual-bg">
+    <div id="tog_frm_infin">
+        <div id="min_ind_frm" class="radio_individuals_mainform">
+            <h5>
+                Individuals
+            </h5>
+            <div id="Ind_Sec1" class="radio_individuals_personaldetails">
+                <h101> Personal Details </h101>
+                <br /><br />
+                @Html.DropDownListFor(m => m._Title, new List<SelectListItem> { 
+                    new SelectListItem {Text="Miss",Value="Miss"},
+                    new SelectListItem {Text="Mr",Value="Mr"},
+                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                    new SelectListItem {Text="Ms",Value="Ms"},
+                    new SelectListItem {Text="Mx",Value="Mx"},
+                    new SelectListItem {Text="Dr",Value="Dr"},
+                    new SelectListItem {Text="Prof",Value="Prof"}
+                }, "Title", new { @class = "fnl_txtbx_sml", required = "required" })
+                @Html.TextBoxFor(m => m._FullName, new { @class = "fnl_txtbx_lrg", placeholder = "Full given names", @required = "required" })<br />
+                @Html.TextBoxFor(m => m._Surname, new { @class = "fnl_txtbx_fl", placeholder = "Surname", @required = "required" })<br />
+                @Html.TextBoxFor(m => m._BirthDate, new { id = "dobi", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @required = "required", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+            
+                <div class="but_one">
+                    <span class="radio_buttonnext">
+                        <input type="button" id="anchor2" class="btn btn-primary btn-oval btn-large" value=" Next "/>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div id="res_id" class="CWSF_memapp_shadedradio">
+    <div id="Ind_Sec2" class="radio_individuals_residentialaddress mar-bot-20">
+        <h101> Residential Address </h101><br />
+        <p7> A PO Box/RMB/Locked Bag is <b>not</b> acceptable. </p7>
+        <br />
+        @Html.TextBoxFor(m => m._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />
+        @Html.TextBoxFor(m => m._RSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+        @Html.TextBoxFor(m => m._RState, new { @class = "fnl_txtbx_smee", placeholder = "State", @required = "required" })
+        @Html.TextBoxFor(m => m._RPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required" })<br /> 
+        <input type="text" id="_CountryR" name="_RCountry" placeholder="Country" class="fnl_txtbx_fl country" data-autocomplete="/Applicant/GETCountryNames" required />
+        <br /><br />
+        <h101> Contact details </h101>
+        <br />
+        @Html.TextBoxFor(m => m._AreaCodeH, new { @class = "fnl_txtbx_sml", placeholder = "Area Code" })
+        @Html.TextBoxFor(m => m._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+        @Html.TextBoxFor(m => m._AreaCodeB, new { @class = "fnl_txtbx_sml", placeholder = "Area Code" })
+        @Html.TextBoxFor(m => m._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+        @Html.TextBoxFor(m => m._MobileNo, new { @class = "cd-email", placeholder = "Mobile number", @required = "required" })<br />
+        @Html.TextBoxFor(m => m._EmailAddress, new { id="Iemail", @class = "cd-email", placeholder = "Email address", @required = "required", @type = "email" })
+    </div>
+    <div class="radd_post_op mar-lt-400">
+        <p101> Is your residential address same as your postal address?                    
+                                </p101>
+        <br />
+        @Html.RadioButtonFor(m => m._IsSame, true, new { id = "_IsSame", onclick = "ShowHideElement('display_postal',false)", @checked = "checked" })
+        Yes
+        @Html.RadioButtonFor(m => m._IsSame, false, new { id = "_IsNotSame", onclick = "ShowHideElement('display_postal',true)" })
+        No
+        <br />
+    </div>
+    <div id="display_postal" class="radio_individuals_postaladdress" style="display: none">
+        <h101> Postal address  </h101><br />
+        <p7> A PO Box/RMB/Locked Bag is acceptable. </p7>
+        <br />
+        @Html.TextBoxFor(m => m._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />
+        @Html.TextBoxFor(m => m._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+        @Html.TextBoxFor(m => m._PState, new { @class = "fnl_txtbx_smee", placeholder = "State" })
+        @Html.TextBoxFor(m => m._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br />
+        <input type="text" id="_CountryP" name="_PCountry" placeholder="Country" class="fnl_txtbx_fl country" data-autocomplete="/Applicant/GETCountryNames" />
+    </div>
+    <div class="but_two">
+        <span class="radio_buttonnext">
+            <input type="button" value=" Next " class="btn btn-primary btn-oval btn-large" id="anchor3"/>
+            </span>
+    </div>
+</div>
+    
+@*<div id="ctc_id" class="CWSF_memapp_shadedradio ind-contact-detail">
+    <div id="Ind_Sec3" class="radio_individuals_contactdetails">
+        
+    </div>
+    <div class="but_three">
+        <span class="radio_buttonnext">
+            <input type="button" value=" Next " id="anchor4" class="btn btn-primary btn-oval btn-large"/>
+            </span>
+    </div>
+</div>*@
+    
+<div id="tax_id" class="CWSF_memapp_shadedradio ind-contact-detail">
+    <div class="radio_individuals_taxdetails">
+        <div class="radio_individuals_taxdetails_australianresidents">
+            <h101> Tax details - Australian residents  </h101>
+            <br />
+            <div class="radio_individuals_taxdetails_australianresidents_text">
+                <p101> Collection of Tax File Number (TFN) information is authorised. The use of your TFN and disclosure of it is strictly regulated by tax laws and
+                                the Privacy Act. You are not obliged to provide your TFN, however if you do not provide your TFN, or provide exemption details, we are
+                                required to withhold tax from your distributions at the highest marginal tax rate plus Medicare levy.
+                                <br />
+                                The TFN provided below will automatically be applied to any future investments you make in the Fund(s) unless you indicate, at any time,
+                                that you do not wish to use that TFN for a particular investment. 
+                                
+                                </p101>
+            </div>
+            <input type="text" id="_TaxFileNoExemptionCode" class="span3" name="_TaxFileNoExemptionCode" placeholder="Tax File Number or Exemption Code" />
+            OR
+            <input type="text" id="_ExemptionReason" name="_ExemptionReason" placeholder="Reason for exemption" /><br />
+        </div>
+        <div class="radio_individuals_taxdetails_nonaustralianresidents">
+            <h101> Tax details - Non-Australian residents </h101>
+            <br />
+            <div class="radio_individuals_taxdetails_nonaustralianresidents_text">
+                <p101> If you are not an Australian resident for tax purposes, please indicate your country of residence.                               
+                                </p101>
+            </div>
+            <input type="text" id="_CountryTax" class="country span3" name="_CountryTax" placeholder="Please indicate your country of residence" class="country" data-autocomplete="/Applicant/GETCountryNames" />
+            <div class="radio_individuals_taxdetails_nonaustralianresidents_text">
+                <p101> Are you a US citizen, resident, trust, or entity registered in the USA?                    
+                                </p101>
+            </div>
+            <div class="radio_individuals_taxdetails_nonaustralianresidents_usaboolean">
+                @Html.RadioButtonFor(m => m._IsUSCitizen, true, new { onclick = "ShowHideElement('div_IndFATCA',true)" })
+                Yes
+                @Html.RadioButtonFor(m => m._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_IndFATCA',false)" })
+                No
+                <br />
+            </div>
+            <div id="div_IndFATCA" style="display:none;">
+                <h3>FATCA</h3>
+                <p>This section only applies to United States Citizens/entities.<br />
+                    You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked to a US financial institution or if you are an entity where a US person has a controlling interest (greater than 25%).<br />
+                    <b>Are you FATCA exempt?</b><br />
+                    @Html.CheckBoxFor(m => m._IsFATCA, new { @class = "chkIndFATCA",value=true })
+                    Yes
+                    @Html.CheckBoxFor(m => m._IsFATCA,  new { @class="chkIndFATCA",value=false })
+                    No - if you tick this box, you need to complete the FATCA form in addition to this form. Please contact Investor Services.
+                </p>
+            </div>
+            <div class="jus_nextosubmito">
+                <span class="radio_buttonnext">
+                     <input type="submit" value="  Next Step  " class="btn btn-primary btn-oval btn-large" id="Ind_Submit"/>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>  
+    
+}
+
+
+<script type="text/javascript">
+    $("#anchor2").click(function () {
+        if (ScrollValidate('Ind_Sec1', 'Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#res_id").offset().top
+            }, 1500);
+        }
+    });
+    $("#anchor3").click(function () {
+        if (ScrollValidate('Ind_Sec2', 'Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#tax_id").offset().top
+            }, 1500);
+        }
+    });
+//    $("#anchor4").click(function () {
+//        if (ScrollValidate('Ind_Sec3', 'Ind_Submit')) {
+//            $('html, body').animate({
+//                scrollTop: $("#tax_id").offset().top
+//            }, 1500);
+//        }
+//    });
+    $(document).ready(function () {
+        $("#_TaxFileNoExemptionCode").keypress(function () {
+            $("#_CountryTax").val("");
+            $("#_ExemptionReason").val("");
+        });
+        $("#_ExemptionReason").keypress(function () {
+            $("#_CountryTax").val("");
+            $("#_TaxFileNoExemptionCode").val("");
+        });
+        $("#_CountryTax").keypress(function () {
+            $("#_TaxFileNoExemptionCode").val("");
+            $("#_ExemptionReason").val("");
+        });
+    });
+    $(function () {
+        $("input:checkbox.chkIndFATCA").click(function () {
+            $("input:checkbox.chkIndFATCA").not($(this)).removeAttr("checked");
+            $(this).attr("checked", $(this).attr("checked"));
+        });
+    });
+</script>

@@ -1,0 +1,47 @@
+﻿@model MISPortal.Models.Company
+
+<section id="slctd_trstee" class="CWSF_joint01 blue-bg">
+    <div class="graymatter_02">
+        <div class="container">
+            <div class="row">
+                <div class="CWSF_trsteentyp01" >
+                    <h1> Trust</h1>
+                </div>
+                <div class="CWSF_trsteentyp02" >
+                    <h1> Select Trustee Type </h1>
+                </div>
+                <div class="trstee_typ">
+                    <button id="indvdul_trst" type="button" class="btn btn-primary btn-large btn-oval">Individual</button>
+                    <button id="cmpny_trst" type="button" class="btn btn-primary btn-large btn-oval">Company</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="div_TrustIndividual" style="display:none;">
+@Html.Partial("TrustIndividual")
+</div>
+<div id="div_TrustCompany" style="display:none;">
+@Html.Partial("TrustCompany")
+</div>
+
+
+<script type="text/javascript">
+    $("#indvdul_trst").click(function () {
+        $('#div_TrustIndividual').show();
+        $('#div_TrustCompany').hide();
+        $('#hiddenAT').val('TrustIndividual');
+        $('html, body').animate({
+            scrollTop: $("#div_TrustIndividual").offset().top
+        }, 1500);
+    });
+    $("#cmpny_trst").click(function () {
+        $('#div_TrustCompany').show();
+        $('#div_TrustIndividual').hide();
+        $('#hiddenAT').val('TrustCompany');
+        $('html, body').animate({
+            scrollTop: $("#div_TrustCompany").offset().top
+        }, 1500);
+    });
+</script>

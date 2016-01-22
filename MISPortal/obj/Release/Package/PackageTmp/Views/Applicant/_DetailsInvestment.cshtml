@@ -1,0 +1,42 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>      
+
+
+<table class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col">
+    
+    <thead>
+        <tr>
+            <td colspan="4" align="center">
+            <h3>Investment Details</h3>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Fund Name
+            </th>
+            <th>
+                Investment Amount
+            </th>
+            <th>
+                Regular saving plan per month
+            </th>
+            <th>
+                Reinvest
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var id in Model[0].ID.IDL)
+    {
+    <tr>
+        <td>@id._FundName
+        </td>
+        <td>@id._InvestmentAmount
+        </td>
+        <td>@id._RegularSavingPlanPerMonth
+        </td>
+        <td>@id._Reinvest
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>

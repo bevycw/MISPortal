@@ -1,0 +1,25 @@
+﻿          @model List<MISPortal.Models.ApplicantPersonalDetails> 
+
+
+                        @Html.HiddenFor(m => m[0]._ApplicantID)
+
+                        @if (Model[0]._AccountType == "Individual")
+                        {
+                            @Html.Partial("_EditIndividual")
+                        }
+                        else if (Model[0]._AccountType == "Joint")
+                        {
+                            @Html.Partial("_EditJoint")
+                        }
+                        else if (Model[0]._AccountType == "TrustIndividual")
+                        {
+                            @Html.Partial("_EditIndividual")
+                        }
+                        else if (Model[0]._AccountType == "TrustCompany")
+                        {
+                            @Html.Partial("_EditTrustCompany")
+                        }
+                        @Html.Partial("_EditInvestmentDetails")
+                        @Html.Partial("_EditPaymentMethod")
+                        @Html.Partial("_EditAuthorisedRepresentative")
+                        @Html.Partial("_EditFinancialAdviser")    

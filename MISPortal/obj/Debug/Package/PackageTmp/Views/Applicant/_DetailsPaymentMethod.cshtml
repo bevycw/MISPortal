@@ -1,0 +1,78 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>      
+           
+<table class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col">
+    <thead>
+        <tr>
+            @*@if (Model[0].ID.PM[0]._PaymentType != "Cheque")
+            {*@
+            <td colspan="6" align="center">
+                <h3>Payment Method</h3>
+            </td>
+            @*}
+            else
+            {
+            <td colspan="2" align="center">
+                <h3>Payment Method</h3>
+            </td>
+            }*@
+        </tr>
+        <tr>
+            <th>
+                Payment Type
+            </th>
+            @*@if (Model[0].ID.PM[0]._PaymentType != "Cheque")
+            {*@
+            <th>
+                Financial Institute Name
+            </th>
+            <th>
+                Branch Name
+            </th>
+            <th>
+                BSB Name
+            </th>
+            <th>
+                Account Number
+            </th>
+            <th>
+                Account Name
+            </th>
+            @*}
+            else
+            { <th>Cheque Address:</th>}*@
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var pm in Model[0].ID.PM)
+    {
+        <tr>
+            <td>@pm._PaymentType
+            </td>
+            @*@if (Model[0].ID.PM[0]._PaymentType != "Cheque")
+            {*@
+            <td>@pm._FinancialInstituteName
+            </td>
+            <td>@pm._BranchName
+            </td>
+            <td>@pm._BSBNumber
+            </td>
+            <td>@pm._AccountNumber
+            </td>
+            <td>@pm._AccountName
+            </td>
+            @*}
+            else
+            { 
+            <td>
+                <p>
+                Crescent Wealth Managed Funds<br />
+                c/o FundBPO Pty Ltd<br />
+                GPO Box 4968<br />
+                Sydney NSW 2001<br />
+                </p>
+            </td>
+            }*@
+        </tr>
+    }
+    </tbody>
+</table>

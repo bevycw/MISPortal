@@ -1,0 +1,147 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>      
+           
+
+<table id="table2excel" class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col" >
+<tr>
+<td>Account Type</td>
+<td>@Html.DisplayFor(m=>m[0]._AccountType)</td>
+</tr>
+@{
+
+int count = 1;   
+        
+foreach (var ap in Model[0].PD)
+{
+    if (Model[0]._AccountType == "Joint")
+    {
+         <tr>
+         <td colspan="2" align="center"><b>Applicant # @count</b></td>
+         </tr>
+        count++;
+    }
+    
+    <tr>
+    <td style="width:50%;">Title</td>
+    <td style="width:50%;">@ap._Title</td>
+    </tr>
+    <tr>
+    <td>Full Name</td>
+    <td>@ap._FullName</td>
+    </tr>
+    <tr>
+    <td>Surname</td>
+    <td>@ap._Surname</td>
+    </tr>
+    <tr>
+    <td>Birth Date</td>
+    <td>@ap._BirthDate</td>
+    </tr>
+    <tr>
+    <td>Home Number</td>
+    <td>@ap._HomeNo</td>
+    </tr>
+    <tr>
+    <td>Business Number</td>
+    <td>@ap._BusinessNo</td>
+    </tr>
+    <tr>
+    <td>Mobile Number</td>
+    <td>@ap._MobileNo</td>
+    </tr>
+    <tr>
+    <td>Email Address</td>
+    <td>@ap._EmailAddress</td>
+    </tr>
+    <tr>
+    <td>Tax File Number/Exemption Code</td>
+    <td>@ap._TaxFileNoExemptionCode</td>
+    </tr>
+    <tr>
+    <td>Exemption Reason</td>
+    <td>@ap._ExemptionReason</td>
+    </tr>
+    <tr>
+    <td>Country Tax</td>
+    <td>@ap._CountryTax</td>
+    </tr>
+    <tr>
+    <td>Residentail Address</td>
+    <td>@ap._RAddress</td>
+    </tr>
+    <tr>
+    <td>Residential Suburb</td>
+    <td>@ap._RSuburb</td>
+    </tr>
+    <tr>
+    <td>Residentail State</td>
+    <td>@ap._RState</td>
+    </tr>
+    <tr>
+    <td>Residentail Postcode</td>
+    <td>@ap._RPostcode</td>
+    </tr>
+    <tr>
+    <td>Residential Country</td>
+    <td>@ap._RCountry</td>
+    </tr>
+    <tr>
+    <td>Is Same as residentail</td>
+    <td>@ap._IsSame</td>
+    </tr>
+    if(ap._IsSame==false)
+    {
+    <tr>
+    <td>Postal Address</td>
+    <td>@ap._PAddress</td>
+    </tr>
+    <tr>
+    <td>Postal Suburb</td>
+    <td>@ap._PSuburb</td>
+    </tr>
+    <tr>
+    <td>Postal State</td>
+    <td>@ap._PState</td>
+    </tr>
+    <tr>
+    <td>Postal Postcode</td>
+    <td>@ap._PPostcode</td>
+    </tr>
+    <tr>
+    <td>Postal Country</td>
+    <td>@ap._PCountry</td>
+    </tr>
+    }
+    <tr>
+    <td>Is Us Citizen</td>
+    <td>@ap._IsUSCitizen</td>
+    </tr>
+    if(ap._IsUSCitizen==true)
+    {
+    <tr>
+    <td>Is FATCA Exempt</td>
+    <td>@ap._IsFATCA</td>
+    </tr>
+    }
+}
+
+
+if (Model[0]._AccountType == "TrustIndividual")
+{
+    <tr>
+    <td>Trust name or superannutation fund</td>
+    <td>@Html.DisplayFor(m => m[0]._NameTrust)</td>
+    </tr>
+    <tr>
+    <td>ABN</td>
+    <td>@Html.DisplayFor(m => m[0]._ABN)</td>
+    </tr>
+    <tr>
+    <td>Australian tax file number(TFN)</td>
+    <td>@Html.DisplayFor(m => m[0]._AusTFN)</td>
+    </tr>
+}
+
+}
+
+
+</table>                    

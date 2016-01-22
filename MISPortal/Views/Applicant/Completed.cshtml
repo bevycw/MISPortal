@@ -1,0 +1,37 @@
+﻿@model List<MISPortal.Models.ApplicantVerificationStatus>
+
+@{
+    ViewBag.Title = "Completed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="" class="mar-top-bot light-blue-grad">
+            <div class="container">
+                <div class="row">
+                <div class="span8 offset2">
+                    <p class="thanks-text">Thank you for completing your Application to join our Managed Funds. <br />
+                        Please check the email <a href="#">@ViewBag.Email</a>  for specific instructions on how to finalise your investment. <br />
+                        For any immediate questions or concerns, please contact our Investor Services Team on 1300 926 626 or email <a href='mailto:investors@crescentwealth.com.au' target='_blank'>investors@crescentwealth.com.<wbr>au</a><br />
+                        Thank you for joining Crescent Wealth. 
+                    </p>
+
+                    @*<table cellpadding="10">
+                        <tbody>
+                        <tr><td colspan="2"><b>Verification Status</b></td></tr>
+                        @{
+                        int count=1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>Applicant No @count</td>
+                                <td>@item._ApplicantStatus</td>
+                            </tr>
+                            count++;
+                        }
+                        }
+                        </tbody>
+                    </table>*@
+
+                </div>
+                </div>
+            </div>
+    </section>

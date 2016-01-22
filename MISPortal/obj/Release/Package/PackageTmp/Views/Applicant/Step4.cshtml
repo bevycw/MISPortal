@@ -1,0 +1,287 @@
+﻿@model MISPortal.Models.Step4
+@{
+    ViewBag.Title = "Step4";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AddEditAuthRepFinAdvDetailApplicant", "Applicant", FormMethod.Post, new { role = "form" }))
+{
+    @Html.HiddenFor(m=>m.ApplicantID)
+    @Html.HiddenFor(m=>m.ARD._AuthRepDetailID)
+    @Html.HiddenFor(m=>m.FAD._FinancialAdviserDetailID)
+    
+    <section id="" class="CWSF_memapp_shadedradio">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_nar mar-lt-300"> 
+                    <h1>Authorised Representative</h1>
+    
+    <p>Would you like to nominate an authorised Representative?</p>
+    @Html.RadioButtonFor(m => m.ARD._IsAuthRep, true, new { id = "IsAuthRepyes", onclick = "ShowHideAuthRep('div_AuthorisedRepresentative',true)" })
+    Yes
+    @Html.RadioButtonFor(m => m.ARD._IsAuthRep, false, new { onclick = "ShowHideAuthRep('div_AuthorisedRepresentative',false)", @checked = "checked" })
+    No
+    <br />
+    <input type="button" id="anchor41" class="btn btn-primary btn-oval btn-large" value=" Next " />
+    </div>
+    </div></div></div></section>
+    
+    
+    
+    <div id="div_AuthorisedRepresentative" style="display:none;">
+    
+        <section id="" class="CWSF_joint02 t-banner-2">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_nar mar-lt-300" id="div_Authr"> 
+
+
+
+    <p>Complete this section if you wish to appoint a person to act in a legal capacity as your authorised representative and to operate your investment in the Fund(s) on your behalf.</p>
+
+        @Html.DropDownListFor(m => m.ARD._Title, new List<SelectListItem> { 
+            new SelectListItem {Text="Miss",Value="Miss"},
+            new SelectListItem {Text="Mr",Value="Mr"},
+            new SelectListItem {Text="Mrs",Value="Mrs"},
+            new SelectListItem {Text="Ms",Value="Ms"},
+            new SelectListItem {Text="Mx",Value="Mx"},
+            new SelectListItem {Text="Dr",Value="Dr"},
+            new SelectListItem {Text="Prof",Value="Prof"}
+        }, "Title", new { id="ardTitle", @class = "fnl_txtbx_sml" })
+        @Html.TextBoxFor(m => m.ARD._FullName, new { id = "ardFullName", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })<br />
+        @Html.TextBoxFor(m => m.ARD._Surname, new { id = "ardSurname", @class = "fnl_txtbx_fl", placeholder = "Surname" })<br />
+        @Html.TextBoxFor(m => m.ARD._TelephoneNo, new { @class = "fnl_txtbx_suburb", placeholder = "Telephone number" })
+        @Html.TextBoxFor(m => m.ARD._MobileNo, new { @class = "fnl_txtbx_smee", id = "ardMobileNo", placeholder = "Mobile number", @Value = Session["MobileNo"] })
+        @Html.TextBoxFor(m => m.ARD._EmailAddress, new { @class = "fnl_txtbx_smee", id = "ardEmailAddress", placeholder = "Email Address", @type = "email", @Value = Session["EmailAddress"] })
+        @Html.TextBoxFor(m => m.ARD._AFSL_LicenceNo, new { @class = "fnl_txtbx_fl", id = "ardAFSL_LicenceNo", placeholder = "AFSL licence number (if applicable)" })<br />
+        <p>
+        <input type="checkbox" id="chkARD" /> I/We authorise the above named person to act on my/our behalf to operate my/our investments with Crescent Wealth. 
+        The authorised representative can do everything an investor can do, except appoint another authorised representative. I/We are aware that I/We are responsible for the actions of the authorised representative.
+        I/We also release, discharge and agree to indemnify Crescent Wealth and the Funds for any losses, liabilities, actions, proceedings, accounts, claims and demands in respect of any liabilities arising out of this.
+        This arrangement will continue until I/We cancel it by notifying Crescent Wealth in writing. The cancellation will take effect from the date of receipt by Crescent Wealth.
+        </p>
+       
+        <input type="button" id="anchor42" class="btn btn-primary btn-oval btn-large" value=" Next " />
+        
+        </div>
+        </div></div></div></section>                
+                    
+                    
+    </div>
+    
+    <div id="div_FAyesno">
+
+        <section id="" class="CWSF_memapp_shadedradio">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_nar mar-lt-300"> 
+                        <h1>Financial Adviser</h1>
+
+        <p>Would you like to add Financial Adviser details</p>
+        @Html.RadioButtonFor(m => m.FAD._IsFinAdv, true, new { id = "IsFinAdvyes", onclick = "ShowHideFinAdvDetl('div_FinancialAdviser',true)" })
+        Yes
+        @Html.RadioButtonFor(m => m.FAD._IsFinAdv, false, new { onclick = "ShowHideFinAdvDetl('div_FinancialAdviser',false)", @checked = "checked" })
+        No
+        <br />
+        <input type="button" id="anchor43" class="btn btn-primary btn-oval btn-large" value=" Next " />
+        
+        </div>
+        </div></div></div></section>
+
+    </div>
+    
+    <div id="div_FinancialAdviser" style="display:none;">
+
+        <section id="" class="CWSF_joint02 t-banner-5">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_nar mar-lt-300">
+
+
+
+        <p>This section should be completed by your financial adviser if applicable. Please note, your financial adviser may have online access to information about your investment and may receive copies of your statments by email or mail.
+        </p>
+        <p><b>Notice to financial adviser: </b>By completing this section of the Application Form, you confirm that you hold, or are authorized by, a current Australian Financial Services Licence(AFSL) and are authorised to advise on this product.</p>
+
+        <h1>Financial adviser details</h1>
+
+        @Html.TextBoxFor(m => m.FAD._DealerGroupName, new { @class = "fnl_txtbx_suburb", id = "fadDealrGrpName", placeholder = "Dealer group name" })
+        @Html.TextBoxFor(m => m.FAD._AdviserName, new { @class = "fnl_txtbx_smee", id = "fadAdviserName", placeholder = "Adviser name" })<br />
+        @Html.TextBoxFor(m => m.FAD._AFSL_Number, new { @class = "fnl_txtbx_suburb", id = "fadAFSLno", placeholder = "AFSL number" })
+        @Html.TextBoxFor(m => m.FAD._ContactNo, new { @class = "fnl_txtbx_smee", id = "fadCntctNo", placeholder = "Contact number (+ Area Code)" })<br />
+        @Html.TextBoxFor(m => m.FAD._EmailAddress, new { @class = "fnl_txtbx_suburb", id = "fadEmlAddr", placeholder = "Emailaddress",@Value=Session["EmailAddress"] })
+
+
+        <h2>Dealer group/Financial adviser contact details (if not previously provided)</h2>
+        <b>Business address</b>
+        A PO Box/RMB/Locked Bag is <b>not</b> acceptable.
+        <br />
+        @Html.TextBoxFor(m => m.FAD._BAddress, new { @class = "fnl_txtbx_fl", placeholder = "Complete Address" })<br />
+        @Html.TextBoxFor(m => m.FAD._BSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+        @Html.TextBoxFor(m => m.FAD._BState, new { @class = "fnl_txtbx_smee", placeholder = "State" })
+        @Html.TextBoxFor(m => m.FAD._BPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br /> 
+        @Html.TextBoxFor(m => m.FAD._BCountry, new { @class = "country fnl_txtbx_fl", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+
+        <p>Is your Business address same as your postal address?</p>
+        @Html.RadioButtonFor(m => m.FAD._IsSame, true, new { id = "_IsSame", onclick = "ShowHideElement('div_Postal',false)", @checked = "checked" })
+        Yes
+        @Html.RadioButtonFor(m => m.FAD._IsSame, false, new { id = "_IsNotSame", onclick = "ShowHideElement('div_Postal',true)" })
+        No <br />
+
+
+        <div id="div_Postal" style="display:none;">
+            @Html.TextBoxFor(m => m.FAD._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Complete Address" })<br />
+            @Html.TextBoxFor(m => m.FAD._PPOBox, new { @class = "fnl_txtbx_fl", placeholder = "PO Box" })<br />
+            @Html.TextBoxFor(m => m.FAD._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+            @Html.TextBoxFor(m => m.FAD._PState, new { @class = "fnl_txtbx_smee", placeholder = "State" })
+            @Html.TextBoxFor(m => m.FAD._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br /> 
+            @Html.TextBoxFor(m => m.FAD._PCountry, new { @class = "country fnl_txtbx_fl", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+        </div>
+        <br />
+        @Html.TextBoxFor(m => m.FAD._BusinessNo, new { @class = "fnl_txtbx_suburb", placeholder = "Business number" })
+        @Html.TextBoxFor(m => m.FAD._MobileNo, new { @class = "fnl_txtbx_smee", id = "fadMbno", placeholder = "Mobile number", @Value = Session["MobileNo"] })
+
+
+        <br />
+        <input type="button" id="anchor44" class="btn btn-primary btn-oval btn-large" value=" Next " />
+        </div>
+        </div></div></div></section>
+
+    </div>
+    
+    <section id="div_step4submt" class="CWSF_memapp_shadedradio">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_nar mar-lt-300"> 
+                        @*<p>Are you a US citizen, resident, trust, or entity registered in the USA?</p><br />
+                        @Html.RadioButtonFor(m => m.FAD._IsUSCitizen, true)Yes
+                        @Html.RadioButtonFor(m => m.FAD._IsUSCitizen, false, new { @checked = "checked" })No*@
+
+                        <br /><br />
+                        <input type="button" value=" Next Step" class="btn btn-primary btn-oval btn-large" id="btnSub"/>
+                        <input type="submit"  id="S4_Submit" style="display:none;" />
+    </div></div></div></div></section>
+}
+
+
+
+<script type="text/javascript">
+    function disableValidationARD() {
+        $("#ardTitle").removeAttr("required");
+        $("#ardFullName").removeAttr("required");
+        $("#ardSurname").removeAttr("required");
+        $("#ardMobileNo").removeAttr("required");
+        $("#ardEmailAddress").removeAttr("required");
+        //$("#ardAFSL_LicenceNo").removeAttr("required");
+    }
+    function enableValidationARD() {
+        $("#ardTitle").attr("required", true);
+        $("#ardFullName").attr("required", true);
+        $("#ardSurname").attr("required", true);
+        $("#ardMobileNo").attr("required", true);
+        $("#ardEmailAddress").attr("required", true);
+        //$("#ardAFSL_LicenceNo").attr("required", true);
+    }
+    function ShowHideAuthRep(id, action) {
+        if (action == true) {
+            $("#" + id).show('fast');
+            enableValidationARD();
+        }
+        else {
+            $("#" + id).hide('fast');
+            disableValidationARD();
+        }
+    }
+
+    function disableValidationFAD() {
+        $("#fadDealrGrpName").removeAttr("required");
+        $("#fadAdviserName").removeAttr("required");
+        $("#fadAFSLno").removeAttr("required");
+        $("#fadCntctNo").removeAttr("required");
+        $("#fadEmlAddr").removeAttr("required");
+        $("#fadMbno").removeAttr("required");
+    }
+    function enableValidationFAD() {
+        $("#fadDealrGrpName").attr("required", true);
+        $("#fadAdviserName").attr("required", true);
+        $("#fadAFSLno").attr("required", true);
+        $("#fadCntctNo").attr("required", true);
+        $("#fadEmlAddr").attr("required", true);
+        $("#fadMbno").attr("required", true);
+    }
+    function ShowHideFinAdvDetl(id, action) {
+        if (action == true) {
+            $("#" + id).show('fast');
+            enableValidationFAD();
+        }
+        else {
+            $("#" + id).hide('fast');
+            disableValidationFAD();
+        }
+    }
+    $("#anchor41").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#div_AuthorisedRepresentative").offset().top
+        }, 1500);
+    });
+    $("#anchor42").click(function () {
+        var chk = $('#chkARD').is(':checked');
+        if (chk) {
+            if (ScrollValidate('div_Authr', 'S4_Submit')) {
+                $('html, body').animate({
+                    scrollTop: $("#div_FAyesno").offset().top
+                }, 1500);
+            }
+        } else {
+            alert('Accept authorised representative term and condition.');
+        }
+    });
+    $("#anchor43").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#div_FinancialAdviser").offset().top
+        }, 1500);
+    });
+    $("#anchor44").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#div_step4submt").offset().top
+        }, 1500);
+    });
+    $("#IsAuthRepyes").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#div_AuthorisedRepresentative").offset().top
+        }, 1500);
+    });
+    $("#IsFinAdvyes").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#div_FinancialAdviser").offset().top
+        }, 1500);
+    });
+    $('#btnSub').click(function () {
+        var istrue = $("input:radio[name='ARD._IsAuthRep']:checked").val();
+        if (istrue=="True") {
+            var chk = $('#chkARD').is(':checked');
+            if (chk) {
+                $('#S4_Submit').click();
+            } else {
+                alert('Accept authorised representative term and condition.');
+            }
+        } else {
+            $('#S4_Submit').click();
+        }
+    })
+    $(document).ready(function () {
+        $("#progAT").addClass("visited first");
+        $("#progIV").addClass("previous visited");
+        $("#progIP").addClass("previous visited");
+        $("#progAF").addClass("active");
+        $("#progRC").addClass("next");
+        $("#progC").addClass("");
+    });
+
+
+</script>

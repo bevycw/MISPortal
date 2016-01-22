@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.875, 29.75" name="MISPortal_DB">
+  <DataContextMoniker Name="/MISPortal_DBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="6454a0fc-9557-4947-9255-9a359643e90e" absoluteBounds="6.25, 10.5, 2, 2.5401025390624987">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/AuthorisedRepresentativeDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2ee938a8-68a6-4664-93ee-8e3c5a91b784" absoluteBounds="6.265, 10.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="99d7c620-bf7e-41b8-ba89-f34d9c1c83a8" absoluteBounds="0.75, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/Country" />
+      <nestedChildShapes>
+        <elementListCompartment Id="98ddbf23-9f76-4f11-8ce7-dcf54cc943a7" absoluteBounds="0.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3a2339c7-7c42-4c18-a3b0-3b98e0750160" absoluteBounds="9, 13.75, 2, 2.7324039713541648">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/FinancialAdviserAddress" />
+      <nestedChildShapes>
+        <elementListCompartment Id="856b83ca-5837-4002-ba69-32afc945f16e" absoluteBounds="9.015, 14.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="07be6af0-3d8a-4855-b3b9-8b379bd187e0" absoluteBounds="6.25, 13.875, 2, 2.5401025390624987">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/FinancialAdviserDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f9dfebe8-ea01-49a0-a976-2d8c69462bd9" absoluteBounds="6.265, 14.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ac719f89-f1a2-42a0-9c5d-3146596f6639" absoluteBounds="6.25, 7.375, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/PaymentMethod" />
+      <nestedChildShapes>
+        <elementListCompartment Id="95f53cb7-6310-421f-a3b4-9023d190ad9d" absoluteBounds="6.265, 7.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="09178d92-77ca-4262-a3ed-ebc1f9cb3244" absoluteBounds="9, 23.25, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/Shareholder" />
+      <nestedChildShapes>
+        <elementListCompartment Id="97a3966e-6759-45ee-93cd-d6e53a038d81" absoluteBounds="9.015, 23.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9007efc5-8ac8-4848-9b95-f76704bc4966" absoluteBounds="9, 26.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/TrustCompanyAddress" />
+      <nestedChildShapes>
+        <elementListCompartment Id="34efabe5-ecf5-45b5-bdcc-5257266c8e19" absoluteBounds="9.015, 27.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8306d99e-62c3-4be7-8325-69f285bfa12b" absoluteBounds="6.25, 2.25, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/UploadDocument" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48de4a1b-11c2-4064-84c9-151cc0ca4785" absoluteBounds="6.265, 2.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6fc55d90-14ee-4c3e-8a6e-818fec9dd9d5" absoluteBounds="0.75, 14.625, 2, 2.3478011067708326">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6f6f98de-8686-400b-94f9-7edcf657693f" absoluteBounds="0.765, 15.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.25 : 15.1450512695312); (9 : 15.1450512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/FinancialAdviserDetail/FinancialAdviserDetail_FinancialAdviserAddress" />
+      <nodes>
+        <classShapeMoniker Id="07be6af0-3d8a-4855-b3b9-8b379bd187e0" />
+        <classShapeMoniker Id="3a2339c7-7c42-4c18-a3b0-3b98e0750160" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3eeff0ba-4e93-453e-84b6-c40ecc1f6d6a" absoluteBounds="10.625, 19, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/Address" />
+      <nestedChildShapes>
+        <elementListCompartment Id="98d057cd-29c0-4538-acfd-7e9af364595f" absoluteBounds="10.64, 19.46, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cbd4d020-9327-4610-848d-68e6573da320" absoluteBounds="1, 3.75, 2, 4.0785139973958326">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/GreenidVerification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7f57aac4-557d-4559-813a-037da4d495cf" absoluteBounds="1.0150000000000001, 4.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d3483c5e-4351-48e9-a47a-61817d75ae77" absoluteBounds="3.375, 14.25, 2, 2.5401025390625">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/Applicant" />
+      <nestedChildShapes>
+        <elementListCompartment Id="baca4f5f-4cfb-4b97-973b-4592a95ba6d9" absoluteBounds="3.39, 14.71, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.375 : 14.25); (4.375 : 11.7700512695312); (4.77604166666667 : 11.7700512695312 : JumpStart); (4.94270833333333 : 11.7700512695312 : JumpEnd); (5.66666666666667 : 11.7700512695312 : JumpStart); (5.83333333333333 : 11.7700512695312 : JumpEnd); (6.25 : 11.7700512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_AuthorisedRepresentativeDetail" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="6454a0fc-9557-4947-9255-9a359643e90e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.375 : 15.3325512695312); (6.25 : 15.3325512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_FinancialAdviserDetail" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="07be6af0-3d8a-4855-b3b9-8b379bd187e0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.8437475 : 14.25); (3.8437475 : 8.54890055338542); (4.77604166666667 : 8.54890055338542 : JumpStart); (4.94270833333333 : 8.54890055338542 : JumpEnd); (5.66666666666667 : 8.54890055338542 : JumpStart); (5.83333333333333 : 8.54890055338542 : JumpEnd); (6.25 : 8.54890055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_PaymentMethod" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="ac719f89-f1a2-42a0-9c5d-3146596f6639" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.375 : 14.25); (5.75 : 13.875); (5.75 : 3.13544840494792); (6.25 : 3.13544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_UploadDocument" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="8306d99e-62c3-4be7-8325-69f285bfa12b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 15.7075512695312); (3.375 : 15.7075512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/User/User_Applicant" />
+      <nodes>
+        <classShapeMoniker Id="6fc55d90-14ee-4c3e-8a6e-818fec9dd9d5" />
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="118995cd-6e0b-426a-8742-dda778ad91df" absoluteBounds="0.875, 17.375, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/ApplicantNoVerificationId" />
+      <nestedChildShapes>
+        <elementListCompartment Id="386b9f2e-6845-4564-8ab3-700c456e77f5" absoluteBounds="0.89000000000000012, 17.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.375 : 16.7901025390625); (2.875 : 17.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_ApplicantNoVerificationId" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="118995cd-6e0b-426a-8742-dda778ad91df" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="434d3959-d742-424c-9c31-233b31f31f8c" absoluteBounds="6.125, 4.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/InvestmentDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fd2fa90f-b640-472a-9227-da8d715f9103" absoluteBounds="6.14, 5.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.859375 : 14.25); (4.859375 : 5.82774983723958); (5.66666666666667 : 5.82774983723958 : JumpStart); (5.83333333333333 : 5.82774983723958 : JumpEnd); (6.125 : 5.82774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_InvestmentDetail" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="434d3959-d742-424c-9c31-233b31f31f8c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c5f98fcc-dfc8-4d4d-8f57-cc5851610ca9" absoluteBounds="3.375, 1.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/VisitLead" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d0b763c1-4391-4da6-bb7a-c8ac5c4dd37a" absoluteBounds="3.39, 2.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bf95774b-a39b-4664-bc1e-923950ea1203" absoluteBounds="3.5, 19.75, 2, 6.3861311848958326">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/TrustCompany" />
+      <nestedChildShapes>
+        <elementListCompartment Id="28a66374-dd4d-422b-b1f2-94c419d12510" absoluteBounds="3.515, 20.21, 1.9700000000000002, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 24.8357161458333); (9 : 24.8357161458333)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/TrustCompany/TrustCompany_Shareholder" />
+      <nodes>
+        <classShapeMoniker Id="bf95774b-a39b-4664-bc1e-923950ea1203" />
+        <classShapeMoniker Id="09178d92-77ca-4262-a3ed-ebc1f9cb3244" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 26.1361311848958); (4.5 : 28.1162019856771); (9 : 28.1162019856771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/TrustCompany/TrustCompany_TrustCompanyAddress" />
+      <nodes>
+        <classShapeMoniker Id="bf95774b-a39b-4664-bc1e-923950ea1203" />
+        <classShapeMoniker Id="9007efc5-8ac8-4848-9b95-f76704bc4966" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.4375 : 16.7901025390625); (4.4375 : 19.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_TrustCompany" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="bf95774b-a39b-4664-bc1e-923950ea1203" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="7b424e13-49be-42cd-93d0-36ad0349213a" absoluteBounds="6.375, 17.375, 2, 6.1938297526041657">
+      <DataClassMoniker Name="/MISPortal_DBDataContext/PersonalDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="be42d5ef-f19c-4101-9985-de05e93bbedc" absoluteBounds="6.39, 17.835, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.375 : 20.6546541341146); (10.625 : 20.6546541341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/PersonalDetail/PersonalDetail_Address" />
+      <nodes>
+        <classShapeMoniker Id="7b424e13-49be-42cd-93d0-36ad0349213a" />
+        <classShapeMoniker Id="3eeff0ba-4e93-453e-84b6-c40ecc1f6d6a" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.375 : 16.6338525390625); (8.34375 : 16.6338525390625); (8.34375 : 17.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MISPortal_DBDataContext/Applicant/Applicant_PersonalDetail" />
+      <nodes>
+        <classShapeMoniker Id="d3483c5e-4351-48e9-a47a-61817d75ae77" />
+        <classShapeMoniker Id="7b424e13-49be-42cd-93d0-36ad0349213a" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

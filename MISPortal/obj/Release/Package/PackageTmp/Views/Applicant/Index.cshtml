@@ -1,0 +1,180 @@
+﻿@model MISPortal.Models.ApplicantPersonalDetails
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    
+</script>
+
+<div class="main_pane">
+    <div class="bizfuture_pane">
+        <div id="bizfuture_pane_content" class="color-black">
+            <div class="head-jushead">
+                <h007>Join in just a few minutes</h007>
+            </div>
+            <p>
+                It takes just a few minutes to join Crescent Wealth and transfer your superannuation
+                into your new Crescent Wealth account. Let's get started, and help build a better fossil
+                free future.
+            </p>
+            <p class="link-grey">
+                You can find detailed information about Crescent Wealth in our <a href="#"
+                    target="_blank">Product Disclosure Statement</a>, <a href="#"
+                        target="_blank">Additional Information Booklet</a> and <a href="#"
+                            target="_blank">Privacy Policy</a>.</p>
+            <a href="#eql_r_mthr" rel="" id="anchor1" class="btn btn-primary btn-oval btn-large">
+                Get Started</a>
+        </div>
+    </div>
+</div>
+<div id="typeac" class="container-fluid pad-0">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div id="eql_r_mthr" class="CWSF_memapp_headtext cwsf-head">
+                <h1>
+                    Crescent Wealth Superannuation Fund Member Application
+                </h1>
+            </div>
+            <div class="CWSF_memapp_text cwsf-head mar-bot-40">
+                <p5>  
+
+            This application allows you to establish an account with Crescent Wealth Superannuation Fund ("CWSF").<br />
+
+            All application information provided is protected by 128-bit SSL security encryption.<br />
+
+            to begin, please select your account type and click the "Next" button.<br />
+            </p5>
+            <br />
+            <input type="text" placeholder="Mobile No" id="mobileno"/><input type="text" placeholder="Email Address" id="email" onfocusout="saveLead()" /> @*<a href="/Applicant/ResumeApplication">Resume Application</a>*@
+            </div>
+        </div>
+        <div id="" class="CWSF_memapp_shadedradio">
+            <div class="col-md-10 col-md-offset-1">
+                <div id="class_radio_select" class="color-white">
+                    <div class="headnp">
+                        <h2 class="mar-lt">
+                            Account Type
+                        </h2>
+                        <p2>Select your account type *</p2>
+                        <br />
+                    </div>
+                    <div class="account-icon">
+                        <a href="#" id="Individual">
+                            <div class="radio_individual">
+                                <span class="acc-icon-text">Individual</span>
+                            </div>
+                        </a><a href="#" id="Joint">
+                            <div class="radio_joint">
+                                <span class="acc-icon-text1">Joint</span>
+                            </div>
+                        </a><a href="#" id="Trust">
+                            <div class="radio_trust">
+                                <span class="acc-icon-text2">Trust</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container -->
+
+<input type="hidden" id="hiddenAT" />
+
+<div id="div_Individual"> 
+@Html.Partial("Individual")
+</div>
+
+<div id="div_Joint" style="display:none;">
+    @{ List<MISPortal.Models.ApplicantPersonalDetails> apdlist = new List<MISPortal.Models.ApplicantPersonalDetails>();
+       MISPortal.Models.ApplicantPersonalDetails a1 = new MISPortal.Models.ApplicantPersonalDetails();
+       MISPortal.Models.ApplicantPersonalDetails a2 = new MISPortal.Models.ApplicantPersonalDetails();
+       MISPortal.Models.ApplicantPersonalDetails a3 = new MISPortal.Models.ApplicantPersonalDetails();
+       apdlist.Add(a1);
+       apdlist.Add(a2);
+       apdlist.Add(a3); 
+       
+       @Html.Partial("Joint", apdlist);
+    }
+</div>
+
+<div id="div_Trust" style="display:none;">
+@Html.Partial("Trust")
+</div>
+
+
+
+
+<script type="text/javascript">
+    
+    $("#anchor1").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#typeac").offset().top
+        }, 1500);
+    });
+    $("#Individual").click(function () {
+        $('#div_Individual').show();
+        $('#div_Joint').hide();
+        $('#div_Trust').hide();
+        $('#div_TrustCompany').hide();
+        $('#div_TrustIndividual').hide();
+        $('#hiddenAT').val('Individual');
+        $('html, body').animate({
+            scrollTop: $("#div_Individual").offset().top
+        }, 1500);
+    });
+    $("#Joint").click(function () {
+        $('#div_Joint').show();
+        $('#div_Individual').hide();
+        $('#div_Trust').hide();
+        $('#div_TrustCompany').hide();
+        $('#div_TrustIndividual').hide();
+        $('#hiddenAT').val('Joint');
+        $('html, body').animate({
+            scrollTop: $("#div_Joint").offset().top
+        }, 1500);
+    });
+    $("#Trust").click(function () {
+        $('#div_Trust').show();
+        $('#div_Individual').hide();
+        $('#div_Joint').hide();
+        $('html, body').animate({
+            scrollTop: $("#div_Trust").offset().top
+        }, 1500);
+    });
+
+    function saveLead() {
+        try {
+            var email = document.getElementById('email').value;
+            var mobileno = document.getElementById('mobileno').value;
+            if (email != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Applicant/Lead',
+                    data: { Email: email, MobileNo : mobileno },
+                    datatype: 'JSON',
+                    success: function (response) {
+                        if (response != "") {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    },
+                    error: function (xhr, type, exception) {
+                        window.alert(categoriaId);
+
+                        alert("Error: " + type);
+                        alert("Error: " + exception);
+                        alert("Error: " + xhr.status);
+                    }
+                })
+            } 
+        }
+        catch (e) {
+            alert('An error has occurred: ' + e.message)
+        }
+    }
+</script>

@@ -1,0 +1,241 @@
+﻿@model MISPortal.Models.ApplicantPersonalDetails
+           
+
+@{
+    List<SelectListItem> stateList = new List<SelectListItem>();
+    stateList.Add(new SelectListItem { Text = "ACT", Value = "ACT" });
+    stateList.Add(new SelectListItem { Text = "NSW", Value = "NSW" });
+    stateList.Add(new SelectListItem { Text = "NT", Value = "NT" });
+    stateList.Add(new SelectListItem { Text = "QLD", Value = "QLD" });
+    stateList.Add(new SelectListItem { Text = "SA", Value = "SA" });
+    stateList.Add(new SelectListItem { Text = "TAS", Value = "TAS" });
+    stateList.Add(new SelectListItem { Text = "VIC", Value = "VIC" });
+    stateList.Add(new SelectListItem { Text = "WA", Value = "WA" });  
+ }
+
+
+
+
+@using (Html.BeginForm("AddEditIndividualApplicant", "Applicant", FormMethod.Post, new { role = "form", onsubmit = "ShowLoading()" }))
+{
+    
+    @Html.HiddenFor(m => m._ApplicantID);
+    @Html.HiddenFor(m => m._PersonalDetailID);
+    @Html.HiddenFor(m => m._RAddressID);
+    @Html.HiddenFor(m => m._PAddressID);   
+                                       
+    @Html.HiddenFor(m => m._LeadEmail, new { id="IleadEmail" }); 
+
+    <div id="lst_bb_lst" class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                    <div id="tog_frm_infin">
+                        <div id="min_ind_frm">
+                            <h5>
+                                Investing as an Individual
+                            </h5>
+                                <p5>Please complete if you are investing as an individual.</p5>
+                                <br /><br />
+                            <div id="Ind_Sec1">
+                                <h5>Personal Details </h5>
+                                @Html.DropDownListFor(m => m._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { @class = "fnl_txtbx_sml", required = "required" })
+                                @Html.TextBoxFor(m => m._FullName, new { @class = "fnl_txtbx_lrg", placeholder = "Full given names", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._MiddleName, new { @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                                @Html.TextBoxFor(m => m._Surname, new { @class = "fnl_txtbx_fl", placeholder = "Surname", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._BirthDate, new { id = "dobi", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @required = "required", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                                @Html.TextBoxFor(m => m._CountryOfBirth, new { @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                                @Html.TextBoxFor(m => m._Occupation, new { @class = "fnl_txtbx_fl", placeholder = "Occupation", @required = "required" })
+                                <div class="but_one">
+                                    <span class="radio_buttonnext">
+                                        <input type="button" id="anchor2" class="btn-nav-orange" value=" Next " />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <div id="res_id" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                    <div id="Ind_Sec2">
+                        <h5> Residential Address </h5>
+                        <p>A PO Box/RMB/Locked Bag is <b>not</b> acceptable.</p>
+                        @*@Html.TextBoxFor(m => m._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />*@
+                        @Html.TextBoxFor(m => m._RUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m._RStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m._RStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name", @required = "required" })
+                        @Html.TextBoxFor(m => m._RStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                        @Html.TextBoxFor(m => m._RSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                        @Html.DropDownListFor(m => m._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State", @required = "required" })
+                        @Html.TextBoxFor(m => m._RPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;",maxlength="4", minlength="4" })<br />
+                        <input type="text" id="_CountryR" name="_RCountry" placeholder="Country" class="fnl_txtbx_fl country"
+                            data-autocomplete="/Applicant/GETCountryNames" required />
+                        <div class="pad-radio">
+                        <p class="mr-bot-20">Is your residential address same as your postal address?</p>
+                        @Html.RadioButtonFor(m => m._IsSame, true, new { onclick = "ShowHideElement('display_postal',false)", @checked = "checked" })
+                        Yes
+                        @Html.RadioButtonFor(m => m._IsSame, false, new { onclick = "ShowHideElement('display_postal',true)" })
+                        No
+                        <br />
+                        </div>
+                        <div id="display_postal" class="mar-bot-20" style="display: none">
+                        <h5> Postal address  </h5>
+                        <p> A PO Box/RMB/Locked Bag is acceptable. </p>
+                        @*@Html.TextBoxFor(m => m._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                        @Html.TextBoxFor(m => m._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                        @Html.TextBoxFor(m => m._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                        @Html.TextBoxFor(m => m._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                        @Html.TextBoxFor(m => m._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                        @Html.DropDownListFor(m => m._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee", placeholder = "State" })
+                        @Html.TextBoxFor(m => m._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                        <input type="text" id="_CountryP" name="_PCountry" placeholder="Country" class="fnl_txtbx_fl country"
+                            data-autocomplete="/Applicant/GETCountryNames" />
+                        </div>
+                        <h5> Contact Details </h5>
+                        @Html.TextBoxFor(m => m._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                        @Html.TextBoxFor(m => m._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                        @Html.TextBoxFor(m => m._MobileNo, new { @class = "cd-email", placeholder = "Mobile number", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m._EmailAddress, new { id = "Iemail", @class = "cd-email", placeholder = "Email address", @required = "required", @type = "email", onblur = "validate(this.value,this.id);" })
+                    </div>
+                  
+                    <div>
+                        <span class="radio_buttonnext">
+                            <input type="button" value=" Next " class="btn-nav-orange" id="anchor3" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    
+    <div id="tax_id" class="mar-top-bot dark-blue-grad">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                    <div>
+                        <div  class="mar-bot-20">
+                            <h5> Tax details : Australian Residents  </h5>
+                            <div class="inner-para">
+                                <p>Collection of Tax File Number (TFN) information is authorised. The use of your TFN and disclosure of it is strictly regulated by tax laws and
+                                the Privacy Act. You are not obliged to provide your TFN, however if you do not provide your TFN, or provide exemption details, we are
+                                required to withhold tax from your distributions at the highest marginal tax rate plus Medicare levy.
+                                <br />
+                                The TFN provided below will automatically be applied to any future investments you make in the Fund(s) unless you indicate, at any time,
+                                that you do not wish to use that TFN for a particular investment. 
+                                
+                                </p>
+                            </div>
+                            <input type="text" id="_TaxFileNoExemptionCode" class="txt-box-tax" name="_TaxFileNoExemptionCode"
+                                placeholder="Tax File Number or Exemption Code" />
+                            OR
+                            <input type="text" id="_ExemptionReason" class="txt-box-tax" name="_ExemptionReason" placeholder="Reason for exemption" /><br />
+                        </div>
+                        <div>
+                            <h5> Tax details : Non-Australian Residents </h5>
+                            <div class="mar-bot-20">
+                                <p> If you are not an Australian resident for tax purposes, please indicate your country of residence.                               
+                                </p>
+                            </div>
+                            <input type="text" id="_CountryTax" class="txt-box-tax country" name="_CountryTax" placeholder="Please indicate your country of residence"
+                                 data-autocomplete="/Applicant/GETCountryNames" />
+                            <div class="pad-radio">
+                                <p>Are you a US citizen, resident, trust, or entity registered in the USA?</p>
+                                @Html.RadioButtonFor(m => m._IsUSCitizen, true, new { onclick = "ShowHideElement('div_IndFATCA',true)" })
+                                Yes
+                                @Html.RadioButtonFor(m => m._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_IndFATCA',false)" })
+                                No
+                            </div>
+                            <div id="div_IndFATCA" class="mar-bot-20" style="display: none;">
+                                <h3>FATCA</h3>
+                                <p>
+                                    This section only applies to United States Citizens/entities.<br />
+                                    You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked
+                                    to a US financial institution or if you are an entity where a US person has a controlling
+                                    interest (greater than 25%).<br />
+                                    <b>Are you FATCA exempt?</b><br />
+                                    @Html.CheckBoxFor(m => m._IsFATCA, new { @class = "chkIndFATCA", value = true })
+                                    Yes
+                                    @Html.CheckBoxFor(m => m._IsFATCA, new { @class = "chkIndFATCA", value = false })
+                                    No - if you tick this box, you need to complete the FATCA form in addition to this
+                                    form. Please contact Investor Services.
+                                </p>
+                            </div>
+                            <div class="jus_nextosubmito">
+                                <span class="radio_buttonnext">
+                                    <button type="button" value="  Next Step  " class="btn-nav-green" id="Ind_btn" onclick="chkLE();">Next Step</button>
+                                    <input type="submit" value="  Next Step  " class="btn-nav-green" id="Ind_Submit" style="display:none;"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+}
+
+
+<script type="text/javascript">
+    $("#anchor2").click(function () {
+        if (ScrollValidate('Ind_Sec1', 'Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#res_id").offset().top
+            }, 1500);
+        }
+    });
+    $("#anchor3").click(function () {
+        if (ScrollValidate('Ind_Sec2', 'Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#tax_id").offset().top
+            }, 1500);
+        }
+    });
+    function chkLE() {
+        var val = $('#email').val();
+        if (val == "") {
+            $('#email').focus();
+        } else {
+            $('#IleadEmail').val(val);
+            $('#Ind_Submit').click();
+        }
+    }
+    $(document).ready(function () {
+        $("#_TaxFileNoExemptionCode").keypress(function () {
+            $("#_CountryTax").val("");
+            $("#_ExemptionReason").val("");
+        });
+        $("#_ExemptionReason").keypress(function () {
+            $("#_CountryTax").val("");
+            $("#_TaxFileNoExemptionCode").val("");
+        });
+        $("#_CountryTax").keypress(function () {
+            $("#_TaxFileNoExemptionCode").val("");
+            $("#_ExemptionReason").val("");
+        });
+    });
+    $(function () {
+        $("input:checkbox.chkIndFATCA").click(function () {
+            $("input:checkbox.chkIndFATCA").not($(this)).removeAttr("checked");
+            $(this).attr("checked", $(this).attr("checked"));
+        });
+    });
+</script>

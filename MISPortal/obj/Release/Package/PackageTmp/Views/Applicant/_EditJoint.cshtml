@@ -1,0 +1,471 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>
+
+@Html.HiddenFor(m=>m[0].PD[0]._PersonalDetailID)
+@Html.HiddenFor(m=>m[0].PD[0]._RAddressID)
+@Html.HiddenFor(m=>m[0].PD[0]._PAddressID)
+
+@Html.HiddenFor(m=>m[0].PD[1]._PersonalDetailID)
+@Html.HiddenFor(m=>m[0].PD[1]._RAddressID)
+@Html.HiddenFor(m=>m[0].PD[1]._PAddressID)
+
+@if(Model[0].PD.Count()==3)
+{
+@Html.HiddenFor(m=>m[0].PD[2]._PersonalDetailID)
+@Html.HiddenFor(m=>m[0].PD[2]._RAddressID)
+@Html.HiddenFor(m=>m[0].PD[2]._PAddressID)
+}
+
+
+@{
+    List<SelectListItem> titleList = new List<SelectListItem>();
+    titleList.Add(new SelectListItem { Text = "Miss", Value = "Miss" });
+    titleList.Add(new SelectListItem {Text="Mr",Value="Mr"});
+    titleList.Add(new SelectListItem {Text="Mrs",Value="Mrs"});
+    titleList.Add(new SelectListItem {Text="Ms",Value="Ms"});
+    titleList.Add(new SelectListItem {Text="Mx",Value="Mx"});
+    titleList.Add(new SelectListItem {Text="Dr",Value="Dr"});
+    titleList.Add(new SelectListItem { Text = "Prof", Value = "Prof" });  
+    
+ }
+
+
+<table class="table table-responsive table-condensed table-hover no-margin tab-col" >
+<tr>
+<td>Account Type</td>
+<td>@Html.DisplayFor(m=>m[0]._AccountType)</td>
+</tr>
+<tr>
+<td colspan="2" align="center"><h3>Applicant # 1</h3></td>
+</tr>
+<tr>
+<td style="width:50%;">Title</td>
+<td style="width:50%;">@Html.DropDownListFor(m => m[0].PD[0]._Title, new SelectList(titleList, "Value", "Text", Model[0].PD[0]._Title), "Title", new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._FullName, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Surname</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._Surname, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Birth Date</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._BirthDate, new { id = "dobejapp1", @onfocusout = "validateDOB(this.value,this.id)", @required = "required" })</td>
+</tr>
+<tr>
+<td>Area Code (Home)</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._AreaCodeH, new {  })</td>
+</tr>
+<tr>
+<td>Home Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._HomeNo, new {  })</td>
+</tr>
+<tr>
+<td>Area Code (Business)</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._AreaCodeB, new { })</td>
+</tr>
+<tr>
+<td>Business Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._BusinessNo, new { })</td>
+</tr>
+<tr>
+<td>Mobile Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._MobileNo, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._EmailAddress, new { @type = "email", @required = "required" })</td>
+</tr>
+<tr>
+<td>Tax File Number/Exemption Code</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._TaxFileNoExemptionCode, new { id = "ap1TFNEC" })</td>
+</tr>
+<tr>
+<td>Exemption Reason</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._ExemptionReason, new { id = "ap1ER" })</td>
+</tr>
+<tr>
+<td>Country Tax</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._CountryTax, new { id = "ap1CT", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+<td>Residentail Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._RAddress, new { placeholder = "Unit | Street number | Street name", @required = "required" })</td>
+</tr>
+<tr>
+<td>Residential Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._RSuburb, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residentail State</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._RState, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residentail Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._RPostcode, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residential Country</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._RCountry, new { @required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+<td>Is Same as residentail</td>
+<td>
+    @Html.HiddenFor(m => m[0].PD[0]._IsSame)
+    @Html.DisplayFor(m => m[0].PD[0]._IsSame)</td>
+</tr>
+@if (Model[0].PD[0]._IsSame == false)
+{
+<tr>
+<td>Postal Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._PAddress, new { placeholder = "Unit | Street number | Street name" })</td>
+</tr>
+<tr>
+<td>Postal Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._PSuburb, new { })</td>
+</tr>
+<tr>
+<td>Postal State</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._PState, new { })</td>
+</tr>
+<tr>
+<td>Postal Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._PPostcode, new { })</td>
+</tr>
+<tr>
+<td>Postal Country</td>
+<td>@Html.TextBoxFor(m => m[0].PD[0]._PCountry, new { @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+}
+<tr>
+<td>Is Us Citizen</td>
+<td>
+@Html.RadioButtonFor(m => m[0].PD[0]._IsUSCitizen, true, new { onclick = "ShowHideElement('trFATCAap1',true)" })
+Yes
+@Html.RadioButtonFor(m => m[0].PD[0]._IsUSCitizen, false, new { onclick = "ShowHideElement('trFATCAap1',false)" })
+No
+</td>
+</tr>
+<tr id="trFATCAap1">
+<td>Is FATCA Exempt</td>
+<td>
+@Html.RadioButtonFor(m => m[0].PD[0]._IsFATCA, true)
+Yes
+@Html.RadioButtonFor(m => m[0].PD[0]._IsFATCA, false, new { })
+No
+</td>
+</tr>
+            
+    
+<tr>
+<td colspan="2" align="center"><h3>Applicant # 2</h3></td>
+</tr>              
+    
+<tr>
+<td style="width:50%;">Title</td>
+<td style="width:50%;">@Html.DropDownListFor(m => m[0].PD[1]._Title, new SelectList(titleList, "Value", "Text", Model[0].PD[1]._Title), "Title", new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._FullName, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Surname</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._Surname, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Birth Date</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._BirthDate, new { id = "dobejapp2", @onfocusout = "validateDOB(this.value,this.id)", @required = "required" })</td>
+</tr>
+<tr>
+<td>Area Code (Home)</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._AreaCodeH, new {  })</td>
+</tr>
+<tr>
+<td>Home Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._HomeNo, new {  })</td>
+</tr>
+<tr>
+<td>Area Code (Business)</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._AreaCodeB, new { })</td>
+</tr>
+<tr>
+<td>Business Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._BusinessNo, new { })</td>
+</tr>
+<tr>
+<td>Mobile Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._MobileNo, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._EmailAddress, new { @type = "email", @required = "required" })</td>
+</tr>
+<tr>
+<td>Tax File Number/Exemption Code</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._TaxFileNoExemptionCode, new { id = "ap2TFNEC" })</td>
+</tr>
+<tr>
+<td>Exemption Reason</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._ExemptionReason, new { id = "ap2ER" })</td>
+</tr>
+<tr>
+<td>Country Tax</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._CountryTax, new { id = "ap2CT", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+<td>Residentail Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._RAddress, new { placeholder = "Unit | Street number | Street name", @required = "required" })</td>
+</tr>
+<tr>
+<td>Residential Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._RSuburb, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residentail State</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._RState, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residentail Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._RPostcode, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residential Country</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._RCountry, new { @required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+<td>Is Same as residentail</td>
+<td>
+    @Html.HiddenFor(m => m[0].PD[1]._IsSame)
+    @Html.DisplayFor(m => m[0].PD[1]._IsSame)</td>
+</tr>
+@if (Model[0].PD[1]._IsSame == false)
+{
+<tr>
+<td>Postal Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._PAddress, new { placeholder = "Unit | Street number | Street name" })</td>
+</tr>
+<tr>
+<td>Postal Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._PSuburb, new { })</td>
+</tr>
+<tr>
+<td>Postal State</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._PState, new { })</td>
+</tr>
+<tr>
+<td>Postal Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._PPostcode, new { })</td>
+</tr>
+<tr>
+<td>Postal Country</td>
+<td>@Html.TextBoxFor(m => m[0].PD[1]._PCountry, new { @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+}
+<tr>
+<td>Is Us Citizen</td>
+<td>
+@Html.RadioButtonFor(m => m[0].PD[1]._IsUSCitizen, true, new { onclick = "ShowHideElement('trFATCAap2',true)" })
+Yes
+@Html.RadioButtonFor(m => m[0].PD[1]._IsUSCitizen, false, new { onclick = "ShowHideElement('trFATCAap2',false)" })
+No
+</td>
+</tr>
+<tr id="trFATCAap2">
+<td>Is FATCA Exempt</td>
+<td>
+@Html.RadioButtonFor(m => m[0].PD[1]._IsFATCA, true)
+Yes
+@Html.RadioButtonFor(m => m[0].PD[1]._IsFATCA, false, new { })
+No
+</td>
+</tr>
+
+
+@if (Model[0].PD.Count() == 3)
+{
+<tr>
+<td colspan="2" align="center"><h3>Applicant # 3</h3></td>
+</tr>
+        
+    <tr>
+<td style="width:50%;">Title</td>
+<td style="width:50%;">@Html.DropDownListFor(m => m[0].PD[2]._Title, new SelectList(titleList, "Value", "Text", Model[0].PD[2]._Title), "Title", new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._FullName, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Surname</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._Surname, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Birth Date</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._BirthDate, new { id = "dobejapp3", @onfocusout = "validateDOB(this.value,this.id)", @required = "required" })</td>
+</tr>
+<tr>
+<td>Area Code (Home)</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._AreaCodeH, new { })</td>
+</tr>
+<tr>
+<td>Home Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._HomeNo, new { })</td>
+</tr>
+<tr>
+<td>Area Code (Business)</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._AreaCodeB, new { })</td>
+</tr>
+<tr>
+<td>Business Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._BusinessNo, new { })</td>
+</tr>
+<tr>
+<td>Mobile Number</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._MobileNo, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._EmailAddress, new { @type = "email", @required = "required" })</td>
+</tr>
+<tr>
+<td>Tax File Number/Exemption Code</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._TaxFileNoExemptionCode, new { id = "ap3TFNEC" })</td>
+</tr>
+<tr>
+<td>Exemption Reason</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._ExemptionReason, new { id = "ap3ER" })</td>
+</tr>
+<tr>
+<td>Country Tax</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._CountryTax, new { id = "ap3CT", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+<td>Residentail Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._RAddress, new { placeholder = "Unit | Street number | Street name", @required = "required" })</td>
+</tr>
+<tr>
+<td>Residential Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._RSuburb, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residentail State</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._RState, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residentail Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._RPostcode, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Residential Country</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._RCountry, new { @required = "required", @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+<tr>
+<td>Is Same as residentail</td>
+<td>
+    @Html.HiddenFor(m => m[0].PD[2]._IsSame)
+    @Html.DisplayFor(m => m[0].PD[2]._IsSame)</td>
+</tr>
+if (Model[0].PD[2]._IsSame == false)
+{
+<tr>
+<td>Postal Address</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._PAddress, new { placeholder = "Unit | Street number | Street name" })</td>
+</tr>
+<tr>
+<td>Postal Suburb</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._PSuburb, new { })</td>
+</tr>
+<tr>
+<td>Postal State</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._PState, new { })</td>
+</tr>
+<tr>
+<td>Postal Postcode</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._PPostcode, new { })</td>
+</tr>
+<tr>
+<td>Postal Country</td>
+<td>@Html.TextBoxFor(m => m[0].PD[2]._PCountry, new { @class = "country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })</td>
+</tr>
+}
+<tr>
+<td>Is Us Citizen</td>
+<td>
+@Html.RadioButtonFor(m => m[0].PD[2]._IsUSCitizen, true, new { onclick = "ShowHideElement('trFATCAap3',true)" })
+Yes
+@Html.RadioButtonFor(m => m[0].PD[2]._IsUSCitizen, false, new { onclick = "ShowHideElement('trFATCAap3',false)" })
+No
+</td>
+</tr>
+<tr id="trFATCAap3">
+<td>Is FATCA Exempt</td>
+<td>
+@Html.RadioButtonFor(m => m[0].PD[2]._IsFATCA, true)
+Yes
+@Html.RadioButtonFor(m => m[0].PD[2]._IsFATCA, false, new { })
+No
+</td>
+</tr>
+        
+}
+</table>                    
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#ap1TFNEC").keypress(function () {
+        $("#ap1CT").val("");
+        $("#ap1ER").val("");
+    });
+    $("#ap1ER").keypress(function () {
+        $("#ap1CT").val("");
+        $("#ap1TFNEC").val("");
+    });
+    $("#ap1CT").keypress(function () {
+        $("#ap1TFNEC").val("");
+        $("#ap1ER").val("");
+    });
+    $("#ap2TFNEC").keypress(function () {
+        $("#ap2CT").val("");
+        $("#ap2ER").val("");
+    });
+    $("#ap2ER").keypress(function () {
+        $("#ap2CT").val("");
+        $("#ap2TFNEC").val("");
+    });
+    $("#ap2CT").keypress(function () {
+        $("#ap2TFNEC").val("");
+        $("#ap2ER").val("");
+    });
+    $("#ap3TFNEC").keypress(function () {
+        $("#ap3CT").val("");
+        $("#ap3ER").val("");
+    });
+    $("#ap3ER").keypress(function () {
+        $("#ap3CT").val("");
+        $("#ap3TFNEC").val("");
+    });
+    $("#ap3CT").keypress(function () {
+        $("#ap3TFNEC").val("");
+        $("#ap3ER").val("");
+    });
+    trFATCA();
+
+});
+
+function trFATCA() {
+    var IsUSCitizenAp1 = $("input[name='[0].PD[0]._IsUSCitizen']:checked").val();
+    if (IsUSCitizenAp1 == "False") {
+        $("#trFATCAap1").hide();
+    }
+    var IsUSCitizenAp2 = $("input[name='[0].PD[1]._IsUSCitizen']:checked").val();
+    if (IsUSCitizenAp2 == "False") {
+        $("#trFATCAap2").hide();
+    }
+    var IsUSCitizenAp3 = $("input[name='[0].PD[2]._IsUSCitizen']:checked").val();
+    if (IsUSCitizenAp3 == "False") {
+        $("#trFATCAap3").hide();
+    }
+}
+</script>

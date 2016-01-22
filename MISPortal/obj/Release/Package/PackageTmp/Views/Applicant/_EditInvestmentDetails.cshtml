@@ -1,0 +1,151 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>
+<table class="table table-responsive table-condensed table-hover no-margin tab-col">
+    <thead>
+        <tr>
+            <td colspan="7" align="center">
+                <h3>Investment Details</h3>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th colspan="3">Where will your<br />Distribution Income go?</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>Fund name</th>
+            <th>Investment amount</th>
+            <th>Regular Savings Plan*<br />$ per month</th>
+            <th>Reinvest in<br />the Fund(x)</th>
+            <th></th>
+            <th>Deposit into<br /> nominated<br /> financial institution<br />account(x)**
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var id in Model[0].ID.IDL)
+        {
+            if (id._FundName == "Crescent Australian Equity Fund")
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(m=>m[0].ID.IDL[0]._InvestmentDetailsID,new{ value=id._InvestmentDetailsID})
+                        @Html.HiddenFor(m => m[0].ID.IDL[0]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m[0].ID.IDL[0]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[0]._InvestmentAmount, new { Value=id._InvestmentAmount ,@onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv1',this.value,'5000');", @placeholder = "Min $5000", id = "inv1" })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[0]._RegularSavingPlanPerMonth, new { Value = id._RegularSavingPlanPerMonth, placeholder = "n/a", disabled = "disabled" })
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[0]._Reinvest, true, new { value= id._Reinvest})
+                    </td>
+                    <td>OR</td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[0]._Reinvest, false, new { value = id._Reinvest })
+                    </td>
+                </tr>
+            }
+            if (id._FundName == "Crescent Islamic Cash Management Fund")
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(m=>m[0].ID.IDL[1]._InvestmentDetailsID,new{ value=id._InvestmentDetailsID})
+                        @Html.HiddenFor(m => m[0].ID.IDL[1]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m[0].ID.IDL[1]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[1]._InvestmentAmount, new { value=id._InvestmentAmount,@onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv2',this.value,'5000');", @placeholder = "Min $5000", id = "inv2" })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[1]._RegularSavingPlanPerMonth, new { value=id._RegularSavingPlanPerMonth,@onfocusout = "this.value = minmax(this.value, 100, 0);", @onkeyup = "changeAmountColor('#rsp2',this.value,'100');", @placeholder = "Min $100", id = "rsp2" })
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[1]._Reinvest, true, new { value=id._Reinvest })
+                    </td>
+                    <td>OR</td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[1]._Reinvest, false, new { value = id._Reinvest })
+                    </td>
+                </tr>
+            }
+            if (id._FundName == "Crescent International Equity Fund")
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(m=>m[0].ID.IDL[2]._InvestmentDetailsID,new{ value=id._InvestmentDetailsID})
+                        @Html.HiddenFor(m => m[0].ID.IDL[2]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m[0].ID.IDL[2]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[2]._InvestmentAmount, new { value=id._InvestmentAmount ,@onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv3',this.value,'5000');", @placeholder = "Min $5000", id = "inv3" })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[2]._RegularSavingPlanPerMonth, new { value=id._RegularSavingPlanPerMonth ,placeholder = "n/a", disabled = "disabled" })
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[2]._Reinvest, true, new { value=id._Reinvest })
+                    </td>
+                    <td>OR</td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[2]._Reinvest, false, new { value = id._Reinvest })
+                    </td>
+                </tr>
+            }
+            if (id._FundName == "Crescent Diversified Property Fund")
+            {
+                <tr >
+                    <td>
+                        @Html.HiddenFor(m=>m[0].ID.IDL[3]._InvestmentDetailsID,new{ value=id._InvestmentDetailsID})
+                        @Html.HiddenFor(m => m[0].ID.IDL[3]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m[0].ID.IDL[3]._FundName, new { Value = id._FundName })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[3]._InvestmentAmount, new { value=id._InvestmentAmount, @onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv4',this.value,'5000');", @placeholder = "Min $5000", id = "inv4" })
+                    </td>
+                    <td>
+                        A$@Html.TextBoxFor(m => m[0].ID.IDL[3]._RegularSavingPlanPerMonth, new { value=id._RegularSavingPlanPerMonth ,placeholder = "n/a", disabled = "disabled" })
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[3]._Reinvest, true, new { value=id._Reinvest })
+                    </td>
+                    <td>OR</td>
+                    <td>
+                        @Html.RadioButtonFor(m => m[0].ID.IDL[3]._Reinvest, false, new { value = id._Reinvest })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    function minmax(value, min, max) {
+        if (parseInt(value) < min || isNaN(value)) {
+            alert('Must be greater than ' + min);
+            return "";
+        }
+        else if (parseInt(value) > max)
+            return value;
+        else return value;
+    }
+    function changeAmountColor(id, thisvalue, minvalue) {
+        if (parseInt(thisvalue) < parseInt(minvalue)) {
+            $(id).css('color', 'red');
+        } else {
+            $(id).css('color', 'gray');
+        }
+    }
+</script>

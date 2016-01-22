@@ -1,0 +1,256 @@
+﻿@model MISPortal.Models.ApplicantPersonalDetails
+           
+@using (Html.BeginForm("AddEditTrustIndividualApplicant", "Applicant", FormMethod.Post, new { role = "form" }))
+{
+
+@Html.HiddenFor(m => m._ApplicantID); 
+@Html.HiddenFor(m => m._PersonalDetailID);
+@Html.HiddenFor(m => m._RAddressID);
+@Html.HiddenFor(m => m._PAddressID);  
+    
+    <section id="TrustIndiSection1" class="CWSF_joint02 individual-bg">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                        <div class="mar-lt-300">
+                        <div class="fnl_dwn_txt mar-bot-0"> 
+                        <h5 class="no-lt-pad">Step #1</h5>
+                        </div>   
+                        <div class="fnl_dwn_txt mar-bot-0"> 
+                        <h5 class="no-lt-pad">Individual</h5>
+                        </div>
+                            <div class="ind_pd" id="Trst_Ind_Sec1">
+                                <div class="fnl_hp_spcng"> 
+                                <h101>Personal Details</h101><br />
+                                </div>
+                                @Html.DropDownListFor(m => m._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { @class = "fnl_txtbx_sml", required = "required" })
+                                @Html.TextBoxFor(m => m._FullName, new { @class = "fnl_txtbx_lrg", placeholder = "Full given names", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._Surname, new { @class = "fnl_txtbx_fl", placeholder = "Surname", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._BirthDate, new { id="dobti", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @required = "required", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                           
+                                        <div class="fnl_btn_spcng">
+                                            <input type="button" value=" Next " id="Trustanchor1" class="btn btn-primary btn-oval btn-large"/>
+                                        </div>                     
+                                </div>
+                        </div>                          
+                     </div>
+                </div>
+            </div>
+     </section>
+    
+    <section id="TrustIndiSection2" class="CWSF_joint02 blue-bg">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">  
+                    <div class="ind_ra mar-lt-300" id="Trst_Ind_Sec2">
+                        <div class="fnl_hp_spcng">
+                        <h5 class="no-lt-pad">Residential Address</h5>
+                        </div>
+                        @Html.TextBoxFor(m => m._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m._RSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                        @Html.TextBoxFor(m => m._RState, new { @class = "fnl_txtbx_smee", placeholder = "State", @required = "required" })
+                        @Html.TextBoxFor(m => m._RPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required" })<br /> 
+                        @Html.TextBoxFor(m => m._RCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })                       
+                        </div>
+                        <div class="ind_cntctdt mar-lt-300" id="Trst_Ind_Sec3">
+                        <div class="fnl_hp_spcng">
+                                    <h5 class="no-lt-pad">Contact details</h5>
+                            </div>
+                        @Html.TextBoxFor(m => m._AreaCodeH, new { @class = "fnl_txtbx_sml", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m._HomeNo, new { placeholder = "Home number" })<br />
+                        @Html.TextBoxFor(m => m._AreaCodeB, new { @class = "fnl_txtbx_sml", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m._BusinessNo, new { placeholder = "Business number" })<br />
+                        @Html.TextBoxFor(m => m._MobileNo, new { @class = "trust-cd-email", placeholder = "Mobile number", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m._EmailAddress, new { id="TIemail", @class = "trust-cd-email", placeholder = "Email address", @required = "required", @type = "email" })
+                                                
+                        </div>
+                        <div class="rndm_mte_spcng">
+                            <div class="CWSF_memapp_text mar-lt-180">
+                            <p> Is your residential address same as your postal address? </p><br />                 
+                                @Html.RadioButtonFor(m => m._IsSame, true, new { id = "_IsSame", onclick = "ShowHideElement('divtrstindpostal',false)", @checked = "checked" })
+                                Yes
+                                @Html.RadioButtonFor(m => m._IsSame, false, new { id = "_IsNotSame", onclick = "ShowHideElement('divtrstindpostal',true)" })
+                                No <br />  
+                            </div>   
+                        </div>
+                        <div id="divtrstindpostal" class="ind_pa mar-lt-300" style="display:none">
+                            <div class="fnl_hp_spcng">
+                                <h5 class="no-lt-pad">Postal Address</h5>
+                                </div>
+                            @Html.TextBoxFor(m => m._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />
+                            @Html.TextBoxFor(m => m._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.TextBoxFor(m => m._PState, new { @class = "fnl_txtbx_smee", placeholder = "State" })
+                            @Html.TextBoxFor(m => m._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br />
+                            @Html.TextBoxFor(m => m._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        </div>
+                        <div class="fnl_btn_spcng mar-lt-300">
+                        <input type="button" value=" Next " id="Trustanchor2" class="btn btn-primary btn-oval btn-large" />
+                        </div>
+                </div>                         
+            </div>
+        </div>
+    </section>
+    
+  @*  <section id="TrustIndiSection3" class="CWSF_joint01 ind-contact-detail">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">  
+                    <div class="">
+                                <div class="fnl_btn_spcng">
+                                    <input type="button" value=" Next " id="Trustanchor3" class="btn btn-primary btn-oval btn-large" />
+                                </div>
+                            </div>   
+                    </div>                          
+                </div>
+            </div>
+    </section>*@
+    
+    
+    <section id="TrustIndiSection4" class="CWSF_joint02 t-banner-3">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                    <div class="ind_td_ar mar-lt-300">   
+                        <div class="fnl_hp_spcng">
+                                <h5 class="no-lt-pad">Tax details - Australian residents</h5>
+                        </div>
+                            <div class="CWSF_memapp_text no-lt-pad">
+                        
+                            <p>  
+                            Collection of Tax File Number (TFN) information is authorised. The use of your TFN and disclosure of it is strictly regulated by tax laws and
+                            the Privacy Act. You are not obliged to provide your TFN, however if you do not provide your TFN, or provide exemption details, we are
+                            required to withhold tax from your distributions at the highest marginal tax rate plus Medicare levy.
+                            <br />
+                            The TFN provided below will automatically be applied to any future investments you make in the Fund(s) unless you indicate, at any time,
+                            that you do not wish to use that TFN for a particular investment. 
+                            </p>
+                            </div> 
+                            
+                            <div>
+                            @Html.TextBoxFor(m => m._TaxFileNoExemptionCode, new { id = "TrustTFNEC", @class = "span3", placeholder = "Tax File Number or Exemption Code" })
+                            OR
+                            @Html.TextBoxFor(m => m._ExemptionReason, new { id = "TrustER", placeholder = "Reason for Exemption" })<br />
+                            </div> 
+
+                            <div class="fnl_hp_spcng">
+                                <h5 class="no-lt-pad">Tax details - Non-Australian residents  </h5>
+                            </div>
+                            <div class="rndm_mte_spcng mar-top-0">
+                            <div class="CWSF_memapp_text no-lt-pad mar-bot-0">
+                            <p> If you are not an Australian resident for tax purposes, please indicate your country of residence. </p><br /> 
+                            @Html.TextBoxFor(m => m._CountryTax, new { id = "apCT", @class = "span3 country", placeholder = "Please indicate your country of residence.", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                            </div>    
+                            </div>     
+                            <div class="rndm_mte_spcng">
+                            <div class="CWSF_memapp_text no-lt-pad">
+                            <p> Are you a US citizen, resident, trust, or entity registered in the USA? </p><br />                 
+                            @Html.RadioButtonFor(m => m._IsUSCitizen, true, new { onclick = "ShowHideElement('div_TrstIndFATCA',true)" })Yes
+                            @Html.RadioButtonFor(m => m._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_TrstIndFATCA',false)" })No <br /> 
+                            </div>  
+                            <div id="div_TrstIndFATCA" style="display:none;">
+                                <h3>FATCA</h3>
+                                <p>This section only applies to United States Citizens/entities.<br />
+                                    You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked to a US financial institution or if you are an entity where a US person has a controlling interest (greater than 25%).<br />
+                                    <b>Are you FATCA exempt?</b><br />
+                                    @Html.CheckBoxFor(m => m._IsFATCA, new { @class = "chkTrstIndFATCA",value=true })
+                                    Yes
+                                    @Html.CheckBoxFor(m => m._IsFATCA,  new { @class="chkTrstIndFATCA",value=false })
+                                    No - if you tick this box, you need to complete the FATCA form in addition to this form. Please contact Investor Services.
+                                </p>
+                            </div>  
+                            </div>                       
+                            <div class="fnl_btn_spcng">
+                                <a href="#TrustIndiSection5" rel="" id="Trustanchor4" class="btn btn-primary btn-oval btn-large"> Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    
+    <section id="TrustIndiSection5" class="CWSF_joint02 blue-bg">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                <div class="mar-lt-300">
+                <div class="fnl_dwn_txt"> 
+                <h5 class="no-lt-pad">Step #2</h5>
+                </div>  
+                <div class="fnl_dwn_txt"> 
+                <h5 class="no-lt-pad">Trusts or superannuation funds </h5>
+                <p>Please complete if you are investing as a trust or superannuation fund.</p>
+                </div>
+                    <div class="ind_tsfd">
+                    <div class="fnl_hp_spcng">
+                                <h101>Trusts or superannuation funds details </h101>
+                        </div>
+                        @Html.TextBoxFor(m => m._NameTrust, new { @class = "fnl_txtbx_lrg", placeholder = "Name of trust or superannuation fund", @required="required" })<br />
+                        @Html.TextBoxFor(m => m._ABN, new { @class = "fnl_txtbx_lrg", placeholder = "ABN (if applicable)", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m._AusTFN, new { @class = "fnl_txtbx_lrg", placeholder = "Australian Tax File Number (TFN)", @required = "required" })<br />
+                        <div class="fnl_btn_spcng">
+                            <input type="submit" value="  Next Step  " class="btn btn-primary btn-oval btn-large" id="Trst_Ind_Submit"/>   
+                        </div>                    
+                    </div>
+                </div>                          
+            </div>
+        </div>
+        </div>
+    </section>
+}
+
+<script type="text/javascript">
+    $("#Trustanchor1").click(function () {
+        if (ScrollValidate('Trst_Ind_Sec1', 'Trst_Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TrustIndiSection2").offset().top
+            }, 1500);
+        }
+    });
+    $("#Trustanchor2").click(function () {
+        if (ScrollValidate('Trst_Ind_Sec2', 'Trst_Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TrustIndiSection4").offset().top
+            }, 1500);
+        }
+    });
+    $("#Trustanchor3").click(function () {
+        if (ScrollValidate('Trst_Ind_Sec3', 'Trst_Ind_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TrustIndiSection4").offset().top
+            }, 1500);
+        }
+    });
+    $("#Trustanchor4").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#TrustIndiSection5").offset().top
+        }, 1500);
+    });
+    $(document).ready(function () {
+        $("#TrustTFNEC").keypress(function () {
+            $("#apCT").val("");
+            $("#TrustER").val("");
+        });
+        $("#TrustER").keypress(function () {
+            $("#apCT").val("");
+            $("#TrustTFNEC").val("");
+        });
+        $("#apCT").keypress(function () {
+            $("#TrustTFNEC").val("");
+            $("#TrustER").val("");
+        })
+    });
+    $(function () {
+        $("input:checkbox.chkTrstIndFATCA").click(function () {
+            $("input:checkbox.chkTrstIndFATCA").not($(this)).removeAttr("checked");
+            $(this).attr("checked", $(this).attr("checked"));
+        });
+    });
+</script>

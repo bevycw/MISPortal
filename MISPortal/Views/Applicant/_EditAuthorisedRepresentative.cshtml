@@ -1,0 +1,54 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails> 
+
+@Html.HiddenFor(m=>m[0].ARD._AuthRepDetailID)
+
+
+@{
+    List<SelectListItem> titleList = new List<SelectListItem>();
+    titleList.Add(new SelectListItem { Text = "Miss", Value = "Miss" });
+    titleList.Add(new SelectListItem {Text="Mr",Value="Mr"});
+    titleList.Add(new SelectListItem {Text="Mrs",Value="Mrs"});
+    titleList.Add(new SelectListItem {Text="Ms",Value="Ms"});
+    titleList.Add(new SelectListItem {Text="Mx",Value="Mx"});
+    titleList.Add(new SelectListItem {Text="Dr",Value="Dr"});
+    titleList.Add(new SelectListItem { Text = "Prof", Value = "Prof" });  
+    
+ }
+
+
+<table class="table table-responsive table-condensed table-hover no-margin tab-col">
+<tr>
+    <td colspan="2" align="center"><h3>Authorised Representative Details</h3></td>
+</tr>
+@if (Model[0].ARD._AuthRepDetailID != 0)
+{
+<tr>
+<td style="width:50%;">Title</td>
+<td style="width:50%;">@Html.DropDownListFor(m => m[0].ARD._Title, new SelectList(titleList, "Value", "Text", Model[0].ARD._Title), "Title", new { @class = "", required = "required" })</td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.TextBoxFor(m => m[0].ARD._FullName, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Surname</td>
+<td>@Html.TextBoxFor(m => m[0].ARD._Surname, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Telephone No</td>
+<td>@Html.TextBoxFor(m => m[0].ARD._TelephoneNo, new { })</td>
+</tr>
+<tr>
+<td>Mobile No</td>
+<td>@Html.TextBoxFor(m => m[0].ARD._MobileNo, new { @required = "required" })</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.TextBoxFor(m => m[0].ARD._EmailAddress, new { @required = "required", @type = "email" })</td>
+</tr>
+<tr>
+<td>AFSL Licence No</td>
+<td>@Html.TextBoxFor(m => m[0].ARD._AFSL_LicenceNo, new { })</td>
+</tr>
+}
+</table>

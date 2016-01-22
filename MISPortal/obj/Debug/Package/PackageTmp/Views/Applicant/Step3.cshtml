@@ -1,0 +1,414 @@
+﻿@model MISPortal.Models.InvestmentDetails
+@{
+    ViewBag.Title = "Step3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+ .bdtop{ border-top:thick double #ff0000;}
+ .bdleft{ border-left:thick double #ff0000;}
+ .bdright{ border-right:thick double #ff0000;}
+ .bdbottom{ border-bottom:thick double #ff0000;}
+</style>
+
+@using (Html.BeginForm("AddEditInvestmentDetailApplicant", "Applicant", FormMethod.Post, new { role = "form", onsubmit = "ShowLoading()" }))
+{
+    @Html.HiddenFor(m => m.IDL[0]._InvestmentDetailsID)
+    @Html.HiddenFor(m => m.IDL[1]._InvestmentDetailsID)
+    @Html.HiddenFor(m => m.IDL[2]._InvestmentDetailsID)
+    @Html.HiddenFor(m => m.IDL[3]._InvestmentDetailsID)
+
+    @Html.HiddenFor(m => m.PM[0]._PaymentMethodID)
+    @Html.HiddenFor(m => m.PM[1]._PaymentMethodID)
+    @Html.HiddenFor(m => m.PM[2]._PaymentMethodID)
+    
+    
+<section id="div_InvestmentDelt" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                <div class="CWSF_trsteentyp01">
+                    <h5>Investment Details</h5>
+                    <p>Please complete your Investment Selection details below</p>
+                </div>
+                @*<table cellpadding="10" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Fund</th>
+                            <th>Minimum Initial Investment</th>
+                            <th>Minimum Additional<br />
+                                Investment</th>
+                            <th>Minimum Months Investment<br />
+                                [Regular Savings Plan]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center">
+                            <td>Crescent Australian Equity Fund</td>
+                            <td>$5.000</td>
+                            <td>$500</td>
+                            <td>na</td>
+                        </tr>
+                        <tr align="center">
+                            <td>Crescent Islamic Cash Management Fund</td>
+                            <td>$5.000</td>
+                            <td>$500</td>
+                            <td>$100</td>
+                        </tr>
+                        <tr align="center">
+                            <td>Crescent International Equity Fund</td>
+                            <td>$5.000</td>
+                            <td>$500</td>
+                            <td>na</td>
+                        </tr>
+                        <tr align="center">
+                            <td>Crescent Diversified Property Fund</td>
+                            <td>$5.000</td>
+                            <td>$500</td>
+                            <td>na</td>
+                        </tr>
+                    </tbody>
+                </table>*@
+    
+                <div style="overflow:auto;">
+                <table cellpadding="5" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th width="125"></th>
+                            <th></th>
+                            <th></th>
+                            <th colspan="3" class="bdtop bdleft bdright bdbottom">Where will your<br />Distribution Income go?</th>
+                        </tr>
+                        <tr>
+                            <th>Fund name</th>
+                            <th>Investment amount</th>
+                            <th>Regular Savings Plan*<br />$ per month</th>
+                            <th class="bdleft">Reinvest in<br />the Fund</th>
+                            <th></th>
+                            <th class="bdright">Deposit into<br /> nominated<br /> financial institution<br />account
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center">
+                            <td>Crescent Australian Equity Fund
+                                @Html.HiddenFor(m => m.IDL[0]._FundName, new { Value = "Crescent Australian Equity Fund" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[0]._InvestmentAmount, new { @class = "s3-txt", @onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv1',this.value,'5000');", @placeholder = "Min $5000", id = "inv1" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[0]._RegularSavingPlanPerMonth, new { @class = "s3-txt", placeholder = "n/a", disabled = "disabled" })
+                            </td>
+                            <td class="bdleft">
+                                @Html.RadioButtonFor(m => m.IDL[0]._Reinvest, true, new { @checked = "checked" })
+                            </td>
+                            <td>OR</td>
+                            <td class="bdright">
+                                @Html.RadioButtonFor(m => m.IDL[0]._Reinvest, false, new { })
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td>Crescent Islamic Cash Management Fund
+                                @Html.HiddenFor(m => m.IDL[1]._FundName, new { Value = "Crescent Islamic Cash Management Fund" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[1]._InvestmentAmount, new { @class = "s3-txt", @onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv2',this.value,'5000');", @placeholder = "Min $5000", id = "inv2" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[1]._RegularSavingPlanPerMonth, new { @class = "s3-txt", @onfocusout = "this.value = minmax(this.value, 100, 0);", @onkeyup = "changeAmountColor('#rsp2',this.value,'100');", @placeholder = "Min $100", id = "rsp2" })
+                            </td>
+                            <td class="bdleft">
+                                @Html.RadioButtonFor(m => m.IDL[1]._Reinvest, true, new { @checked = "checked" })
+                            </td>
+                            <td>OR</td>
+                            <td class="bdright">
+                                @Html.RadioButtonFor(m => m.IDL[1]._Reinvest, false, new { })
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td>Crescent International Equity Fund
+                                @Html.HiddenFor(m => m.IDL[2]._FundName, new { Value = "Crescent International Equity Fund" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[2]._InvestmentAmount, new { @class = "s3-txt", @onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv3',this.value,'5000');", @placeholder = "Min $5000", id = "inv3" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[2]._RegularSavingPlanPerMonth, new { @class = "s3-txt", placeholder = "n/a", disabled = "disabled" })
+                            </td>
+                            <td class="bdleft">
+                                @Html.RadioButtonFor(m => m.IDL[2]._Reinvest, true, new { @checked = "checked" })
+                            </td>
+                            <td>OR</td>
+                            <td class="bdright">
+                                @Html.RadioButtonFor(m => m.IDL[2]._Reinvest, false, new { })
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td>Crescent Diversified Property Fund
+                                @Html.HiddenFor(m => m.IDL[3]._FundName, new { Value = "Crescent Diversified Property Fund" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[3]._InvestmentAmount, new { @class = "s3-txt", @onfocusout = "this.value = minmax(this.value, 5000, 0);", @onkeyup = "changeAmountColor('#inv4',this.value,'5000');", @placeholder = "Min $5000", id = "inv4" })
+                            </td>
+                            <td>
+                                A$@Html.TextBoxFor(m => m.IDL[3]._RegularSavingPlanPerMonth, new { @class = "s3-txt", placeholder = "n/a", disabled = "disabled" })
+                            </td>
+                            <td class="bdleft bdbottom">
+                                @Html.RadioButtonFor(m => m.IDL[3]._Reinvest, true, new { @checked = "checked" })
+                            </td>
+                            <td class="bdbottom">OR</td>
+                            <td class="bdright bdbottom">
+                                @Html.RadioButtonFor(m => m.IDL[3]._Reinvest, false, new { })
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Sources of income</td>
+                            <td colspan="5">&nbsp;&nbsp;&emsp;@Html.TextBoxFor(m => m.IDL[0]._SourceofIncome, new { @class = "cd-email", placeholder = "E.g. Employment, Savings, etc.", required = "required" })</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                </div>
+    
+                <p style="color:Yellow;">
+                *If you nominate an amount for the Regular Savings Plans you must also complete the Direct Debit Request.<br />
+                <b>**If you would like your distribution income to be deposited into a nominated financial institution account, please provide details in Direct Credit/EFT.</b>
+                </p>
+                 <div align="center">
+                    <input type="button" id="anchor31" class="btn-nav-orange" value=" Next " />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>    
+    
+       
+ <!--
+===============================================================
+ Payment Method
+===============================================================
+-->    
+
+<section id="div_pm" class="mar-top-bot dark-blue-grad">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">     
+                    <h2>Payment Method</h2>
+                    <p>Please select your payment method and complete the relevant section if applicable. All payment must be in Australian dollars.</p>
+                    @Html.CheckBoxFor(m => m.PM[0]._PaymentMethod, new { id = "Cheque", @checked = "checked" })<b>Cheque</b>
+                    <p>Please make cheque payable to 'Crescent Funds Management (Aust) Ltd ATF Crescent Wealth'.</p>
+                    <p style="color:Yellow;">
+                    <b>Cheque Address:</b>
+
+                    Crescent Wealth Managed Funds<br />
+                    c/o FundBPO Pty Ltd<br />
+                    GPO Box 4968<br />
+                    Sydney NSW 2001<br />
+                    </p>
+                    @Html.CheckBoxFor(m => m.PM[1]._PaymentMethod, new { id = "DirectDebit" })<b>Direct debit</b>
+                    <p>Please complete the Direct Debit Request.</p>
+                    <input type="checkbox" checked="checked" disabled="disabled" />
+                    @Html.CheckBoxFor(m => m.PM[2]._PaymentMethod, new { id = "DirectCreditEFT", @checked = "checked", style = "display:none;" })
+                    <input type="checkbox" style="display:none;" checked="checked" disabled="disabled" id="hiddenchkDC"/>
+                    <b>Direct credit/EFT</b>
+                    <p>You must nominate an <ins>Australian Bank Account</ins> to redeem your funds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     
+    <section id="div_DirectDebit" class="mar-top-bot light-blue-grad" style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">     
+                    <h5>Direct Debit</h5>
+                        @Html.TextBoxFor(m => m.PM[1]._FinancialInstituteName, new { id = "ddFIN", @class = "fnl_txtbx_fl", placeholder = "Financial Institute Name" })<br />
+                        @Html.TextBoxFor(m => m.PM[1]._BranchName, new { id = "ddBN", @class = "fnl_txtbx_fl", placeholder = "Branch Name" })<br />
+                        @Html.TextBoxFor(m => m.PM[1]._BSBNumber, new { id = "ddBSBNo", @class = "fnl_txtbx_suburb", placeholder = "BSB Number" })
+                        @Html.TextBoxFor(m => m.PM[1]._AccountNumber, new { id = "ddANo", @class = "fnl_txtbx_smee", placeholder = "Account Number" })
+                        @Html.TextBoxFor(m => m.PM[1]._AccountName, new { id = "ddAN", @class = "fnl_txtbx_smee", placeholder = "Account Name" })
+
+                        <p>I/We request and authorise Crescent Funds Management (Aust) Ltd to arrange for the amount(s) specified above to be debited from the financial institution account nominated above through the Bulk Electronic Clearing System.</p><br />
+   
+                </div>
+            </div>
+        </div>
+    </section>   
+    
+    
+    <section id="div_DirectCreditEFT" class="mar-top-bot light-blue-grad">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">     
+
+                    <h5>Direct Credit/EFT</h5>
+                    <h5>Financial Institution Account Details</h5>
+
+                    <p>Please note, you can only nominate an Australian financial institution account that is held in the name(s) of the Investor(s). Payments to third party accounts will <ins><b>not</b></ins> be made.</p>
+                        
+                        @Html.TextBoxFor(m => m.PM[2]._FinancialInstituteName, new { id = "dcFIN", @class = "fnl_txtbx_fl", placeholder = "Financial Institute Name", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m.PM[2]._BranchName, new { id = "dcBN", @class = "fnl_txtbx_fl", placeholder = "Branch Name", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m.PM[2]._BSBNumber, new { id = "dcBSBNo", @class = "fnl_txtbx_suburb", placeholder = "BSB Number", @required = "required" })
+                        @Html.TextBoxFor(m => m.PM[2]._AccountNumber, new { id = "dcANo", @class = "fnl_txtbx_smee", placeholder = "Account Number", @required = "required" })
+                        @Html.TextBoxFor(m => m.PM[2]._AccountName, new { id = "dcAN", @class = "fnl_txtbx_smee", placeholder = "Account Name", @required = "required" })
+    
+                </div>
+            </div>
+        </div>
+    </section> 
+    
+    <div class="btn-next-step">
+    <input type="button" value=" Next Step " class="btn-nav-green" onclick="checkInv();"/>
+    <input type="submit" style="display:none;" id="submitForm" />
+    </div>
+                        
+}
+
+
+
+
+<script type="text/javascript">
+    function minmax(value, min, max) {
+        if (parseInt(value) < min || isNaN(value)) {
+            alert('Must be greater than ' + min);
+            return "";
+        }
+        else if (parseInt(value) > max)
+            return value;
+        else return value;
+    }
+    function checkatlestinvestment() {
+        if ($("#inv1").val() == "" && $("#inv2").val() == "" && $("#inv3").val() == "" && $("#inv4").val() == "") {
+            check4DC();
+            return false;
+        } else {
+            check4DC();
+            return true;
+        }
+    }
+    function checkInv() {
+        var b = checkatlestinvestment();
+        if (b == false) {
+            alert('Atleast one investment required!');
+        } else {
+            if (checkatleastpm() == true) {
+                $('#submitForm').click();
+            } else {
+                alert('Choose atleast a payment method!');
+            }
+        }
+    }
+    function changeAmountColor(id, thisvalue, minvalue) {
+        if (parseInt(thisvalue) < parseInt(minvalue)) {
+            $(id).css('color', 'red');
+        } else {
+            $(id).css('color', 'gray');
+        }
+    }
+    function checkatleastpm() {
+        var chk = false;
+        if ($('#Cheque').attr('checked')) {chk = true;}
+        if ($('#DirectDebit').attr('checked')) {chk = true;}
+        if ($('#DirectCreditEFT').attr('checked')) { chk = true; }
+        return chk;
+    }
+
+    $("#anchor31").click(function () {
+        if (checkatlestinvestment() == true) {
+            $('html, body').animate({
+                scrollTop: $("#div_pm").offset().top
+            }, 1500);
+            check4DC();
+        }
+        else { alert('Atleast one investment required!'); }
+    });
+
+    $("#DirectDebit").click(function () {
+        if ($('#DirectDebit').attr('checked')) {
+            ShowHideElement('div_DirectDebit', true);
+            enablevalidationDD();
+            $('html, body').animate({
+                scrollTop: $("#div_DirectDebit").offset().top
+            }, 1500);
+        } else {
+            disablevalidationDD();
+            ShowHideElement('div_DirectDebit', false);
+        }
+    });
+    $("#DirectCreditEFT").click(function () {
+        if ($('#DirectCreditEFT').attr('checked')) {
+            ShowHideElement('div_DirectCreditEFT', true);
+            enablevalidationDC();
+            $('html, body').animate({
+                scrollTop: $("#div_DirectCreditEFT").offset().top
+            }, 1500);
+        } else {
+            disablevalidationDC();
+            ShowHideElement('div_DirectCreditEFT', false);
+        }
+    });
+
+    function enablevalidationDD() {
+        $("#ddFIN").attr("required", true);
+        $("#ddBN").attr("required", true);
+        $("#ddBSBNo").attr("required", true);
+        $("#ddANo").attr("required", true);
+        $("#ddAN").attr("required", true);
+    }
+    function disablevalidationDD() {
+        $("#ddFIN").removeAttr("required");
+        $("#ddBN").removeAttr("required");
+        $("#ddBSBNo").removeAttr("required");
+        $("#ddANo").removeAttr("required");
+        $("#ddAN").removeAttr("required");
+    }
+
+    function enablevalidationDC() {
+        $("#dcFIN").attr("required", true);
+        $("#dcBN").attr("required", true);
+        $("#dcBSBNo").attr("required", true);
+        $("#dcANo").attr("required", true);
+        $("#dcAN").attr("required", true);
+    }
+    function disablevalidationDC() {
+        $("#dcFIN").removeAttr("required");
+        $("#dcBN").removeAttr("required");
+        $("#dcBSBNo").removeAttr("required");
+        $("#dcANo").removeAttr("required");
+        $("#dcAN").removeAttr("required");
+    }
+
+    function check4DC() {
+        var status = true;
+        Parent:
+        for (var i = 0; i <= 3; i++) {
+            var r = document.getElementsByName('IDL[' + i + ']._Reinvest');
+            for (var x = 0; x < r.length; x++) {
+                if (r[x].checked) {
+                    status = r[x].value;
+                    if (status == "False") {
+                        var a = document.getElementsByName('IDL[' + i + ']._InvestmentAmount');
+                        var val = a[0].value;
+                        if (val != "") {
+                            $('#DirectCreditEFT').attr('checked', true);
+                            //$("#DirectCreditEFT").attr('disabled', true);
+                            $("#DirectCreditEFT").hide();
+                            $("#hiddenchkDC").show();
+                            $("#div_DirectCreditEFT").show();
+                            enablevalidationDC();
+                            break Parent;
+                        }
+                    }
+                    else {
+                        //$("#DirectCreditEFT").removeAttr('disabled');
+                        $("#hiddenchkDC").hide();
+                        $("#DirectCreditEFT").show();
+                    }
+                }
+            }
+        }
+    }
+
+</script>

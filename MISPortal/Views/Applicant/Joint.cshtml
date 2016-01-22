@@ -1,0 +1,993 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>
+           
+
+@{
+    List<SelectListItem> stateList = new List<SelectListItem>();
+    stateList.Add(new SelectListItem { Text = "ACT", Value = "ACT" });
+    stateList.Add(new SelectListItem { Text = "NSW", Value = "NSW" });
+    stateList.Add(new SelectListItem { Text = "NT", Value = "NT" });
+    stateList.Add(new SelectListItem { Text = "QLD", Value = "QLD" });
+    stateList.Add(new SelectListItem { Text = "SA", Value = "SA" });
+    stateList.Add(new SelectListItem { Text = "TAS", Value = "TAS" });
+    stateList.Add(new SelectListItem { Text = "VIC", Value = "VIC" });
+    stateList.Add(new SelectListItem { Text = "WA", Value = "WA" });  
+ }
+
+
+@using (Html.BeginForm("AddEditJointApplicant", "Applicant", FormMethod.Post, new { role = "form", onsubmit = "ShowLoading()" }))
+{  
+    
+    @Html.HiddenFor(m => m[0]._LeadEmail, new { id = "JleadEmail" }); 
+    @Html.HiddenFor(m => m[0]._ApplicantID);                                   
+    <div id="div_Applicant1">
+        <div id="blst_jnt" class="mar-top-bot dark-blue-grad">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Joint Investment: Applicant # 1</h5>
+                            <p5>Please complete if you are investing as a joint investor.</p5><br /><br />
+                        <h5>
+                            Applicant # 1: Personal Details
+                        </h5>
+                        <div class="frm_tg_pd">
+                            <div id="Jnt_Sec1">
+                                @Html.DropDownListFor(m => m[0]._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { @class = "fnl_txtbx_sml", required = "required" })
+                                @Html.TextBoxFor(m => m[0]._FullName, new { placeholder = "Full given names", @class = "fnl_txtbx_lrg", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m[0]._MiddleName, new { @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                                @Html.TextBoxFor(m => m[0]._Surname, new { placeholder = "Surname", @class = "fnl_txtbx_fl", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m[0]._BirthDate, new { id = "dobjapp1", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @required = "required", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                                @Html.TextBoxFor(m => m[0]._CountryOfBirth, new { @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                                @Html.TextBoxFor(m => m[0]._Occupation, new { @class = "fnl_txtbx_fl", placeholder = "Occupation", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="but_one">
+                            <span class="radio_buttonnext">
+                                <input type="button" value=" Next " id="joint-app-1" class="btn-nav-orange" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resident-add" class="light-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 1: Residential Address</h5>
+                        <div class="frm_tg_ra">
+                            <div id="Jnt_Sec2">
+                                <p>
+                                    A PO Box/RMB/Locked Bag is <b>not</b> acceptable.
+                                </p>
+                                @*@Html.TextBoxFor(m => m[0]._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />*@
+                                @Html.TextBoxFor(m => m[0]._RUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                @Html.TextBoxFor(m => m[0]._RStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                @Html.TextBoxFor(m => m[0]._RStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name", @required = "required" })
+                                @Html.TextBoxFor(m => m[0]._RStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                                @Html.TextBoxFor(m => m[0]._RSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                                @Html.DropDownListFor(m => m[0]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State", @required = "required" })
+                                @Html.TextBoxFor(m => m[0]._RPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                                @Html.TextBoxFor(m => m[0]._RCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                                <div class="pad-radio">
+                                    <p>
+                                        Is your residential address same as your postal address?</p>
+                                    @Html.RadioButtonFor(m => m[0]._IsSame, false, new { onclick = "ShowHideElement('frm_pstl_addrss1',true)" })
+                                    No
+                                    @Html.RadioButtonFor(m => m[0]._IsSame, true, new { onclick = "ShowHideElement('frm_pstl_addrss1',false)", @checked = "checked" })
+                                    Yes
+                                    <br />
+                                </div>
+                                <div id="frm_pstl_addrss1" class="pstladdrss_a1_hdn" style="display:none;">
+                                    <h5>
+                                        Applicant # 1: Postal Address
+                                    </h5>
+                                    <div class="frm_tg_pa">
+                                        <div class="mar-bot-20">
+                                            <p>
+                                                A PO Box/RMB/Locked Bag is acceptable.</p>
+                                            @*@Html.TextBoxFor(m => m[0]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                                            @Html.TextBoxFor(m => m[0]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                            @Html.TextBoxFor(m => m[0]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                            @Html.TextBoxFor(m => m[0]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                                            @Html.TextBoxFor(m => m[0]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                                            @Html.TextBoxFor(m => m[0]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                            @Html.DropDownListFor(m => m[0]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                                            @Html.TextBoxFor(m => m[0]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                                            @Html.TextBoxFor(m => m[0]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5>
+                                    Applicant # 1: Contact Details
+                                </h5>
+                                @Html.TextBoxFor(m => m[0]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                                @Html.TextBoxFor(m => m[0]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                                @Html.TextBoxFor(m => m[0]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                                @Html.TextBoxFor(m => m[0]._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                                @Html.TextBoxFor(m => m[0]._MobileNo, new { @class = "joint-cd-email", placeholder = "Mobile number", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m[0]._EmailAddress, new { id = "Jemail", @class = "joint-cd-email", placeholder = "Email address", @required = "required", @type = "email", onblur = "validate(this.value,this.id);" })
+                            </div>
+                        </div>
+                        <div class="but_one">
+                            <span class="radio_buttonnext">
+                                <input type="button" value=" Next " id="post-add" class="btn-nav-orange" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="div_t-detail" class="dark-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 1: Tax Details - Australian Residents</h5>
+                        <div class="mar-bot-20">
+                            <p class="inner-para">
+                                Collection of Tax File Number (TFN) information is authorised. The use of your TFN
+                                and disclosure of it is strictly regulated by tax laws and the Privacy Act. You
+                                are not obliged to provide your TFN, however if you do not provide your TFN, or
+                                provide exemption details, we are required to withhold tax from your distributions
+                                at the highest marginal tax rate plus Medicare levy.
+                                <br />
+                                The TFN provided below will automatically be applied to any future investments you
+                                make in the Fund(s) unless you indicate, at any time, that you do not wish to use
+                                that TFN for a particular investment.
+                            </p>
+                        </div>
+                        <div class="frm_tg_td mar-bot-20">
+                            <div class="mar-bot-20">
+                                @Html.TextBoxFor(m => m[0]._TaxFileNoExemptionCode, new { id = "ap1TFNEC", @class = "txt-box-tax", placeholder = "Tax File Number or Exemption Code" })
+                                <span class="th_sprtion">OR </span>
+                                @Html.TextBoxFor(m => m[0]._ExemptionReason, new { id = "ap1ER", @class = "txt-box-tax", placeholder = "Reason for Exemption" })<br />
+                            </div>
+                            <div class="frm_tg_td_02 mar-bot-20">
+                                <div class="main_frm_jnt_td_02">
+                                    <h5>
+                                        Applicant # 1: Tax Details-Non-Australian Residents
+                                    </h5>
+                                    <p>
+                                        If you are not an Australian resident for tax purposes, please indicate your country
+                                        of residence.</p>
+                                    <div>
+                                        @Html.TextBoxFor(m => m[0]._CountryTax, new { id = "ap1CT", @class = "txt-box-tax country", placeholder = "Country of residence.", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                    </div>
+                                    <div class="pad-radio">
+                                        <p>
+                                            Are you a US citizen, resident, trust, or entity registered in the USA?</p>
+                                        @Html.RadioButtonFor(m => m[0]._IsUSCitizen, true, new { onclick = "ShowHideElement('div_ap1FATCA',true)" })Yes
+                                        @Html.RadioButtonFor(m => m[0]._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_ap1FATCA',false)" })No
+                                    </div>
+                                    <div id="div_ap1FATCA" style="display: none;">
+                                        <h3>
+                                            FATCA</h3>
+                                        <p>
+                                            This section only applies to United States Citizens/entities.<br />
+                                            You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked
+                                            to a US financial institution or if you are an entity where a US person has a controlling
+                                            interest (greater than 25%).<br />
+                                            <br />
+                                            <b>Are you FATCA exempt?</b><br />
+                                            @Html.CheckBoxFor(m => m[0]._IsFATCA, new { @class = "chkap1FATCA", value = true })
+                                            Yes
+                                            @Html.CheckBoxFor(m => m[0]._IsFATCA, new { @class = "chkap1FATCA", value = false })
+                                            No - if you tick this box, you need to complete the FATCA form in addition to this
+                                            form. Please contact Investor Services.
+                                        </p>
+                                    </div>
+                                    <br />
+                                    <div class="but_one">
+                                        <span class="radio_buttonnext"><a href="#div_j-app-2" rel="" id="t-detail" class="btn-nav-orange">
+                                            Next</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                            
+    
+    
+    <div id="div_Applicant2">
+        <div id="div_j-app-2" class="light-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Joint Investment: Applicant # 2</h5>
+                            <p5>Please complete if you are investing as a joint investor.</p5><br /><br />
+                        <h5>
+                            Applicant # 2: Personal Details</h5>
+                        <div id="Jnt_Sec4">
+                            @Html.DropDownListFor(m => m[1]._Title, new List<SelectListItem> { 
+                                new SelectListItem {Text="Miss",Value="Miss"},
+                                new SelectListItem {Text="Mr",Value="Mr"},
+                                new SelectListItem {Text="Mrs",Value="Mrs"},
+                                new SelectListItem {Text="Ms",Value="Ms"},
+                                new SelectListItem {Text="Mx",Value="Mx"},
+                                new SelectListItem {Text="Dr",Value="Dr"},
+                                new SelectListItem {Text="Prof",Value="Prof"}
+                            }, "Title", new { @class = "fnl_txtbx_sml", required = "required" })
+                            @Html.TextBoxFor(m => m[1]._FullName, new { @class = "fnl_txtbx_lrg", placeholder = "Full given names", @required = "required" })<br />
+                            @Html.TextBoxFor(m => m[1]._MiddleName, new { @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                            @Html.TextBoxFor(m => m[1]._Surname, new { @class = "fnl_txtbx_fl", placeholder = "Surname", @required = "required" })<br />
+                            @Html.TextBoxFor(m => m[1]._BirthDate, new { id = "dobjapp2", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @required = "required", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                            @Html.TextBoxFor(m => m[1]._CountryOfBirth, new { @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                            @Html.TextBoxFor(m => m[1]._Occupation, new { @class = "fnl_txtbx_fl", placeholder = "Occupation", @required = "required" })
+                        </div>
+                        <div class="but_one">
+                            <span class="radio_buttonnext">
+                                <input type="button" value=" Next " id="j-app-2" class="btn-nav-orange" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="div_ja2-r-add" class="dark-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 2: Residential Address</h5>
+                        <div id="Jnt_Sec5">
+                            <p>
+                                A PO Box/RMB/Locked Bag is <b>not</b> acceptable.
+                            </p>
+                            @*@Html.TextBoxFor(m => m[1]._RAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />*@
+                            @Html.TextBoxFor(m => m[1]._RUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[1]._RStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[1]._RStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name", @required = "required" })
+                            @Html.TextBoxFor(m => m[1]._RStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[1]._RSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                            @Html.DropDownListFor(m => m[1]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State", @required = "required" })
+                            @Html.TextBoxFor(m => m[1]._RPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[1]._RCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                        
+                        <div class="pad-radio">
+                            <p>
+                                Is your residential address same as your postal address?</p>
+                            @Html.RadioButtonFor(m => m[1]._IsSame, false, new { onclick = "ShowHideElement('frm_pstl_addrss2',true)" })No
+                            @Html.RadioButtonFor(m => m[1]._IsSame, true, new { onclick = "ShowHideElement('frm_pstl_addrss2',false)", @checked = "checked" })Yes
+                        </div>
+                        <div class="mar-bot-20" id="frm_pstl_addrss2" style="display:none;">
+                            <h5>
+                                Applicant # 2: Postal Address</h5>
+                            <p>
+                                A PO Box/RMB/Locked Bag is acceptable.
+                            </p>
+                            @*@Html.TextBoxFor(m => m[1]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                            @Html.TextBoxFor(m => m[1]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[1]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[1]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                            @Html.TextBoxFor(m => m[1]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[1]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.DropDownListFor(m => m[1]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                            @Html.TextBoxFor(m => m[1]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[1]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        </div>
+                        <h5>
+                            Applicant # 2: Contact Details
+                        </h5>
+                        @Html.TextBoxFor(m => m[1]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[1]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                        @Html.TextBoxFor(m => m[1]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                        @Html.TextBoxFor(m => m[1]._BusinessNo, new { placeholder = "Business number" })<br />
+                        @Html.TextBoxFor(m => m[1]._MobileNo, new { @class = "joint-cd-email", placeholder = "Mobile number", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m[1]._EmailAddress, new { @class = "joint-cd-email", placeholder = "Email address", @required = "required", @type = "email", onblur = "validate(this.value,this.id);" })
+                        </div>
+                        <div class="but_one">
+                            <span class="radio_buttonnext">
+                                <input type="button" value=" Next " id="ja2-r-add" class="btn-nav-orange" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="div_ja2-tax" class="light-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 2: Tax Details - Australian Residents</h5>
+                        <p class="inner-para">
+                            Collection of Tax File Number (TFN) information is authorised. The use of your TFN
+                            and disclosure of it is strictly regulated by tax laws and the Privacy Act. You
+                            are not obliged to provide your TFN, however if you do not provide your TFN, or
+                            provide exemption details, we are required to withhold tax from your distributions
+                            at the highest marginal tax rate plus Medicare levy.
+                            <br />
+                            The TFN provided below will automatically be applied to any future investments you
+                            make in the Fund(s) unless you indicate, at any time, that you do not wish to use
+                            that TFN for a particular investment.
+                        </p>
+                        <div class="mar-bot-20">
+                            @Html.TextBoxFor(m => m[1]._TaxFileNoExemptionCode, new { id = "ap2TFNEC", @class = "txt-box-tax", placeholder = "Tax File Number or Exemption Code" })
+                            <span class="th_sprtion">OR </span>
+                            @Html.TextBoxFor(m => m[1]._ExemptionReason, new { id = "ap2ER", @class = "txt-box-tax", placeholder = "Reason for Exemption" })<br />
+                        </div>
+                        <h5>
+                            Applicant # 2: Tax Details - Non-Australian Residents
+                        </h5>
+                        <p>
+                            If you are not an Australian resident for tax purposes, please indicate your country
+                            of residence.</p>
+                        @Html.TextBoxFor(m => m[1]._CountryTax, new { id = "ap2CT", @class = "txt-box-tax country", placeholder = "Country of residence.", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        <div class="pad-radio">
+                            <p>
+                                Are you a US citizen, resident, trust, or entity registered in the USA?</p>
+                            @Html.RadioButtonFor(m => m[1]._IsUSCitizen, true, new { onclick = "ShowHideElement('div_ap2FATCA',true)" })Yes
+                            @Html.RadioButtonFor(m => m[1]._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_ap2FATCA',false)" })No
+                        </div>
+                        <div id="div_ap2FATCA" class="mar-bot-20" style="display: none;">
+                            <h3>
+                                FATCA</h3>
+                            <p>
+                                This section only applies to United States Citizens/entities.<br />
+                                You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked
+                                to a US financial institution or if you are an entity where a US person has a controlling
+                                interest (greater than 25%).<br />
+                                <br />
+                                <b>Are you FATCA exempt?</b><br />
+                                @Html.CheckBoxFor(m => m[1]._IsFATCA, new { @class = "chkap2FATCA", value = true })
+                                Yes
+                                @Html.CheckBoxFor(m => m[1]._IsFATCA, new { @class = "chkap2FATCA", value = false })
+                                No - if you tick this box, you need to complete the FATCA form in addition to this
+                                form. Please contact Investor Services.
+                            </p>
+                        </div>
+                        <div>
+                            <input type="button" id="add_app_no3" class="btn-nav-orange" name="add_app_yn" value="Add"
+                                onclick="ShowHideApplicant3('div_Applicant3',true);" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="div_Applicant3" style="display: none;">
+        <div id="div_jia3" class="mar-top-bot dark-blue-grad">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        
+                        <h5>
+                            Joint Investment: Applicant # 3</h5>
+                            <p5>Please complete if you are investing as a joint investor.</p5><br /><br />
+                        <h5>
+                            Applicant # 3: Personal Details</h5>
+                        <div id="Jnt_Sec7">
+                        <input type="button" id="del_app3" class="btn-nav-red-sm" name="add_app_yn" value="X"
+                            onclick="ShowHideApplicant3('div_Applicant3',false);" style="float: right;" />
+                            @Html.DropDownListFor(m => m[2]._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { @id = "ap3t", @class = "fnl_txtbx_sml" })
+                            @Html.TextBoxFor(m => m[2]._FullName, new { @id = "ap3fn", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })<br />
+                            @Html.TextBoxFor(m => m[2]._MiddleName, new { @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                            @Html.TextBoxFor(m => m[2]._Surname, new { @id = "ap3Sn", @class = "fnl_txtbx_fl", placeholder = "Surname" })<br />
+                            @Html.TextBoxFor(m => m[2]._BirthDate, new { id = "dobjapp3", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                            @Html.TextBoxFor(m => m[2]._CountryOfBirth, new { id = "ap3COB", @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                            @Html.TextBoxFor(m => m[2]._Occupation, new { id="ap3O", @class = "fnl_txtbx_fl", placeholder = "Occupation" })
+                        </div>
+                        <div class="but_one">
+                            <span class="radio_buttonnext">
+                                <input type="button" value=" Next " id="jia3" class="btn-nav-orange" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="div_jia3-ra" class="light-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 3: Residential Address</h5>
+                            <div id="Jnt_Sec8">
+                            <p>
+                                A PO Box/RMB/Locked Bag is <b>not</b> acceptable.</p>
+                            @*@Html.TextBoxFor(m => m[2]._RAddress, new { id = "ap3RAddr", @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                            @Html.TextBoxFor(m => m[2]._RUnit, new { id = "ap3RUnit", @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[2]._RStreetNo, new { id = "ap3RStNo", @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[2]._RStreetName, new { id = "ap3RStN", @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                            @Html.TextBoxFor(m => m[2]._RStreetType, new { id = "ap3RStT", @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[2]._RSuburb, new { id = "ap3RSuburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.DropDownListFor(m => m[2]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { id = "ap3RState", @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                            @Html.TextBoxFor(m => m[2]._RPostcode, new { id = "ap3RPC", @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[2]._RCountry, new { id = "ap3RC", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                     
+                            <div class="pad-radio">
+                                <p>
+                                    Is your residential address same as your postal address?</p>
+                                @Html.RadioButtonFor(m => m[2]._IsSame, false, new { onclick = "ShowHideElement('frm_pstl_addrss3',true)" })No
+                                @Html.RadioButtonFor(m => m[2]._IsSame, true, new { onclick = "ShowHideElement('frm_pstl_addrss3',false)", @checked = "checked" })Yes
+                            </div>
+                            <div id="frm_pstl_addrss3" class="mar-bot-20" style="display:none;">
+                            <h5>
+                                Applicant # 3: Postal Address
+                            </h5>
+                                <p>
+                                    A PO Box/RMB/Locked Bag is acceptable.
+                                </p>
+                                @*@Html.TextBoxFor(m => m[2]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                                @Html.TextBoxFor(m => m[2]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                @Html.TextBoxFor(m => m[2]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                @Html.TextBoxFor(m => m[2]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                                @Html.TextBoxFor(m => m[2]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                                @Html.TextBoxFor(m => m[2]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                @Html.DropDownListFor(m => m[2]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                                @Html.TextBoxFor(m => m[2]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                                @Html.TextBoxFor(m => m[2]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                            </div>
+                            <h5>
+                                Applicant # 3: Contact Details
+                            </h5>
+                                @Html.TextBoxFor(m => m[2]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                                @Html.TextBoxFor(m => m[2]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                                @Html.TextBoxFor(m => m[2]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                                @Html.TextBoxFor(m => m[2]._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                                @Html.TextBoxFor(m => m[2]._MobileNo, new { @class = "joint-cd-email", id = "ap3MNo", placeholder = "Mobile number" })<br />
+                                @Html.TextBoxFor(m => m[2]._EmailAddress, new { @class = "joint-cd-email", id = "ap3EAddr", placeholder = "Email address", @type = "email", onblur = "validate(this.value,this.id);" })
+                           
+                            </div>
+                            <div class="but_one">
+                                <span class="radio_buttonnext">
+                                    <input type="button" value=" Next " id="jia3-ra" class="btn-nav-orange" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div id="div_jia3-td" class="mar-top-bot dark-blue-grad">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 3: Tax Details - Australian Residents</h5>
+                        <p>
+                            Collection of Tax File Number (TFN) information is authorised. The use of your TFN
+                            and disclosure of it is strictly regulated by tax laws and the Privacy Act. You
+                            are not obliged to provide your TFN, however if you do not provide your TFN, or
+                            provide exemption details, we are required to withhold tax from your distributions
+                            at the highest marginal tax rate plus Medicare levy.
+                            <br />
+                            The TFN provided below will automatically be applied to any future investments you
+                            make in the Fund(s) unless you indicate, at any time, that you do not wish to use
+                            that TFN for a particular investment.
+                        </p>
+                        @Html.TextBoxFor(m => m[2]._TaxFileNoExemptionCode, new { @class = "txt-box-tax", id = "ap3TFNEC", placeholder = "Tax File Number or Exemption Code" })
+                        <span class="th_sprtion">OR </span>
+                        @Html.TextBoxFor(m => m[2]._ExemptionReason, new { id = "ap3ER", @class = "txt-box-tax", placeholder = "Reason for Exemption" })<br />
+                        <h5>
+                            Applicant # 3: Tax Details - Non-Australian Residents
+                        </h5>
+                        <p>
+                            If you are not an Australian resident for tax purposes, please indicate your country
+                            of residence.</p>
+                        @Html.TextBoxFor(m => m[2]._CountryTax, new { id = "ap3CT", @class = "txt-box-tax country", placeholder = "Country of residence.", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        <div class="pad-radio">
+                            <p>
+                                Are you a US citizen, resident, trust, or entity registered in the USA?</p>
+                            @Html.RadioButtonFor(m => m[2]._IsUSCitizen, true, new { onclick = "ShowHideElement('div_ap3FATCA',true)" })Yes
+                            @Html.RadioButtonFor(m => m[2]._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_ap3FATCA',false)" })No
+                        </div>
+                        <div id="div_ap3FATCA" style="display: none;">
+                            <h3>
+                                FATCA</h3>
+                            <p>
+                                This section only applies to United States Citizens/entities.<br />
+                                You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked
+                                to a US financial institution or if you are an entity where a US person has a controlling
+                                interest (greater than 25%).<br />
+                                <br />
+                                <b>Are you FATCA exempt?</b><br />
+                                @Html.CheckBoxFor(m => m[2]._IsFATCA, new { @class = "chkap3FATCA", value = true })
+                                Yes
+                                @Html.CheckBoxFor(m => m[2]._IsFATCA, new { @class = "chkap3FATCA", value = false })
+                                No - if you tick this box, you need to complete the FATCA form in addition to this
+                                form. Please contact Investor Services.
+                            </p>
+                        </div>
+                        <div>
+                            <input type="button" id="add_app_no4" class="btn-nav-orange" name="add_app_yn" value="Add"
+                                onclick="ShowHideApplicant4('div_Applicant4',true);" />
+                        </div>
+                        <div class="text-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <div id="div_Applicant4" style="display: none;">
+        <div id="div_jia4" class="mar-top-bot light-blue-grad">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        
+                        <h5>
+                            Joint Investment: Applicant # 4</h5>
+                            <p5>Please complete if you are investing as a joint investor.</p5><br /><br />
+                        <h5>
+                            Applicant # 4: Personal Details</h5>
+                        <div id="Jnt_Sec9">
+                        <input type="button" id="del_app4" class="btn-nav-red-sm" name="add_app_yn" value="X"
+                            onclick="ShowHideApplicant4('div_Applicant4',false);" style="float: right;" />
+                            @Html.DropDownListFor(m => m[3]._Title, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { @id = "ap4t", @class = "fnl_txtbx_sml" })
+                            @Html.TextBoxFor(m => m[3]._FullName, new { @id = "ap4fn", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })<br />
+                            @Html.TextBoxFor(m => m[3]._MiddleName, new { @class = "fnl_txtbx_fl", placeholder = "Middle Names" })
+                            @Html.TextBoxFor(m => m[3]._Surname, new { @id = "ap4Sn", @class = "fnl_txtbx_fl", placeholder = "Surname" })<br />
+                            @Html.TextBoxFor(m => m[3]._BirthDate, new { id = "dobjapp4", @class = "fnl_txtbx_fl", placeholder = "Date of Birth (dd/mm/yyyy)", @onfocusout = "validateDOB(this.value,this.id)" })<br />
+                            @Html.TextBoxFor(m => m[3]._CountryOfBirth, new { id = "ap4COB", @class = "fnl_txtbx_fl country", placeholder = "Country of Birth", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                            @Html.TextBoxFor(m => m[3]._Occupation, new { id = "ap4O", @class = "fnl_txtbx_fl", placeholder = "Occupation" })
+                        </div>
+                        <div class="but_one">
+                            <span class="radio_buttonnext">
+                                <input type="button" value=" Next " id="jia4" class="btn-nav-orange" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="div_jia4-ra" class="dark-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 4: Residential Address</h5>
+                            <div id="Jnt_Sec10">
+                            <p>
+                                A PO Box/RMB/Locked Bag is <b>not</b> acceptable.</p>
+                            @*@Html.TextBoxFor(m => m[2]._RAddress, new { id = "ap3RAddr", @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                            @Html.TextBoxFor(m => m[3]._RUnit, new { id = "ap4RUnit", @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[3]._RStreetNo, new { id = "ap4RStNo", @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                            @Html.TextBoxFor(m => m[3]._RStreetName, new { id = "ap4RStN", @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                            @Html.TextBoxFor(m => m[3]._RStreetType, new { id = "ap4RStT", @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                            @Html.TextBoxFor(m => m[3]._RSuburb, new { id = "ap4RSuburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                            @Html.DropDownListFor(m => m[3]._RState, new SelectList(stateList, "Value", "Text", 1), "State", new { id = "ap4RState", @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                            @Html.TextBoxFor(m => m[3]._RPostcode, new { id = "ap4RPC", @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                            @Html.TextBoxFor(m => m[3]._RCountry, new { id = "ap4RC", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                     
+                            <div class="pad-radio">
+                                <p>
+                                    Is your residential address same as your postal address?</p>
+                                @Html.RadioButtonFor(m => m[3]._IsSame, false, new { onclick = "ShowHideElement('frm_pstl_addrss4',true)" })No
+                                @Html.RadioButtonFor(m => m[3]._IsSame, true, new { onclick = "ShowHideElement('frm_pstl_addrss4',false)", @checked = "checked" })Yes
+                            </div>
+                            <div id="frm_pstl_addrss4" class="mar-bot-20" style="display:none;">
+                            <h5>
+                                Applicant # 4: Postal Address
+                            </h5>
+                                <p>
+                                    A PO Box/RMB/Locked Bag is acceptable.
+                                </p>
+                                @*@Html.TextBoxFor(m => m[2]._PAddress, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />*@
+                                @Html.TextBoxFor(m => m[3]._PUnit, new { @class = "fnl_txtbx_sml", placeholder = "Unit", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                @Html.TextBoxFor(m => m[3]._PStreetNo, new { @class = "fnl_txtbx_sml", placeholder = "Street No", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;" })
+                                @Html.TextBoxFor(m => m[3]._PStreetName, new { @class = "fnl_txtbx_smee", placeholder = "Street Name" })
+                                @Html.TextBoxFor(m => m[3]._PStreetType, new { @class = "fnl_txtbx_smee", placeholder = "Street Type" })<br />
+                                @Html.TextBoxFor(m => m[3]._PSuburb, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                @Html.DropDownListFor(m => m[3]._PState, new SelectList(stateList, "Value", "Text", 1), "State", new { @class = "fnl_txtbx_smee width-select", placeholder = "State" })
+                                @Html.TextBoxFor(m => m[3]._PPostcode, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @onkeypress = "return validateNO(event);", @onpaste = "JavaScript:return false;", @maxlength = "4", minlength = "4" })<br />
+                                @Html.TextBoxFor(m => m[3]._PCountry, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                            </div>
+                            <h5>
+                                Applicant # 4: Contact Details
+                            </h5>
+                                @Html.TextBoxFor(m => m[3]._AreaCodeH, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                                @Html.TextBoxFor(m => m[3]._HomeNo, new { @class = "mar-top-5", placeholder = "Home number" })<br />
+                                @Html.TextBoxFor(m => m[3]._AreaCodeB, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                                @Html.TextBoxFor(m => m[3]._BusinessNo, new { @class = "mar-top-5", placeholder = "Business number" })<br />
+                                @Html.TextBoxFor(m => m[3]._MobileNo, new { @class = "joint-cd-email", id = "ap4MNo", placeholder = "Mobile number" })<br />
+                                @Html.TextBoxFor(m => m[3]._EmailAddress, new { @class = "joint-cd-email", id = "ap4EAddr", placeholder = "Email address", @type = "email", onblur = "validate(this.value,this.id);" })
+                           
+                            </div>
+                        <div class="but_one">
+                            <span class="radio_buttonnext">
+                                <input type="button" value=" Next " id="jia4-ra" class="btn-nav-orange" />
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div id="div_jia4-td" class="mar-top-bot light-blue-grad">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <h5>
+                            Applicant # 4: Tax Details - Australian Residents</h5>
+                        <p>
+                            Collection of Tax File Number (TFN) information is authorised. The use of your TFN
+                            and disclosure of it is strictly regulated by tax laws and the Privacy Act. You
+                            are not obliged to provide your TFN, however if you do not provide your TFN, or
+                            provide exemption details, we are required to withhold tax from your distributions
+                            at the highest marginal tax rate plus Medicare levy.
+                            <br />
+                            The TFN provided below will automatically be applied to any future investments you
+                            make in the Fund(s) unless you indicate, at any time, that you do not wish to use
+                            that TFN for a particular investment.
+                        </p>
+                        @Html.TextBoxFor(m => m[3]._TaxFileNoExemptionCode, new { @class = "txt-box-tax", id = "ap4TFNEC", placeholder = "Tax File Number or Exemption Code" })
+                        <span class="th_sprtion">OR </span>
+                        @Html.TextBoxFor(m => m[3]._ExemptionReason, new { id = "ap4ER", @class = "txt-box-tax", placeholder = "Reason for Exemption" })<br />
+                        <h5>
+                            Applicant # 4: Tax Details - Non-Australian Residents
+                        </h5>
+                        <p>
+                            If you are not an Australian resident for tax purposes, please indicate your country
+                            of residence.</p>
+                        @Html.TextBoxFor(m => m[3]._CountryTax, new { id = "ap4CT", @class = "txt-box-tax country", placeholder = "Country of residence.", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                        <div class="pad-radio">
+                            <p>
+                                Are you a US citizen, resident, trust, or entity registered in the USA?</p>
+                            @Html.RadioButtonFor(m => m[3]._IsUSCitizen, true, new { onclick = "ShowHideElement('div_ap4FATCA',true)" })Yes
+                            @Html.RadioButtonFor(m => m[3]._IsUSCitizen, false, new { @checked = "checked", onclick = "ShowHideElement('div_ap4FATCA',false)" })No
+                        </div>
+                        <div id="div_ap4FATCA" style="display: none;">
+                            <h3>
+                                FATCA</h3>
+                            <p>
+                                This section only applies to United States Citizens/entities.<br />
+                                You will <ins><b>not</b></ins> be FATCA exempt if you are a US person entity linked
+                                to a US financial institution or if you are an entity where a US person has a controlling
+                                interest (greater than 25%).<br />
+                                <br />
+                                <b>Are you FATCA exempt?</b><br />
+                                @Html.CheckBoxFor(m => m[3]._IsFATCA, new { @class = "chkap4FATCA", value = true })
+                                Yes
+                                @Html.CheckBoxFor(m => m[3]._IsFATCA, new { @class = "chkap4FATCA", value = false })
+                                No - if you tick this box, you need to complete the FATCA form in addition to this
+                                form. Please contact Investor Services.
+                            </p>
+                        </div>
+                        <div class="text-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                    <h5>Joint Investors</h5>
+                    <p>
+                        Please nominate the signing authority for this investment.<br /><br />
+                        @Html.RadioButtonFor(m => m[0]._JointInvestors, "Either to sign", new { onclick = "$('#other').removeAttr('required')", @checked = "checked" })&nbsp;Either to sign<br />
+                        @Html.RadioButtonFor(m => m[0]._JointInvestors, "All to sign", new { onclick = "$('#other').removeAttr('required')" })&nbsp;All to sign<br />
+                        @Html.RadioButtonFor(m => m[0]._JointInvestors, "Other", new { id = "RDother", onclick = "validateOther()" })&nbsp;Other (Please detail)<br /><br />
+                        <input type="text" id="other" onblur="setOtherVal(this.value);" /><br />
+                        @*<input type="button" onclick = "unSelect();" value="Unselect" class="btn btn-xs btn-info"  />*@
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="btn-next-step">
+        <input type="submit" value=" Second Step " class="btn-nav-green" id="Jnt_Submit" />
+    </div>
+        
+}
+<script type="text/javascript">
+    
+//    function ShowHideApplicant3(id, action) {
+//        if (action == true) {
+//            $("#" + id).show('fast');
+//            $("#add_app_no1").hide('fast');
+//            enableValidationJApp3();
+//        }
+//        else {
+//            $("#" + id).hide('fast');
+//            $("#add_app_no1").show('fast');
+//            disableValidationJApp3();
+//        }
+//    }
+    $("#add_app_no3").click(function () {
+        if (ScrollValidate('Jnt_Sec5', 'Jnt_Submit')) {
+            $('#div_Applicant3').show();
+            $('#add_app_no3').hide();
+            $('html, body').animate({
+                scrollTop: $("#div_Applicant3").offset().top
+            }, 1500);
+            enableValidationJApp3();
+        }
+    });
+    $("#del_app3").click(function () {
+        $('#div_Applicant3').hide();
+        $('#add_app_no3').show();
+        disableValidationJApp3();
+    });
+    function disableValidationJApp3() {
+        $("#ap3t").removeAttr("required");
+        $("#ap3fn").removeAttr("required");
+        $("#ap3Sn").removeAttr("required");
+        $("#dobjapp3").removeAttr("required"); 
+        $("#ap3COB").removeAttr("required");
+        $("#ap3O").removeAttr("required");
+        $("#ap3RStNo").removeAttr("required");
+        $("#ap3RStN").removeAttr("required");
+        //$("#ap3RStT").removeAttr("required");
+        $("#ap3RSuburb").removeAttr("required");
+        $("#ap3RState").removeAttr("required");
+        $("#ap3RPC").removeAttr("required");
+        $("#ap3RC").removeAttr("required");
+        $("#ap3MNo").removeAttr("required");
+        $("#ap3EAddr").removeAttr("required");
+    }
+    function enableValidationJApp3() {
+        $("#ap3t").attr("required", true);
+        $("#ap3fn").attr("required", true);
+        $("#ap3Sn").attr("required", true);
+        $("#dobjapp3").attr("required", true);
+        $("#ap3COB").attr("required", true);
+        $("#ap3O").attr("required", true);
+        $("#ap3RStNo").attr("required", true);
+        $("#ap3RStN").attr("required", true);
+        //$("#ap3RStT").attr("required", true);
+        $("#ap3RSuburb").attr("required", true);
+        $("#ap3RState").attr("required", true);
+        $("#ap3RPC").attr("required", true);
+        $("#ap3RC").attr("required", true);
+        $("#ap3MNo").attr("required", true);
+        $("#ap3EAddr").attr("required", true);
+    }
+//    function ShowHideApplicant4(id, action) {
+//        if (action == true) {
+//            $("#" + id).show('fast');
+//            $("#add_app_no2").hide('fast');
+//            enableValidationJApp4();
+//        }
+//        else {
+//            disableValidationJApp4();
+//            $("#" + id).hide('fast');
+//            $("#add_app_no2").show('fast');
+//        }
+    //    }
+    $("#add_app_no4").click(function () {
+        if (ScrollValidate('Jnt_Sec10', 'Jnt_Submit')) {
+            $('#div_Applicant4').show();
+            $('#add_app_no4').hide();
+            $('html, body').animate({
+                scrollTop: $("#div_Applicant4").offset().top
+            }, 1500);
+            $('#del_app3').hide();
+            enableValidationJApp4();
+        }
+    });
+    $("#del_app4").click(function () {
+        $('#div_Applicant4').hide();
+        $('#add_app_no4').show();
+        $('#del_app3').show();
+        disableValidationJApp4();
+    });
+    function disableValidationJApp4() {
+        $("#ap4t").removeAttr("required");
+        $("#ap4fn").removeAttr("required");
+        $("#ap4Sn").removeAttr("required");
+        $("#dobjapp4").removeAttr("required");
+        $("#ap4COB").removeAttr("required");
+        $("#ap4O").removeAttr("required");
+        $("#ap4RStNo").removeAttr("required");
+        $("#ap4RStN").removeAttr("required");
+        //$("#ap4RStT").removeAttr("required");
+        $("#ap4RSuburb").removeAttr("required");
+        $("#ap4RState").removeAttr("required");
+        $("#ap4RPC").removeAttr("required");
+        $("#ap4RC").removeAttr("required");
+        $("#ap4MNo").removeAttr("required");
+        $("#ap4EAddr").removeAttr("required");
+    }
+    function enableValidationJApp4() {
+        $("#ap4t").attr("required", true);
+        $("#ap4fn").attr("required", true);
+        $("#ap4Sn").attr("required", true);
+        $("#dobjapp4").attr("required", true);
+        $("#ap4COB").attr("required", true);
+        $("#ap4O").attr("required", true);
+        $("#ap4RStNo").attr("required", true);
+        $("#ap4RStN").attr("required", true);
+        //$("#ap4RStT").attr("required", true);
+        $("#ap4RSuburb").attr("required", true);
+        $("#ap4RState").attr("required", true);
+        $("#ap4RPC").attr("required", true);
+        $("#ap4RC").attr("required", true);
+        $("#ap4MNo").attr("required", true);
+        $("#ap4EAddr").attr("required", true);
+    }
+    $(document).ready(function () {
+        $("#ap1TFNEC").keypress(function () {
+            $("#ap1CT").val("");
+            $("#ap1ER").val("");
+        });
+        $("#ap1ER").keypress(function () {
+            $("#ap1CT").val("");
+            $("#ap1TFNEC").val("");
+        });
+        $("#ap1CT").keypress(function () {
+            $("#ap1TFNEC").val("");
+            $("#ap1ER").val("");
+        });
+        $("#ap2TFNEC").keypress(function () {
+            $("#ap2CT").val("");
+            $("#ap2ER").val("");
+        });
+        $("#ap2ER").keypress(function () {
+            $("#ap2CT").val("");
+            $("#ap2TFNEC").val("");
+        });
+        $("#ap2CT").keypress(function () {
+            $("#ap2TFNEC").val("");
+            $("#ap2ER").val("");
+        });
+        $("#ap3TFNEC").keypress(function () {
+            $("#ap3CT").val("");
+            $("#ap3ER").val("");
+        });
+        $("#ap3ER").keypress(function () {
+            $("#ap3CT").val("");
+            $("#ap3TFNEC").val("");
+        });
+        $("#ap3CT").keypress(function () {
+            $("#ap3TFNEC").val("");
+            $("#ap3ER").val("");
+        });
+        $("#ap4TFNEC").keypress(function () {
+            $("#ap4CT").val("");
+            $("#ap4ER").val("");
+        });
+        $("#ap4ER").keypress(function () {
+            $("#ap4CT").val("");
+            $("#ap4TFNEC").val("");
+        });
+        $("#ap4CT").keypress(function () {
+            $("#ap4TFNEC").val("");
+            $("#ap4ER").val("");
+        });
+    });
+    $("#joint-app-1").click(function () {
+        if (ScrollValidate('Jnt_Sec1', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#resident-add").offset().top
+            }, 1500);
+        }
+    });
+
+    $("#post-add").click(function () {
+        if (ScrollValidate('Jnt_Sec2', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#div_t-detail").offset().top
+            }, 1500);
+        }
+    });
+
+
+    $("#j-app-2").click(function () {
+        if (ScrollValidate('Jnt_Sec4', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#div_ja2-r-add").offset().top
+            }, 1500);
+        }
+    });
+
+    $("#ja2-r-add").click(function () {
+        if (ScrollValidate('Jnt_Sec5', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#div_ja2-tax").offset().top
+            }, 1500);
+        }
+    });
+
+
+    $("#t-detail").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#div_j-app-2").offset().top
+        }, 1500);
+    });
+
+    $("#jia3").click(function () {
+        if (ScrollValidate('Jnt_Sec7', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#div_jia3-ra").offset().top
+            }, 1500);
+        }
+    });
+
+    $("#jia3-ra").click(function () {
+        if (ScrollValidate('Jnt_Sec8', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#div_jia3-td").offset().top
+            }, 1500);
+        }
+    });
+
+    $("#jia4").click(function () {
+        if (ScrollValidate('Jnt_Sec9', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#div_jia4-ra").offset().top
+            }, 1500);
+        }
+    });
+
+    $("#jia4-ra").click(function () {
+        if (ScrollValidate('Jnt_Sec10', 'Jnt_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#div_jia4-td").offset().top
+            }, 1500);
+        }
+    });
+    $(function () {
+        $("input:checkbox.chkap1FATCA").click(function () {
+            $("input:checkbox.chkap1FATCA").not($(this)).removeAttr("checked");
+            $(this).attr("checked", $(this).attr("checked"));
+        });
+    });
+    $(function () {
+        $("input:checkbox.chkap2FATCA").click(function () {
+            $("input:checkbox.chkap2FATCA").not($(this)).removeAttr("checked");
+            $(this).attr("checked", $(this).attr("checked"));
+        });
+    });
+    $(function () {
+        $("input:checkbox.chkap3FATCA").click(function () {
+            $("input:checkbox.chkap3FATCA").not($(this)).removeAttr("checked");
+            $(this).attr("checked", $(this).attr("checked"));
+        });
+    });
+    $(function () {
+        $("input:checkbox.chkap4FATCA").click(function () {
+            $("input:checkbox.chkap4FATCA").not($(this)).removeAttr("checked");
+            $(this).attr("checked", $(this).attr("checked"));
+        });
+    });
+
+    function unSelect() {
+        $('input:radio[name=[0]._JointInvestors]').each(function () { $(this).removeAttr('checked'); });
+        $("#other").removeAttr("required").val("");
+    }
+    function validateOther() {
+        $('#other').attr("required", true).focus();
+    }
+    function setOtherVal(val) {
+        $('#RDother').val(val);
+    }
+</script>

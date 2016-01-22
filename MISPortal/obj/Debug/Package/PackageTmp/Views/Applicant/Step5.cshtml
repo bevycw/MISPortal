@@ -1,0 +1,78 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>
+
+@{
+    ViewBag.Title = "Step5";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    
+<section id="Step5" class="mar-top-bot light-blue-grad">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                    <h5>Managed Funds Online Application</h5>
+
+                    <h5>Review and Submit</h5>
+
+                    <p>You are about to open a Crescent Wealth Managed Funds Account.</p>
+
+                    <div class="s5-tab"> 
+                    
+                    <div id="div_DetailsApplicant">
+                        <input type="button" value="Edit" id="btnEdit" class="btn-nav-orange" style="float:right;"/>
+                        <div id="divtoPrint">
+                        @Html.Partial("_DetailsApplicant")</div>
+                    </div>
+
+@{  
+    var Action = "";
+    if (Model[0]._AccountType == "TrustCompany")
+    { Action = "EditTrustCompany"; }
+    else
+    { Action = "EditIndividualJointTrustIndividual"; }       
+}
+@using (Html.BeginForm(Action, "Applicant", FormMethod.Post, new { role = "form", onsubmit = "ShowLoading()" }))
+{
+                    <div id="div_EditApplicant" style="display:none;">
+                        <input type="submit" style="display:none" id="btnSubmit"/>
+                        <input type="button" value="Update" id="btnUpdate" class="btn-nav-green" style="float:right;" />
+                        <input type="button" value="Cancel" id="btnCancel" class="btn-nav-red" style="float:right;" />
+                        @Html.Partial("_EditApplicant")
+                    </div>
+
+}                    
+                    </div>
+                    
+@*  <input type="button" value="Export" id="btnPrint"/>*@
+
+@using (Html.BeginForm("ConfirmAndSubmitApplicant", "Applicant", FormMethod.Post, new { role = "form", onsubmit = "ShowLoading()" }))
+{
+    <input type="submit" value=" Confirm and Submit " class="btn-nav-green"/>
+    
+}
+
+
+</div></div></div>
+</section>
+
+
+
+<script type="text/javascript">
+    $('#btnEdit').click(function () {
+        $('#div_DetailsApplicant').hide();
+        $('#div_EditApplicant').show();
+    })
+    $('#btnUpdate').click(function () {
+        $('#btnSubmit').click();
+    })
+    $('#btnCancel').click(function () {
+        $('#div_EditApplicant').hide();
+        $('#div_DetailsApplicant').show();
+    })
+    
+    $('#btnPrint').click(function () {
+        ExportToPDF($('#divtoPrint'), [], 'Applicant Details', PDFPageType.Portrait);
+    })
+</script>
+
+
+

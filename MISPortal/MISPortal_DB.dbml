@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MISPortal" Class="MISPortal_DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLBEVY;Initial Catalog=MISPortal;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="MISPortalConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AuthorisedRepresentativeDetails" Member="AuthorisedRepresentativeDetails">
+    <Type Name="AuthorisedRepresentativeDetail">
+      <Column Name="AuthRepDetailID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AFSL_LicenceNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Applicant_AuthorisedRepresentativeDetail" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Country" Member="Countries">
+    <Type Name="Country">
+      <Column Name="CountryCode" Type="System.Decimal" DbType="Decimal(5,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Prefix" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FinancialAdviserAddress" Member="FinancialAdviserAddresses">
+    <Type Name="FinancialAdviserAddress">
+      <Column Name="FinancialAdviserAddressID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FinancialAdviserDetailID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="AddressType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="POBox" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Suburb" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsSame" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FinancialAdviserDetail_FinancialAdviserAddress" Member="FinancialAdviserDetail" ThisKey="FinancialAdviserDetailID" OtherKey="FinancialAdviserDetailID" Type="FinancialAdviserDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FinancialAdviserDetails" Member="FinancialAdviserDetails">
+    <Type Name="FinancialAdviserDetail">
+      <Column Name="FinancialAdviserDetailID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="DealerGroupName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AdviserName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AFSL_Number" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ContactNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BusinessNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="FinancialAdviserDetail_FinancialAdviserAddress" Member="FinancialAdviserAddresses" ThisKey="FinancialAdviserDetailID" OtherKey="FinancialAdviserDetailID" Type="FinancialAdviserAddress" />
+      <Association Name="Applicant_FinancialAdviserDetail" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PaymentMethod" Member="PaymentMethods">
+    <Type Name="PaymentMethod">
+      <Column Name="PaymentMethodID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FinancialInstituteName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BranchName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BSBNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AccountNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AccountName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Applicant_PaymentMethod" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shareholders" Member="Shareholders">
+    <Type Name="Shareholder">
+      <Column Name="ShareholderID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TrustCompanyID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Suburb" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="TrustCompany_Shareholder" Member="TrustCompany" ThisKey="TrustCompanyID" OtherKey="TrustCompanyID" Type="TrustCompany" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrustCompanyAddress" Member="TrustCompanyAddresses">
+    <Type Name="TrustCompanyAddress">
+      <Column Name="TrustCompanyAddressID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TrustCompanyID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="AddressType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PPOBox" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Suburb" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsSame" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="TrustCompany_TrustCompanyAddress" Member="TrustCompany" ThisKey="TrustCompanyID" OtherKey="TrustCompanyID" Type="TrustCompany" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UploadDocuments" Member="UploadDocuments">
+    <Type Name="UploadDocument">
+      <Column Name="UploadDocumentID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Path" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreationDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Applicant_UploadDocument" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="UserID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserFirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserLastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreationDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="User_Applicant" Member="Applicants" ThisKey="UserID" OtherKey="AdviserID" Type="Applicant" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Address" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="AddressID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonalDetailID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="AddressType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Member="Address1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Suburb" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsSame" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Unit" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="StreetNo" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="StreetName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="PersonalDetail_Address" Member="PersonalDetail" ThisKey="PersonalDetailID" OtherKey="PersonalDetailID" Type="PersonalDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GreenidVerification" Member="GreenidVerifications">
+    <Type Name="GreenidVerification">
+      <Column Name="GreenidVerificationID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VerificationResult" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VerificationId" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VerificationToken" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="GivenName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Dateofbirth" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FlatNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StreetType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Suburb" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Applicant" Member="Applicants">
+    <Type Name="Applicant">
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CreationDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AccountType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdviserID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Percent]" Member="Percent" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="VerificationId" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VerificationResult" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Applicant_AuthorisedRepresentativeDetail" Member="AuthorisedRepresentativeDetails" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="AuthorisedRepresentativeDetail" />
+      <Association Name="Applicant_FinancialAdviserDetail" Member="FinancialAdviserDetails" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="FinancialAdviserDetail" />
+      <Association Name="Applicant_PaymentMethod" Member="PaymentMethods" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="PaymentMethod" />
+      <Association Name="Applicant_UploadDocument" Member="UploadDocuments" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="UploadDocument" />
+      <Association Name="Applicant_ApplicantNoVerificationId" Member="ApplicantNoVerificationIds" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="ApplicantNoVerificationId" />
+      <Association Name="Applicant_InvestmentDetail" Member="InvestmentDetails" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="InvestmentDetail" />
+      <Association Name="Applicant_TrustCompany" Member="TrustCompanies" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="TrustCompany" />
+      <Association Name="Applicant_PersonalDetail" Member="PersonalDetails" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="PersonalDetail" />
+      <Association Name="User_Applicant" Member="User" ThisKey="AdviserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ApplicantNoVerificationId" Member="ApplicantNoVerificationIds">
+    <Type Name="ApplicantNoVerificationId">
+      <Column Name="ApplicantNoVerificationId" Member="ApplicantNoVerificationId1" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ApplicantNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VerificationId" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VerificationResult" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Applicant_ApplicantNoVerificationId" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InvestmentDetails" Member="InvestmentDetails">
+    <Type Name="InvestmentDetail">
+      <Column Name="InvestmentDetailsID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="FundName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="InvestmentAmount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="RegularSavingPlanPerMonth" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Reinvest" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SourceofIncome" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Applicant_InvestmentDetail" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VisitLead" Member="VisitLeads">
+    <Type Name="VisitLead">
+      <Column Name="VisitLeadID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreationDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrustCompany" Member="TrustCompanies">
+    <Type Name="TrustCompany">
+      <Column Name="TrustCompanyID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ACN_ABN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AusTFN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TitleCP" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FullNameCP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SurnameCP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BusinessNoCP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNoCP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AreaCodeB" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EmailAddressCP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OccupationCP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FullNameFC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ARBN_FC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsRegByForeignRegBodyFC" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ForeignRegBodyNameFC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StatusFC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NameLocaLAgent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FullNameFCNR" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsRegByForeignRegBodyFCNR" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ForeignRegBodyNameFCNR" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ForeignRegBodyIdenNoFCNR" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsRegInUs" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IspublicCompany" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NameTrust" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ABN_Trust" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AusTFN_Trust" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LeadEmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="TrustCompany_Shareholder" Member="Shareholders" ThisKey="TrustCompanyID" OtherKey="TrustCompanyID" Type="Shareholder" />
+      <Association Name="TrustCompany_TrustCompanyAddress" Member="TrustCompanyAddresses" ThisKey="TrustCompanyID" OtherKey="TrustCompanyID" Type="TrustCompanyAddress" />
+      <Association Name="Applicant_TrustCompany" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonalDetails" Member="PersonalDetails">
+    <Type Name="PersonalDetail">
+      <Column Name="PersonalDetailID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicantID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ApplicantNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="BirthCountry" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Occupation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsBeneficiary" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="HomeNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BusinessNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AreaCodeH" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="AreaCodeB" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsAusResident" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TaxFileNoExemptionCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExemptionReason" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CountryTax" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsUSCitizen" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsFATCA" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NameTrust" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ABN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AusTFN" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LeadEmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="JointInvestors" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="PersonalDetail_Address" Member="Addresses" ThisKey="PersonalDetailID" OtherKey="PersonalDetailID" Type="Address" />
+      <Association Name="Applicant_PersonalDetail" Member="Applicant" ThisKey="ApplicantID" OtherKey="ApplicantID" Type="Applicant" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

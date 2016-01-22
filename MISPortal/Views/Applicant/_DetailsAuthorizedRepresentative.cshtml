@@ -1,0 +1,36 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>      
+
+
+<table class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col">
+<tr>
+    <td colspan="2" align="center"><h3>Authorised Representative Details</h3></td>
+</tr>
+<tr>
+<td style="width:50%;">Title</td>
+<td style="width:50%;">@Html.DisplayFor(m=>m[0].ARD._Title)</td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>@Html.DisplayFor(m=>m[0].ARD._FullName)</td>
+</tr>
+<tr>
+<td>Surname</td>
+<td>@Html.DisplayFor(m=>m[0].ARD._Surname)</td>
+</tr>
+<tr>
+<td>Telephone No</td>
+<td>@Html.DisplayFor(m=>m[0].ARD._TelephoneNo)</td>
+</tr>
+<tr>
+<td>Mobile No</td>
+<td>@Html.DisplayFor(m=>m[0].ARD._MobileNo)</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.DisplayFor(m=>m[0].ARD._EmailAddress)</td>
+</tr>
+<tr>
+<td>AFSL Licence No</td>
+<td>@Html.DisplayFor(m=>m[0].ARD._AFSL_LicenceNo)</td>
+</tr>
+</table>

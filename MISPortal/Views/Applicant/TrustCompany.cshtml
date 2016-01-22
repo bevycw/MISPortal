@@ -1,0 +1,629 @@
+﻿@model MISPortal.Models.Company
+@using (Html.BeginForm("AddEditTrustCompanyApplicant", "Applicant", FormMethod.Post, new { role = "form", onsubmit = "ShowLoading()" }))
+{
+    @Html.HiddenFor(m => m._ApplicantID);   
+    @Html.HiddenFor(m => m._TrustCompanyID);
+    @Html.HiddenFor(m => m._TrustCompanyAddressID);
+    @Html.HiddenFor(m => m.Shareholders[0]._ShareholderID);
+    @Html.HiddenFor(m => m.Shareholders[1]._ShareholderID);                                                                       
+    @Html.HiddenFor(m => m.Shareholders[2]._ShareholderID);                                                                       
+         
+    @Html.HiddenFor(m => m._NameTrust, new { id = "NameTrustTC" })
+    @Html.HiddenFor(m => m._ABN_Trust, new { id = "ABNTC" })
+    @Html.HiddenFor(m => m._AusTFN_Trust, new { id = "AusTFNTC" })                                                       
+                  
+    @Html.HiddenFor(m => m._LeadEmail, new { id = "TCleadEmail" })
+                                                                                                                                                                    
+    <section id="TrustCompSec1" class="dark-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                        
+                            <div class="ind_pd" id="TrustCompSec1V">
+                                <h5>Australian Company Details </h5>
+                                 @Html.TextBoxFor(m => m._FullNameCompany, new { @class = "fnl_txtbx_lrg", placeholder = "Full name of company (as registered by ASIC)", @required = "required" })<br />
+                                 @Html.TextBoxFor(m => m._ACN_ABN_Company, new { @class = "fnl_txtbx_lrg", placeholder = "ACN / ABN", @required = "required" })<br />
+                                 @Html.TextBoxFor(m => m._AusTFN_Company, new { @class = "fnl_txtbx_lrg", placeholder = "Australian Tax File Number (TFN)", @required = "required" })<br />
+                                <div>
+                                        <input type="button" value=" Next " id="btnTrustCompSec1" class="btn-nav-orange" />
+                                    </div>                      
+                             </div>
+                        </div>                          
+                     </div>
+                </div>
+        </section>
+    
+    
+    <section id="TrustCompSec2" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+					<div id="TrustCompSec2V">
+                                <h5>Registered office address </h5>
+                                <p>A PO Box/RMB/Locked Bag is <b>not</b> acceptable. </p>
+                                
+                                @Html.TextBoxFor(m => m._AddressCompany, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._SuburbCompany, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                                @Html.TextBoxFor(m => m._StateCompany, new { @class = "fnl_txtbx_smee", placeholder = "State", @required = "required" })
+                                @Html.TextBoxFor(m => m._PostcodeCompany, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._CountryCompany, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })                     
+                                <div class="pad-radio">
+                                    <p> Is your registered office address same as your postal address? </p>
+                                        @Html.RadioButtonFor(m => m._IsSameCompany, true, new { id = "_IsSame", onclick = "ShowHideElement('divCmpnyPostAdd',false)", @checked = "checked" })
+                                        Yes
+                                        @Html.RadioButtonFor(m => m._IsSameCompany, false, new { id = "_IsNotSame", onclick = "ShowHideElement('divCmpnyPostAdd',true)" })
+                                        No
+                                </div>  
+                                <div id="divCmpnyPostAdd" style="display:none;">
+                                    <h1>Postal address</h1>
+                                    @Html.TextBoxFor(m => m._PAddressCompany, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />
+                                    @Html.TextBoxFor(m => m._PPOBoxCompany, new { @class = "fnl_txtbx_fl", placeholder = "PO Box/RMB/Locked Bag" })<br />
+                                    @Html.TextBoxFor(m => m._PSuburbCompany, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                    @Html.TextBoxFor(m => m._PStateCompany, new { @class = "fnl_txtbx_smee", placeholder = "State" })
+                                    @Html.TextBoxFor(m => m._PPostcodeCompany, new { @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br />
+                                    @Html.TextBoxFor(m => m._PCountryCompany, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                </div>
+                                <div class="fnl_btn_spcng">
+                                        <input type="button" value=" Next " id="btnTrustCompSec2" class="btn-nav-orange" />
+                                </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+    <section id="TrustCompSec3" class="dark-blue-grad mar-top-bot">
+            <div class="container">
+                <div class="row">
+                    <div class="span8 offset2">
+                        <div id="TrustCompSec3V">
+						<h5>Principal place of business address if NOT registered by a foreign registration body<br />(must not be a PO Box) </h5>
+						<p> Address in the country of formation/incorporation/registration </p>
+
+                        @Html.TextBoxFor(m => m._AddressPPFCNR, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m._SuburbPPFCNR, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                        @Html.TextBoxFor(m => m._StatePPFCNR, new { @class = "fnl_txtbx_smee", placeholder = "State", @required = "required" })
+                        @Html.TextBoxFor(m => m._PostcodePPFCNR, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required" })<br />
+                        @Html.TextBoxFor(m => m._CountryPPFCNR, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })  
+                        <div class="fnl_btn_spcng">
+                            <input type="button" value=" Next " id="btnTrustCompSec3" class="btn-nav-orange"/>
+                        </div> 
+                    </div>
+                </div>                          
+                </div>
+                </div>
+            </section>
+    
+    
+    <section id="TrustCompSec4" class="light-blue-grad mar-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="span8 offset2">
+                    <div id="TrustCompSec4V">
+                                <h5>Contact person at company </h5>
+                                @Html.DropDownListFor(m => m._TitleCP, new List<SelectListItem> { 
+                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                }, "Title", new { @class = "fnl_txtbx_sml", required = "required" })
+                                @Html.TextBoxFor(m => m._FullNameCP, new { @class = "fnl_txtbx_lrg", placeholder = "Full given names", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._SurnameCP, new { @class = "fnl_txtbx_fl", placeholder = "Surname", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._AreaCodeB_CP, new { @class = "fnl_txtbx_ac", placeholder = "Area Code" })
+                                @Html.TextBoxFor(m => m._BusinessNoCP, new { @class = "mb-num mar-top-5", placeholder = "Business Number" })<br />
+                                @Html.TextBoxFor(m => m._MobileNoCP, new { @class = "fnl_txtbx_fl", placeholder = "Mobile Number", @required = "required" })<br />
+                                @Html.TextBoxFor(m => m._EmailAddrCP, new { id = "TCemail", @class = "fnl_txtbx_fl", placeholder = "Email address", @required = "required", @type = "email", onblur = "validate(this.value,this.id);" })
+                                @Html.TextBoxFor(m => m._OccupationCP, new { @class = "fnl_txtbx_fl", placeholder = "Occupation", @required = "required" })
+                            <div>
+                                <input type="button" value=" Next " id="btnTrustCompSec4" class="btn-nav-orange" />
+                            </div>    
+                        </div>                          
+                     </div>
+                </div>
+                </div>
+        </section>
+    
+    
+@*    <section id="TrustCompSection4" class="dark-blue-grad width-display">
+            <div class="graymatter_03">
+                <div class="container">
+                    <div class="row">
+                        <div class="mar-lt-300">
+                        <div class="fnl_dwn_txt mar-bot-0"> 
+                        <h5 class="no-lt-pad">Company</h5>
+                        </div>
+                            <div class="ind_pd" id="Trst_Cmp_Sec5">
+                                <div class="fnl_hp_spcng"> 
+                                <h5 class="no-lt-pad">Foreign company registered by ASIC </h5>
+                                </div>
+                                 @Html.TextBoxFor(m => m._FullNameFC, new { @class = "fnl_txtbx_fl", placeholder = "Full name of company (as registered by ASIC)", @required = "required" })<br />
+                                 @Html.TextBoxFor(m => m._ARBN_FC, new { @class = "fnl_txtbx_fl", placeholder = "Australian Registered Body Number (ARBN)", @required = "required" })<br />
+                                    <p> Is your company registered by a foreign registration body? </p>                 
+                                    @Html.RadioButtonFor(m => m._IsRegByForeignRegBodyFC, true, new { onclick = "ShowHideElement('div_ForeignBodyName',true)" })
+                                    Yes
+                                    @Html.RadioButtonFor(m => m._IsRegByForeignRegBodyFC, false, new { onclick = "ShowHideElement('div_ForeignBodyName',false)", @checked = "checked" })
+                                    No <br />  
+                                    <div id="div_ForeignBodyName" style="display:none;">
+                                    @Html.TextBoxFor(m => m._ForeignRegBodyNameFC, new { @class = "fnl_txtbx_fl", placeholder = "Name of foreign registration body" })           
+                                    </div>
+                                    <div class="fnl_btn_spcng">
+                                            <input type="button" value=" Next " id="Trustanchor10" class="btn-nav-orange"/>
+                                    </div>                      
+                                    </div>
+                                </div>
+                            </div>                          
+                         </div>
+    </section>
+    <section id="TrustCompSection5" class="light-blue-grad width-display">
+            <div class="graymatter_03">
+                <div class="container">
+                    <div class="row">
+						<div class="mar-lt-300" id="Trst_Cmp_Sec6">
+                                    <div class="fnl_hp_spcng"> 
+                                    <h5 class="no-lt-pad">Registered office address in Australia (must not be a PO Box) </h5>
+                                    </div>
+                                    @Html.TextBoxFor(m => m._AddressAus, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />
+                                    @Html.TextBoxFor(m => m._SuburbAus, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                                    @Html.TextBoxFor(m => m._StateAus, new { @class = "fnl_txtbx_smee", placeholder = "State", @required = "required" })
+                                    @Html.TextBoxFor(m => m._PostcodeAus, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required" })<br />                 
+                                        
+                                    <div class="fnl_btn_spcng">
+                                    <input type="button" value=" Next " id="Trustanchor11" class="btn-nav-orange"/>
+                                </div>
+                            </div></div>                          
+                         </div>
+                    </div>
+					
+            </section>
+    <section id="TrustCompSection6" class="dark-blue-grad width-display">
+            <div class="graymatter_03">
+                <div class="container">
+                    <div class="row">
+						<div class="mar-lt-300">
+                                    <div class="fnl_hp_spcng"> 
+                                    <h5 class="no-lt-pad">Australian principal place of business or local agent address<br><br>(must not be a P O Box)</h5>
+                                    <p>Please select one of the following options:</p>
+                                    </div>
+                                        <div class="rndm_mte_spcng">
+                                        <div class="CWSF_memapp_text no-lt-pad">
+                                        <p> Is your company registered by a foreign registration body? </p>                                    </div>
+                                        <div class="rndm_mte_spcng">
+                                        <div class="CWSF_memapp_text no-lt-pad">
+                                        @Html.RadioButtonFor(m => m._StatusFC, "IsSame", new { @onclick = "ShowHideElement('div_LocalAgent',false)" })
+                                        The Australian principal place of business address is the same as the registered office address above<br />
+                                        @Html.RadioButtonFor(m => m._StatusFC, "IsProvidedBelow", new { @onclick = "ShowHideElement('div_LocalAgent',true)" })
+                                        The Australian principal place of business address is provided below<br /> 
+                                        @Html.RadioButtonFor(m => m._StatusFC, "IsLocalAgent", new { @onclick = "ShowHideElement('div_LocalAgent',true)", @checked = "checked" })
+                                        The address below is the local agent<br />
+                                        </div>    
+                                        </div>  
+                                        <div id="div_LocalAgent">
+                                        @Html.TextBoxFor(m => m._NameLA, new { @class = "fnl_txtbx_fl", placeholder = "Name of local agent" })
+                                        @Html.TextBoxFor(m => m._AddressLA, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />
+                                        @Html.TextBoxFor(m => m._SuburbLA, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                        @Html.TextBoxFor(m => m._StateLA, new { @class = "fnl_txtbx_smee", placeholder = "State" })
+                                        @Html.TextBoxFor(m => m._PostcodeLA, new { @class = "fnl_txtbx_smee", placeholder = "Postcode" })
+                                        </div>
+                                        <div class="fnl_btn_spcng">
+                                            <a href="#TrustCompSection7" rel="" id="Trustanchor12" class="btn-nav-orange"> Next</a>
+                                        </div>
+                            </div>
+							</div>                          
+                         </div>
+                    </div>        
+            </section>
+    <section id="TrustCompSection7" class="light-blue-grad width-display">
+            <div class="graymatter_03">
+                <div class="container">
+                    <div class="row">
+                            <div class="ind_pd mar-lt-300" id="Trst_Cmp_Sec7">
+								<h5 class="no-lt-pad">Company</h5>
+								<h5 class="no-lt-pad">Foreign company not registered by ASIC </h5>
+
+
+                                @Html.TextBoxFor(m => m._FullNameFCNR, new { @class = "fnl_txtbx_fl", placeholder = "Full name of company", @required = "required" })<br />
+
+
+
+                                <div class="CWSF_memapp_text no-lt-pad">
+                                    <p> Is your company registered by a foreign registration body?  </p><br />                 
+                                    @Html.RadioButtonFor(m => m._IsRegByForeignRegBodyFCNR, true, new { onclick = "ShowHideElement('div_ForeignBodyNameIdentification',true)" })
+                                    Yes
+                                    @Html.RadioButtonFor(m => m._IsRegByForeignRegBodyFCNR, false, new { onclick = "ShowHideElement('div_ForeignBodyNameIdentification',false)", @checked = "checked" })
+                                    No <br />  
+                                    <div id="div_ForeignBodyNameIdentification" style="display:none;">
+                                    @Html.TextBoxFor(m => m._ForeignRegBodyNameFCNR, new { @class = "fnl_txtbx_fl", placeholder = "Name of foreign registration body" })  
+                                    @Html.TextBoxFor(m => m._ForeignRegBodyIdenNoFCNR, new { @class = "fnl_txtbx_fl", placeholder = "Identification number issued by the foreign registration body" })           
+                                    </div>
+                                </div>  
+                                <div class="rndm_mte_spcng">
+                                    <div class="CWSF_memapp_text no-lt-pad">
+                                        <p> Is your entity registered in the US?  </p><br />                 
+                                        @Html.RadioButtonFor(m => m._IsRegInUs, true, new { })
+                                        Yes
+                                        @Html.RadioButtonFor(m => m._IsRegInUs, false, new { @checked = "checked" })
+                                        No <br /> 
+                                    </div>    
+                                </div>
+
+                                <h101>Registered address as registered by the foreign registration body </h101>
+                                    <div class="fnl_hp_spcng"> 
+                                    <br />
+                                    <p> Address in the country of formation/incorporation/registration </p>
+                                    </div>
+                                    @Html.TextBoxFor(m => m._AddressFCNR, new { @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", @required = "required" })<br />
+                                    @Html.TextBoxFor(m => m._SuburbFCNR, new { @class = "fnl_txtbx_suburb", placeholder = "Suburb", @required = "required" })
+                                    @Html.TextBoxFor(m => m._StateFCNR, new { @class = "fnl_txtbx_smee", placeholder = "State", @required = "required" })
+                                    @Html.TextBoxFor(m => m._PostcodeFCNR, new { @class = "fnl_txtbx_smee", placeholder = "Postcode", @required = "required" })<br />
+                                    @Html.TextBoxFor(m => m._CountryFCNR, new { @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), @required = "required" })
+                                
+                                    <div class="fnl_btn_spcng">
+                                        <input type="button" value=" Next " id="Trustanchor13" class="btn-nav-orange"/>
+                                </div> 
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </section>*@
+    
+    
+        
+        <section id="TrustCompSec5" class="dark-blue-grad mar-top-bot">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span8 offset2">
+							<h5>Major shareholder details </h5>
+							<p>Do not complete this section if your company is a public company, listed company, or if your company is licensed by an Australian
+							Commonwealth, State, or Territory statutory regulator. For all other companies please provide details of ALL individuals who own, through
+							one or more shareholdings, more than 25% of the issued capital of the company. </p>
+							<div class="pad-radio">
+							<p>Is your company, a public company, listed company, or licenced by an Australian Commonwealth, State, or Territory statutory regulator? </p>                 
+                                            @Html.RadioButtonFor(m => m._IsPublicCompany, true, new { onclick = "ShowHideShareholders('div_Shareholers',false)" })
+                                            Yes
+                                            @Html.RadioButtonFor(m => m._IsPublicCompany, false, new { onclick = "ShowHideShareholders('div_Shareholers',true)", @checked = "checked" })
+                                            No
+                                            </div> 
+                                            </div>    
+                                            </div>
+                                        </div>
+                    </section>
+    
+    
+    
+    <div id="div_Shareholers">
+        <section id="TrustCompSec6" class="light-blue-grad mar-top-bot">
+                <div class="container">
+                    <div class="row">
+                        <div class="span8 offset2">
+                                    
+                                    <div id="Shareholder1" class="mar-bot-20">  
+                                            <div id="Shareholder1V"> 
+                                                    <h5>Major Shareholder #1 </h5>
+                                                    <div class="mar-bot-20">
+                                            @Html.DropDownListFor(m => m.Shareholders[0]._Title, new List<SelectListItem> { 
+                                                new SelectListItem {Text="Miss",Value="Miss"},
+                                                new SelectListItem {Text="Mr",Value="Mr"},
+                                                new SelectListItem {Text="Mrs",Value="Mrs"},
+                                                new SelectListItem {Text="Ms",Value="Ms"},
+                                                new SelectListItem {Text="Mx",Value="Mx"},
+                                                new SelectListItem {Text="Dr",Value="Dr"},
+                                                new SelectListItem {Text="Prof",Value="Prof"}
+                                            }, "Title", new { id = "SH1Title", @class = "fnl_txtbx_sml", required = "required" })
+                                            @Html.TextBoxFor(m => m.Shareholders[0]._FullName, new { id = "SH1FN", @class = "fnl_txtbx_lrg", placeholder = "Full given names", required = "required" })
+                                            @Html.TextBoxFor(m => m.Shareholders[0]._Surname, new { id = "SH1SN", @class = "fnl_txtbx_fl", placeholder = "Surname", required = "required" })                      
+                                            </div>
+                                                    <h5>Residential address (must not be a PO Box) </h5>
+                                                @Html.TextBoxFor(m => m.Shareholders[0]._Address, new { id = "SH1Addr", @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name", required = "required" })<br />
+                                                @Html.TextBoxFor(m => m.Shareholders[0]._Suburb, new { id = "SH1Suburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb", required = "required" })
+                                                @Html.TextBoxFor(m => m.Shareholders[0]._State, new { id = "SH1State", @class = "fnl_txtbx_smee", placeholder = "State", required = "required" }) 
+                                                @Html.TextBoxFor(m => m.Shareholders[0]._Postcode, new { id = "SH1PC", @class = "fnl_txtbx_smee", placeholder = "Postcode", required = "required" })<br />
+                                                @Html.TextBoxFor(m => m.Shareholders[0]._Country, new { id = "SH1C", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant"), required = "required" })
+                                           </div>
+                                            <div>
+                                                <input type="button" value=" Add " id="btnShareholder1" class="btn-nav-orange" />
+                                            </div> 
+                                        </div>
+
+                                    <div id="Shareholder2" class="mar-bot-20" style="display:none;">   
+                                            <div id="Shareholder2V"> 
+                                                    <h5>Major Shareholder #2</h5>
+                                                    <input type="button" value="X" id="btnSH2Remove" class="btn-nav-red-sm" style="float:right;"/>
+                                               <div class="mar-bot-20">
+                                                @Html.DropDownListFor(m => m.Shareholders[1]._Title, new List<SelectListItem> { 
+                                                    new SelectListItem {Text="Miss",Value="Miss"},
+                                                    new SelectListItem {Text="Mr",Value="Mr"},
+                                                    new SelectListItem {Text="Mrs",Value="Mrs"},
+                                                    new SelectListItem {Text="Ms",Value="Ms"},
+                                                    new SelectListItem {Text="Mx",Value="Mx"},
+                                                    new SelectListItem {Text="Dr",Value="Dr"},
+                                                    new SelectListItem {Text="Prof",Value="Prof"}
+                                                }, "Title", new { id = "SH2Title", @class = "fnl_txtbx_sml" })
+                                                @Html.TextBoxFor(m => m.Shareholders[1]._FullName, new { id = "SH2FN", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })
+                                                @Html.TextBoxFor(m => m.Shareholders[1]._Surname, new { id = "SH2SN", @class = "fnl_txtbx_fl", placeholder = "Surname" })                  
+                                                </div>
+                                                        <h5>Residential address (must not be a PO Box)</h5>
+                                                    @Html.TextBoxFor(m => m.Shareholders[1]._Address, new { id = "SH2Addr", @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />
+                                                    @Html.TextBoxFor(m => m.Shareholders[1]._Suburb, new { id = "SH2Suburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                                    @Html.TextBoxFor(m => m.Shareholders[1]._State, new { id = "SH2State", @class = "fnl_txtbx_smee", placeholder = "State" }) 
+                                                    @Html.TextBoxFor(m => m.Shareholders[1]._Postcode, new { id = "SH2PC", @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br />
+                                                    @Html.TextBoxFor(m => m.Shareholders[1]._Country, new { id = "SH2C", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                                </div>
+                                                <div>
+                                                    <input type="button" value=" Add " id="btnShareholder2" class="btn-nav-orange" />
+                                                </div> 
+                                            </div>
+
+                                    <div id="Shareholder3" class="mar-bot-20" style="display:none;">   
+                                                <div id="Shareholder3V"> 
+                                                        <h5>Major Shareholder #3</h5>
+                                                        <input type="button" value="X" id="btnSH3Remove" class="btn-nav-red-sm" style="float:right;"/>
+                                                    <div class="mar-bot-20">
+                                                    @Html.DropDownListFor(m => m.Shareholders[2]._Title, new List<SelectListItem> { 
+                                                        new SelectListItem {Text="Miss",Value="Miss"},
+                                                        new SelectListItem {Text="Mr",Value="Mr"},
+                                                        new SelectListItem {Text="Mrs",Value="Mrs"},
+                                                        new SelectListItem {Text="Ms",Value="Ms"},
+                                                        new SelectListItem {Text="Mx",Value="Mx"},
+                                                        new SelectListItem {Text="Dr",Value="Dr"},
+                                                        new SelectListItem {Text="Prof",Value="Prof"}
+                                                    }, "Title", new { id = "SH3Title", @class = "fnl_txtbx_sml" })
+                                                    @Html.TextBoxFor(m => m.Shareholders[2]._FullName, new { id = "SH3FN", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })
+                                                    @Html.TextBoxFor(m => m.Shareholders[2]._Surname, new { id = "SH3SN", @class = "fnl_txtbx_fl", placeholder = "Surname" })                      
+                                                    </div>
+                                                        <h5 class="no-lt-pad">Residential address (must not be a PO Box)</h5>
+                                                    @Html.TextBoxFor(m => m.Shareholders[2]._Address, new { id = "SH3Addr", @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />
+                                                    @Html.TextBoxFor(m => m.Shareholders[2]._Suburb, new { id = "SH3Suburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                                    @Html.TextBoxFor(m => m.Shareholders[2]._State, new { id = "SH3State", @class = "fnl_txtbx_smee", placeholder = "State" }) 
+                                                    @Html.TextBoxFor(m => m.Shareholders[2]._Postcode, new { id = "SH3PC", @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br />
+                                                    @Html.TextBoxFor(m => m.Shareholders[2]._Country, new { id = "SH3C", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                                    <div>
+                                                       <input type="button" value=" Add " id="btnShareholder3" class="btn-nav-orange" />
+                                                    </div> 
+                                                </div>
+                                        </div>  
+                                    
+                                    <div id="Shareholder4" class="mar-bot-20" style="display:none;">   
+                                                <div id="Shareholder4V"> 
+                                                        <h5 class="no-lt-pad">Major Shareholder #4</h5>
+                                                        <input type="button" value="X" id="btnSH4Remove" class="btn-nav-red-sm" style="float:right;"/>
+                                                    <div class="mar-bot-20">
+                                                    @Html.DropDownListFor(m => m.Shareholders[3]._Title, new List<SelectListItem> { 
+                                                        new SelectListItem {Text="Miss",Value="Miss"},
+                                                        new SelectListItem {Text="Mr",Value="Mr"},
+                                                        new SelectListItem {Text="Mrs",Value="Mrs"},
+                                                        new SelectListItem {Text="Ms",Value="Ms"},
+                                                        new SelectListItem {Text="Mx",Value="Mx"},
+                                                        new SelectListItem {Text="Dr",Value="Dr"},
+                                                        new SelectListItem {Text="Prof",Value="Prof"}
+                                                    }, "Title", new { id = "SH4Title", @class = "fnl_txtbx_sml" })
+                                                    @Html.TextBoxFor(m => m.Shareholders[3]._FullName, new { id = "SH4FN", @class = "fnl_txtbx_lrg", placeholder = "Full given names" })
+                                                    @Html.TextBoxFor(m => m.Shareholders[3]._Surname, new { id = "SH4SN", @class = "fnl_txtbx_fl", placeholder = "Surname" })                      
+                                                        </div>
+                                                        <h5>Residential address (must not be a PO Box)</h5>
+                                                        @Html.TextBoxFor(m => m.Shareholders[3]._Address, new { id = "SH4Addr", @class = "fnl_txtbx_fl", placeholder = "Unit | Street number | Street name" })<br />
+                                                        @Html.TextBoxFor(m => m.Shareholders[3]._Suburb, new { id = "SH4Suburb", @class = "fnl_txtbx_suburb", placeholder = "Suburb" })
+                                                        @Html.TextBoxFor(m => m.Shareholders[3]._State, new { id = "SH4State", @class = "fnl_txtbx_smee", placeholder = "State" }) 
+                                                        @Html.TextBoxFor(m => m.Shareholders[3]._Postcode, new { id = "SH4PC", @class = "fnl_txtbx_smee", placeholder = "Postcode" })<br />
+                                                        @Html.TextBoxFor(m => m.Shareholders[3]._Country, new { id = "SH4C", @class = "fnl_txtbx_fl country", placeholder = "Country", @data_autocomplete = Url.Action("GETCountryNames", "Applicant") })
+                                    
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+    
+    
+    
+    <div class="btn-next-step">
+        <input type="submit" value="  Next Step  " class="btn-nav-green" id="Trst_Cmp_Submit" />
+    </div>
+    
+    
+    
+@*<section id="TrustCompSection13" class="light-blue-grad width-display">
+        <div class="graymatter_03">
+            <div class="container">
+                <div class="row">
+                        <div class="mar-lt-300">
+                        <div class="fnl_dwn_txt"> 
+                        <h5 class="no-lt-pad">Step #2</h5>
+                        </div>  
+                        <div class="fnl_dwn_txt"> 
+                        <h101>Trusts or superannuation funds </h101>
+                        <p>Please complete if you are investing as a trust or superannuation fund.</p>
+                        </div>
+                        <div class="ind_tsfd">
+                        <div class="fnl_hp_spcng">
+                                    <h101>Trusts or superannuation funds details </h101>
+                            </div>
+                            @Html.TextBoxFor(m => m._NameTrust, new { @class = "fnl_txtbx_lrg", placeholder = "Name of trust or superannuation fund", @required = "required" })<br />
+                            @Html.TextBoxFor(m => m._ABN_Trust, new { @class = "fnl_txtbx_lrg", placeholder = "ABN (if applicable)", @required = "required" })<br />
+                            @Html.TextBoxFor(m => m._AusTFN_Trust, new { @class = "fnl_txtbx_lrg", placeholder = "Australian Tax File Number (TFN)", @required = "required" })<br />
+                            <div class="fnl_btn_spcng">
+                                    <input type="submit" value="  Next Step  " class="btn-nav-green" id="Trst_Cmp_Submit" />
+                            </div>                    
+                        </div>
+                        </div>                          
+                     </div>
+                </div>
+            </div>
+        </section>*@
+    
+    
+    
+}
+<script type="text/javascript">
+    $("#btnTrustCompSec1").click(function () {
+        if (ScrollValidate('TrustCompSec1V', 'Trst_Cmp_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TrustCompSec2").offset().top
+            }, 1500);
+        }
+    });
+    $("#btnTrustCompSec2").click(function () {
+        if (ScrollValidate('TrustCompSec2V', 'Trst_Cmp_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TrustCompSec3").offset().top
+            }, 1500);
+        }
+    });
+    $("#btnTrustCompSec3").click(function () {
+        if (ScrollValidate('TrustCompSec3V', 'Trst_Cmp_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TrustCompSec4").offset().top
+            }, 1500);
+        }
+    });
+    $("#btnTrustCompSec4").click(function () {
+        if (ScrollValidate('TrustCompSec4V', 'Trst_Cmp_Submit')) {
+            $('html, body').animate({
+                scrollTop: $("#TrustCompSec5").offset().top
+            }, 1500);
+        }
+    });
+    function ShowHideShareholders(id, action) {
+        if (action == true) {
+            $("#" + id).show('fast');
+            enableValidationSH1();
+        }
+        else {
+            $("#" + id).hide('fast');
+            disableValidationSH1();
+            disableValidationSH2();
+            disableValidationSH3();
+            disableValidationSH4();
+        }
+    }
+    function enableValidationSH1() {
+        $("#SH1Title").attr("required", true);
+        $("#SH1FN").attr("required", true);
+        $("#SH1SN").attr("required", true);
+        $("#SH1Addr").attr("required", true);
+        $("#SH1Suburb").attr("required", true);
+        $("#SH1State").attr("required", true);
+        $("#SH1PC").attr("required", true);
+        $("#SH1C").attr("required", true);
+    }
+    function disableValidationSH1() {
+        $("#SH1Title").removeAttr("required");
+        $("#SH1FN").removeAttr("required");
+        $("#SH1SN").removeAttr("required");
+        $("#SH1Addr").removeAttr("required");
+        $("#SH1Suburb").removeAttr("required");
+        $("#SH1State").removeAttr("required");
+        $("#SH1PC").removeAttr("required");
+        $("#SH1C").removeAttr("required");
+    }
+    $("#btnShareholder1").click(function () {
+        if (ScrollValidate('Shareholder1V', 'Trst_Cmp_Submit')) {
+            $('#Shareholder2').show();
+            $('html, body').animate({
+                scrollTop: $("#Shareholder2").offset().top
+            }, 1500);
+            enableValidationSH2();
+            $('#btnShareholder1').hide();
+        }
+    });
+    function enableValidationSH2() {
+        $("#SH2Title").attr("required", true);
+        $("#SH2FN").attr("required", true);
+        $("#SH2SN").attr("required", true);
+        $("#SH2Addr").attr("required", true);
+        $("#SH2Suburb").attr("required", true);
+        $("#SH2State").attr("required", true);
+        $("#SH2PC").attr("required", true);
+        $("#SH2C").attr("required", true);
+    }
+    function disableValidationSH2() {
+        $("#SH2Title").removeAttr("required");
+        $("#SH2FN").removeAttr("required");
+        $("#SH2SN").removeAttr("required");
+        $("#SH2Addr").removeAttr("required");
+        $("#SH2Suburb").removeAttr("required");
+        $("#SH2State").removeAttr("required");
+        $("#SH2PC").removeAttr("required");
+        $("#SH2C").removeAttr("required");
+    }
+    $("#btnShareholder2").click(function () {
+        if (ScrollValidate('Shareholder2V', 'Trst_Cmp_Submit')) {
+            $('#Shareholder3').show();
+            $('html, body').animate({
+                scrollTop: $("#Shareholder3").offset().top
+            }, 1500);
+            enableValidationSH3();
+            $('#btnShareholder2').hide();
+            $('#btnSH2Remove').hide();
+        }
+    });
+    $('#btnSH2Remove').click(function () {
+        $('#Shareholder2').hide();
+        disableValidationSH2();
+        $('#btnShareholder1').show();
+    })
+    function enableValidationSH3() {
+        $("#SH3Title").attr("required", true);
+        $("#SH3FN").attr("required", true);
+        $("#SH3SN").attr("required", true);
+        $("#SH3Addr").attr("required", true);
+        $("#SH3Suburb").attr("required", true);
+        $("#SH3State").attr("required", true);
+        $("#SH3PC").attr("required", true);
+        $("#SH3C").attr("required", true);
+    }
+    function disableValidationSH3() {
+        $("#SH3Title").removeAttr("required");
+        $("#SH3FN").removeAttr("required");
+        $("#SH3SN").removeAttr("required");
+        $("#SH3Addr").removeAttr("required");
+        $("#SH3Suburb").removeAttr("required");
+        $("#SH3State").removeAttr("required");
+        $("#SH3PC").removeAttr("required");
+        $("#SH3C").removeAttr("required");
+    }
+    $("#btnShareholder3").click(function () {
+        if (ScrollValidate('Shareholder3V', 'Trst_Cmp_Submit')) {
+            $('#Shareholder4').show();
+            $('html, body').animate({
+                scrollTop: $("#Shareholder4").offset().top
+            }, 1500);
+            enableValidationSH4();
+            $('#btnShareholder3').hide();
+            $('#btnSH3Remove').hide();
+        }
+    });
+    $('#btnSH3Remove').click(function () {
+        $('#Shareholder3').hide();
+        disableValidationSH3();
+        $('#btnShareholder2').show();
+        $('#btnSH2Remove').show();
+    })
+    function enableValidationSH4() {
+        $("#SH4Title").attr("required", true);
+        $("#SH4FN").attr("required", true);
+        $("#SH4SN").attr("required", true);
+        $("#SH4Addr").attr("required", true);
+        $("#SH4Suburb").attr("required", true);
+        $("#SH4State").attr("required", true);
+        $("#SH4PC").attr("required", true);
+        $("#SH4C").attr("required", true);
+    }
+    function disableValidationSH4() {
+        $("#SH4Title").removeAttr("required");
+        $("#SH4FN").removeAttr("required");
+        $("#SH4SN").removeAttr("required");
+        $("#SH4Addr").removeAttr("required");
+        $("#SH4Suburb").removeAttr("required");
+        $("#SH4State").removeAttr("required");
+        $("#SH4PC").removeAttr("required");
+        $("#SH4C").removeAttr("required");
+    }
+    $('#btnSH4Remove').click(function () {
+        $('#Shareholder4').hide();
+        disableValidationSH4();
+        $('#btnShareholder3').show();
+        $('#btnSH3Remove').show();
+    })
+</script>

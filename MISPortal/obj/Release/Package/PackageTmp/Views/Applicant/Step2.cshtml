@@ -1,0 +1,307 @@
+﻿@{
+    ViewBag.Title = "IdentityVerification";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="CWSF_memapp_shadedradio">
+    <div id="tog_frm_infin">
+        <div id="min_ind_frm" class="radio_individuals_mainform">
+            <h5>
+                Online Verification
+            </h5>
+            <div id="Ind_Sec1" class="radio_individuals_personaldetails">
+                                <div class="fnl_iv_spcng"> 
+                                <h4> How would you like to verify your account? </h4><br/>
+                                </div>
+
+                                <div class="fnl_iv_spcng"> 
+                                <input type="radio" name="iv_nme" id="iv_pp" onclick="ShowHideVerificationOpt(this,'iv_txt_pp')" /> Passport <br />
+                                    <div style="display:none" id="iv_txt_pp">
+                                    <input type="text" name="greenid_passport_number" maxlength="9" class="fnl_txtbx_lrg" placeholder="Passport number"/><br />
+                                    <input type="text" name="greenid_passport_givenname" maxlength="31" class="fnl_txtbx_lrg" placeholder="Given Name"/><br />
+                                    <input type="text" name="greenid_passport_middlename" maxlength="31" class="fnl_txtbx_lrg" placeholder="Middle Name"/><br />
+                                    <input type="text" name="greenid_passport_surname" maxlength="31" class="fnl_txtbx_lrg" placeholder="Surname"/><br />
+                                    <input type="text" name="greenid_passport_dob" class="fnl_txtbx_lrg D" placeholder="Date of Birth" readonly="readonly" /><br />
+                                    <input type="text" name="greenid_passport_country" maxlength="31" class="fnl_txtbx_lrg" placeholder="Country"/><br />
+                                    <input type="text" name="greenid_passport_placeOfBirth" maxlength="255" class="fnl_txtbx_lrg" placeholder="Place of Birth"/><br />
+                                    <input type="text" name="greenid_passport_surnameAtBirth" maxlength="255" class="fnl_txtbx_lrg" placeholder="Surname Birth"/><br />
+                                    <input type="text" name="greenid_passport_firstNameAtCitizenship" maxlength="255" class="fnl_txtbx_lrg" placeholder="First Name Citizenship"/><br />
+                                    <input type="text" name="greenid_passport_surnameAtCitizenship" maxlength="255" class="fnl_txtbx_lrg" placeholder="Surname Citizenship"/><br />
+                                    <input type="checkbox" name="greenid_passport_tandc" /> I have read and accepted the <a href="http://www.transport.wa.gov.au/aboutus/our-website.asp" target="_blank" style="color:Green;">Western Australian Government's privacy statement</a>
+                                    <br />
+                                    <input type="button" id="btnPassport" class="btn btn-primary btn-oval btn-large" value=" Verify "/>
+                                    </div>
+                                </div>
+
+                                <div class="fnl_iv_spcng"> 
+                                <input type="radio" name="iv_nme" id="iv_abc" onclick="ShowHideVerificationOpt(this,'iv_txt_abc')" /> Australian Birth Certificate <br />   
+                                    <div style="display:none" id="iv_txt_abc">
+                                        <input type="text" class="fnl_txtbx_lrg" placeholder="Australian Birth Certificate"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_givenname" class="fnl_txtbx_lrg" placeholder="Given Name"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_middlename" class="fnl_txtbx_lrg" placeholder="Middle Name"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_surname" class="fnl_txtbx_lrg" placeholder="Surname"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_dob" class="fnl_txtbx_lrg D" placeholder="Date of Birth" readonly="readonly" /><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_registration_number" maxlength="10" class="fnl_txtbx_lrg" placeholder="Registration Number"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_registration_date" class="fnl_txtbx_lrg D" placeholder="Registration Date" readonly="readonly" /><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_registration_year" maxlength="4" class="fnl_txtbx_lrg" placeholder="Registration Year"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_registration_state" maxlength="3" class="fnl_txtbx_lrg" placeholder="State"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_certificate_number" maxlength="11" class="fnl_txtbx_lrg" placeholder="Certificate Number"/><br />
+                                        <input type="text" name="greenid_birthcertificatedvs_certificate_printed_date" class="fnl_txtbx_lrg D" placeholder="Certificate Print Date" readonly="readonly" /><br />
+                                        <input type="checkbox" name="greenid_birthcertificatedvs_tandc" /> I have read and accepted the <a href="http://www.transport.wa.gov.au/aboutus/our-website.asp" target="_blank" style="color:Green;">Western Australian Government's privacy statement</a>
+                                        <br />
+                                        <input type="button" id="btnBirthCertificate" class="btn btn-primary btn-oval btn-large" value=" Verify "/>
+                                    </div>
+                                </div>
+
+                                <div class="fnl_iv_spcng"> 
+                                <input type="radio" name="iv_nme" id="iv_mc" onclick="ShowHideVerificationOpt(this,'iv_txt_mc')" /> Medicare Card <br />    
+                                    <div style="display:none" id="iv_txt_mc" >
+                                        <input type="text" name="greenid_medicaredvs_number" class="fnl_txtbx_lrg" placeholder="Medicare Card Number"/><br />
+                                        <input type="text" name="greenid_medicaredvs_individualReferenceNumber" maxlength="1" class="fnl_txtbx_lrg" placeholder="Reference Number"/><br />
+                                        <input type="text" name="greenid_medicaredvs_expiry" class="fnl_txtbx_lrg D" placeholder="Expiry Date" readonly="readonly" /><br />
+                                        <input type="text" name="greenid_medicaredvs_nameOnCard" class="fnl_txtbx_lrg" placeholder="Name"/><br />
+                                        <input type="text" name="greenid_medicaredvs_nameLine2" class="fnl_txtbx_lrg" placeholder="Name line 2"/><br />
+                                        <input type="text" name="greenid_medicaredvs_nameLine3" class="fnl_txtbx_lrg" placeholder="Name line 3"/><br />
+                                        <input type="text" name="greenid_medicaredvs_nameLine4" class="fnl_txtbx_lrg" placeholder="Name line 4"/><br />
+                                        <input type="text" name="greenid_medicaredvs_cardColour" class="fnl_txtbx_lrg" placeholder="Medicare Card Color"/><br />
+                                        <input type="text" name="greenid_medicaredvs_dob" class="fnl_txtbx_lrg D" placeholder="Date of Birth" readonly="readonly" /><br />
+                                        <input type="checkbox" name="greenid_birthcertificatedvs_tandc" /> I have read and accepted the <a href="http://www.transport.wa.gov.au/aboutus/our-website.asp" target="_blank" style="color:Green;">Western Australian Government's privacy statement</a>
+                                        <br />
+                                        <input type="button" id="btnMedicareCard" class="btn btn-primary btn-oval btn-large" value=" Verify "/>
+                                    </div>
+                                </div>
+
+                                <div class="fnl_iv_spcng"> 
+                                <input type="radio" name="iv_nme" id="iv_dlpic" onclick="ShowHideVerificationOpt(this,'iv_txt_dlpic')" /> Driver's Licence <br />    
+                                    <div style="display:none" id="iv_txt_dlpic" >
+                                        <input type="text" name="greenid_actrego_number" maxlength="10" class="fnl_txtbx_lrg" placeholder="Driver's licence number"/><br />
+                                        <input type="text" name="greenid_actrego_givenname" maxlength="255" class="fnl_txtbx_lrg" placeholder="Given Name"/><br />
+                                        <input type="text" name="greenid_actrego_surname" maxlength="255" class="fnl_txtbx_lrg" placeholder="Surname"/><br />
+                                        <input type="text" name="greenid_actrego_dob" class="fnl_txtbx_lrg D" placeholder="Date of Birth" readonly="readonly" /><br />
+                                        <input type="checkbox" name="greenid_warego_tandc" /> I have read and accepted the <a href="http://www.transport.wa.gov.au/aboutus/our-website.asp" target="_blank" style="color:Green;">Western Australian Government's privacy statement</a>
+                                        <br />
+                                        <input type="button" id="btnDriverLicence" onclick="LicenceCheck()" class="btn btn-primary btn-oval btn-large" value=" Verify "/>
+                                    </div>
+                                </div>
+
+                                <div class="fnl_iv_spcng">
+                                <input type="radio" name="iv_nme" id="iv_simc" onclick="ShowHideVerificationOpt(this,'iv_txt_simc')" /> Australian State issued Marriage certificate <br />    
+                                    <div style="display:none" id="iv_txt_simc">
+                                        <input type="text" class="fnl_txtbx_lrg" placeholder="Australian State issued Marriage certificate"/>
+                                    </div>
+                                </div>
+                   
+                   
+                   <div class="but_one">
+                    <span class="radio_buttonnext">
+                            
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("IdentityCheck", "Applicant", FormMethod.Post, new { role = "form" }))
+{
+
+<section id="" class="CWSF_memapp_shadedradio" >
+        <div class="graymatter_02">
+            <div class="container">
+                <div class="row">
+                    <div class="trstee_typ">
+                    <input type="submit" value=" Next Step " class="btn btn-primary btn-oval btn-large" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        //registerVerification();
+        Progressbar();
+
+    });
+
+
+    function registerVerification() {
+        var webServiceURL = 'https://test.edentiti.com/Registrations-Registrations/DynamicFormsService?wsdl';
+        var soapMessage = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dyn="http://dynamicform.services.registrations.edentiti.com/">' +
+                           '<soapenv:Header/>' +
+                           '<soapenv:Body>' +
+                              '<dyn:registerVerification>' +
+                                 '<accountId>crescentwealth</accountId>' +
+                                 '<password>R5a-PLn-tvG-WrY</password>' +
+                                 '<ruleId>default</ruleId>' +
+                                 '<name>' +
+                                    '<givenName>Test</givenName>' +
+                                    '<middleNames>Harold</middleNames>' +
+                                    '<surname>McTester</surname>' +
+                                 '</name>' +
+                                 '<email>test@example.com</email>' +
+                                 '<currentResidentialAddress>' +
+                                    '<streetName>Macquarie</streetName>' +
+		                              '<streetNumber>1</streetNumber>' +
+		                              '<streetType>ST</streetType>' +
+                                    '<suburb>Sydney</suburb>' +
+                                    '<state>NSW</state>' +
+		                              '<postcode>2000</postcode>' +
+                                    '<country>AUS</country>' +
+                                 '</currentResidentialAddress>' +
+                                 '<dob>' +
+                                    '<day>1</day>' +
+                                    '<month>1</month>' +
+                                    '<year>1980</year>' +
+                                 '</dob>' +
+                                 '<generateVerificationToken>true</generateVerificationToken>' +
+                               '</dyn:registerVerification>' +
+                           '</soapenv:Body>' +
+                        '</soapenv:Envelope>';
+
+        $.ajax({
+            url: webServiceURL,
+            type: "POST",
+            dataType: "jsonp",
+            data: soapMessage,
+            contentType: "text/xml; charset=\"utf-8\"",
+            success: function (data) {
+                alert(data);
+            },
+            error: function (x, y, z) {
+                alert(x.responseText + "  " + x.status);
+            }
+        });
+    }
+
+
+
+    function LicenceCheck() {
+        var webServiceURL = 'https://test.edentiti.com/Registrations-Registrations/DynamicFormsService?wsdl';
+        var soapMessage = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dyn="http://dynamicform.services.registrations.edentiti.com/">'+
+                            '<soapenv:Header/>'+
+                            '<soapenv:Body>'+
+                                '<dyn:registerVerification>'+
+                                    '<accountId>crescentwealth</accountId>' +
+                                    '<password>R5a-PLn-tvG-WrY</password>' +
+                                    '<ruleId>default</ruleId>'+
+                                    '<name>'+
+                                    '<givenName>Test</givenName>'+
+                                    '<middleNames>Harold</middleNames>'+
+                                    '<surname>McTester</surname>'+
+                                    '</name>'+
+                                    '<email>test@example.com</email>'+
+                                    '<currentResidentialAddress>'+
+                                    '<streetName>Macquarie</streetName>'+
+                                    '<streetNumber>1</streetNumber>'+
+                                    '<streetType>ST</streetType>'+
+                                    '<suburb>Sydney</suburb>'+
+                                    '<state>NSW</state>'+
+                                    '<postcode>2000</postcode>'+
+                                    '<country>AUS</country>'+
+                                    '</currentResidentialAddress>'+
+                                    '<dob>'+
+                                    '<day>1</day>'+
+                                    '<month>1</month>'+
+                                    '<year>1980</year>'+
+                                    '</dob>'+     
+                                    '<generateVerificationToken>true</generateVerificationToken>'+  
+                                    '<extraData>'+
+                                    '<name>driversLicenceState</name>'+
+         	                        '<value></value>'+
+                                    '</extraData>'+
+                                    '<extraData>'+
+         	                        '<name>driversLicenceNumber</name>'+
+         	                        '<value>11111111</value>'+
+                                    '</extraData>'+
+                                '</dyn:registerVerification>'+
+                            '</soapenv:Body>'+
+                        '</soapenv:Envelope>';
+
+        $.ajax({
+            url: webServiceURL,
+            type: "POST",
+            dataType: "jsonp",
+            data: soapMessage,
+            contentType: "text/xml; charset=\"utf-8\"",
+            success: function (data) {
+                alert(data);
+            },
+            error: function (x, y, z) {
+                alert(x.responseText + "  " + x.status);
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+    function ShowHideVerificationOpt(id, actionid) {
+        if (id.checked == true) {
+            $("#" + actionid).show('fast');
+
+            var ids = ["iv_txt_pp", "iv_txt_abc", "iv_txt_mc", "iv_txt_dlpic", "iv_txt_simc"];
+            for (index = ids.length - 1; index >= 0; --index) {
+                if (ids[index] != actionid) {
+                    $("#" + ids[index]).hide('fast');
+                    $("#" + ids[index]).val('');
+                }
+            }
+        }
+    }
+
+    function Progressbar() {
+        $("#progAT").addClass("previous visited");
+        $("#progIV").addClass("active");
+        $("#progIP").addClass("next");
+        $("#progAF").addClass("");
+        $("#progRC").addClass("");
+        $("#progC").addClass("");
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

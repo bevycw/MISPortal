@@ -1,0 +1,82 @@
+﻿@model List<MISPortal.Models.ApplicantPersonalDetails>      
+
+<table class="table table-responsive table-condensed table-bordered table-hover no-margin tab-col">
+<tr>
+    <td colspan="2" align="center"><h3>Financial Adviser Details</h3></td>
+</tr>
+<tr>
+<td style="width:50%;">Dealer Group Name</td>
+<td style="width:50%;">@Html.DisplayFor(m=>m[0].FAD._DealerGroupName)</td>
+</tr>
+<tr>
+<td>Adviser Name</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._AdviserName)</td>
+</tr>
+<tr>
+<td>AFSL Number</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._AFSL_Number)</td>
+</tr>
+<tr>
+<td>Contact No</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._ContactNo)</td>
+</tr>
+<tr>
+<td>Email Address</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._EmailAddress)</td>
+</tr>
+<tr>
+<td>Business No</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._BusinessNo)</td>
+</tr>
+<tr>
+<td>Mobile No</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._MobileNo)</td>
+</tr>
+<tr>
+<td>Business Address</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._BAddress)</td>
+</tr>
+<tr>
+<td>Business Suburb</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._BSuburb)</td>
+</tr>
+<tr>
+<td>Business State</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._BState)</td>
+</tr>
+<tr>
+<td>Business Postcode</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._BPostcode)</td>
+</tr>
+<tr>
+<td>Business Country</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._BCountry)</td>
+</tr>
+<tr>
+<td>Is Same as Business</td>
+<td>@Html.DisplayFor(m=>m[0].FAD._IsSame)</td>
+</tr>
+@if (Model[0].FAD._IsSame == false)
+{
+<tr>
+<td>Postal Address</td>
+<td>@Html.DisplayFor(m => m[0].FAD._PAddress)</td>
+</tr>
+<tr>
+<td>Postal Suburb</td>
+<td>@Html.DisplayFor(m => m[0].FAD._PSuburb)</td>
+</tr>
+<tr>
+<td>Postal State</td>
+<td>@Html.DisplayFor(m => m[0].FAD._PState)</td>
+</tr>
+<tr>
+<td>Postal Postcode</td>
+<td>@Html.DisplayFor(m => m[0].FAD._PPostcode)</td>
+</tr>
+<tr>
+<td>Postal Country</td>
+<td>@Html.DisplayFor(m => m[0].FAD._PCountry)</td>
+</tr>
+}
+</table>
